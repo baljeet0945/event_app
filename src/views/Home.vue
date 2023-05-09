@@ -3,7 +3,7 @@ import Services from '../views/Services/List.vue'
 import EventGallery from '../views/Events/Gallery.vue'
 import Events from '../views/Events/List.vue'
 import InstaFeeds from '../views/InstaFeeds.vue'
-import EventForm from '../views/Events/Form.vue'
+import EventForm from './Events/Form.vue'
 </script>
 
 <template>

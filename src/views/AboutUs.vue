@@ -1,5 +1,5 @@
 <script setup>
-import EventForm from '../views/Events/Form.vue'
+import EventForm from './Events/Form.vue'
 </script>
 
 <template>

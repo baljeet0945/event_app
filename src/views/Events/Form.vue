@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue'
-
+import 'animate.css';
+import { Form, Field } from 'vee-validate';
 const step = ref(1)
 function nextStep() {
   step.value++
@@ -29,10 +30,10 @@ function prevStep() {
               </ul>
               <div class="formField" v-motion-right-in-visible-once>
               <!-- fieldsets -->
-              <Transition
-              name="slide-bounce" 
+              <Transition            
               mode="out-in"
-              
+              enter-active-class="animate__animated animate__bounceInRight"
+              leave-active-class="animate__animated animate__bounceOutRight"
               >
                 <fieldset v-if="step === 1">
                   <h2 class="fs-title">Select event type</h2>
@@ -51,8 +52,9 @@ function prevStep() {
               </Transition>
 
               <Transition 
-                name="slide-bounce" 
-                mode="out-in"               
+                mode="out-in" 
+                enter-active-class="animate__animated animate__bounceInRight"
+                leave-active-class="animate__animated animate__bounceOutRight"             
               >
                 <fieldset v-if="step === 2" >              
                   <h2 class="fs-title">&nbsp;</h2>                
@@ -67,9 +69,9 @@ function prevStep() {
               </Transition>
 
               <Transition 
-              name="slide-bounce"  
               mode="out-in" 
-                          
+              enter-active-class="animate__animated animate__bounceInRight"
+              leave-active-class="animate__animated animate__bounceOutRight"            
               >
                 <fieldset v-if="step === 3" >             
                   <h2 class="fs-title">&nbsp;</h2>
@@ -99,30 +101,5 @@ function prevStep() {
 </template>
 <style>
 
-
-.slide-bounce-enter-active {    
-  transform: scale(1);
-
- 
-}
-.slide-bounce-leave-active {
-  animation: slide-bounce-in 0.5s;
-  /* transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1); */
-}
-@keyframes slide-bounce-in {
-  0% {
-    transform: scale(1.25);  
-  } 
-  100% {
-    transform: scale(.8);    
-  }
-}
-
-
-
-.slide-fade-enter-from,
-.slide-fade-leave-to {
-  opacity: 0;
-}
 
 </style>
