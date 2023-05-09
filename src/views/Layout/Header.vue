@@ -12,12 +12,10 @@ watch(() => route.name, () => {
   }
 // Optionally you can set immediate: true config for the watcher to run on init
 }, { immediate: true });
-
-    
   
 </script>
 <template>
-  <header id="header" :class="headerClass" >
+  <header id="header" :class="headerClass" v-if="!$route.meta.hideNavigation">
     <div class="top-head">
           <div class="container">
           <div class="row headerTop">
@@ -47,14 +45,13 @@ watch(() => route.name, () => {
             </div>
             <div class="col-md-3 col-lg-3">
               <div class="top-btn">
-                <a href="#" class="t-btn">Login</a>
-                <a href="#" class="t-btn">Book Now</a>
+                <router-link class="t-btn" to="/login">Login</router-link>  
+                <router-link class="t-btn" to="/signup">Book Now</router-link>                
               </div>
             </div>
           </div>
         </div>
     </div>
-
 
     <div class="top-banner" v-if="route.name == 'home'">
       <div class="container">

@@ -1,11 +1,15 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
+import { APISettings } from '../stores/config';
 
 export const useServiceStore = defineStore('services', () => { 
   const services = ref([]) 
 
   const getServices = async () => {
-    const response = await fetch('https://moneyadmin.stageservices.xyz/api/services');
+    const response = await fetch(APISettings.baseURL + 'services', {
+      method: 'GET',
+      headers: APISettings.headers
+    });
     const json = await response.json();
     services.value = json.data
   }

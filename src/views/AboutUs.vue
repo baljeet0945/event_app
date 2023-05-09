@@ -115,7 +115,7 @@ import EventForm from './Events/Form.vue'
         <div class="container">
                 <div class="row post-box-tst owl-carousel-tst owl-carousel owl-theme">
                                 <div class="post-grid">
-                                    <div class="post-content animatable bounceInLeft">
+                                    <div class="post-content" v-motion-left-in-visible-once>
                                         <div class="postTitle">
                                             <img src="@/assets/images/quote.png" style="width: auto;">
                                             <h3>Clients Testimonials</h3>
@@ -130,33 +130,11 @@ import EventForm from './Events/Form.vue'
 									</div>
                                     </div>
                                     
-                                    <div class="featureImg animatable bounceInRight">
+                                    <div class="featureImg" v-motion-right-in-visible-once>
                                         <a href="#"><img src="@/assets/images/testimonial1.jpg"></a>
                                         
                                     </div>
                                 </div>
-                                <div class="post-grid">
-                                    <div class="post-content">
-                                        <div class="postTitle">
-                                            <img src="@/assets/images/quote.png" style="width: auto;">
-                                            <h3>Clients Testimonials</h3>
-                                        </div>
-                                        <p>“Congue porta sollicitudin et mattis vitae interdum. Risus dolor molestie tellus interdum consequat massa accumsan ipsum in. Nec laoreet nam gravida vulputate pellentesque sed integer augue suspendisse. Maecenas donec nec est tinc idunt sed antest.”</p>
-                                    <div class="instaHead">
-                            <div class="instaLogo"><img src="@/assets/images/nstaLogo.png"></div>
-                            <div class="instaTitle">
-                                Garry Gill
-                                <img src="@/assets/images/stars.jpg" style="width: auto;">
-                            </div>
-                        </div>
-                                    </div>
-                                    
-                                    <div class="featureImg">
-                                        <a href="#"><img src="@/assets/images/testimonial1.jpg"></a>
-                                        
-                                    </div>
-                                </div>
-                                
                             </div>
         </div>
         </section>

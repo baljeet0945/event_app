@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import { computed, inject } from 'vue';
 import 'animate.css';
 // This is a ref injected from FormWizard

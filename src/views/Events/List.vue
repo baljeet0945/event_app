@@ -1,5 +1,5 @@
 <script setup>
-import Carousel from '../../components/Carousel.vue';
+import EventCarousel from '../../components/EventCarousel.vue';
 </script>
 <template>
     <div class="container">
@@ -23,7 +23,7 @@ import Carousel from '../../components/Carousel.vue';
               <div class="tab-pane active" id="music">
                 <div class="post-grid-container">
                   <div class="row post-box-cnt">
-                      <Carousel></Carousel>  
+                      <EventCarousel></EventCarousel>  
                   </div>
                 </div>
               </div>

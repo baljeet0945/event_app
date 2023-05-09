@@ -30,7 +30,7 @@
 		    </section>
             <section class="edFImg">
                 <div class="row">
-                    <div class="col-sm-12 col-lg-12">
+                    <div class="col-sm-12 col-lg-12" v-motion-pop-bounce-visible-once>
                         <div class="featureImg">
                                     <a href="#"><img src="@/assets/images/bigLargeImg.jpg"></a>
                                     <span class="post_date"><span class="lg-font">14</span><br><span>MAY</span></span>
@@ -83,7 +83,7 @@
                 <div class="row">
                     <div class="col-sm-8 col-lg-8">
                         <h3>Event Gallery</h3>
-                        <div class="row">
+                        <div class="row" v-motion-left-in-visible-once>
                             <div class="col-sm-6 col-lg-6">
                                 <img src="@/assets/images/gallery1.jpg">
                             </div>
@@ -93,7 +93,7 @@
                         </div>
                         
                     </div>
-                    <div class="col-sm-4 col-lg-4">
+                    <div class="col-sm-4 col-lg-4" v-motion-right-in-visible-once>
                     <h3>Event Location Map</h3>
                         <img src="@/assets/images/ev-map.png">
                     </div>

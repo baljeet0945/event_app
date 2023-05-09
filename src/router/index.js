@@ -77,7 +77,8 @@ const router = createRouter({
       name: 'login',
       component: Login,
       meta: { 
-        hideNavigation: true 
+        hideNavigation: true,
+        title: 'MTE Login'
       }
     },
     {
@@ -85,7 +86,8 @@ const router = createRouter({
       name: 'singup',
       component: Singup,
       meta: { 
-        hideNavigation: true 
+        hideNavigation: true,
+        title: 'MTE Signup' 
       }
     },
     {

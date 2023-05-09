@@ -3,7 +3,7 @@
 </script>
 
 <template>
-    <footer>
+    <footer v-if="!$route.meta.hideNavigation">
         <div class="container">
             <div class="ft-social">
                 <a href="#"><i class="fa-brands fa-square-instagram"></i></a>

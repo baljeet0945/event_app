@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { Field, ErrorMessage } from 'vee-validate';
+import {useForm, Field, ErrorMessage } from 'vee-validate';
 import * as yup from 'yup';
 import FormWizard from '../../components/FormWizard.vue';
 import FormStep from '../../components/FormStep.vue';
+import { APISettings } from '../../stores/config';
 
+const { handleSubmit, setFieldError, setErrors } = useForm();
 // break down the validation steps into multiple schemas
 const validationSchema = [
   yup.object({
@@ -26,12 +28,22 @@ const validationSchema = [
   }),
 ];
 
-/**
- * Only Called when the last step is submitted
- */
-function onSubmit(formData) {
-  console.log(JSON.stringify(formData, null, 2));
-}
+
+const onSubmit = handleSubmit(async (values, actions)=> {
+  // Send data to the API 
+  const response = await fetch(APISettings.baseURL + 'event-inquery', {
+      method: 'POST',
+      headers: APISettings.headers,
+      body: JSON.stringify(values)
+    });
+  // set single field error
+  if (response.errors.email) {
+    actions.setFieldError('email', response.errors.email);
+  }
+  // set multiple errors, assuming the keys are the names of the fields
+  // and the values is the error message
+  actions.setErrors(response.errors);
+});
 </script>
 <template>
     <div class="container">
