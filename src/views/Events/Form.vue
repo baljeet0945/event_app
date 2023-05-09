@@ -1,24 +1,43 @@
-<script setup>
-import { ref } from 'vue'
-import 'animate.css';
-import { Form, Field } from 'vee-validate';
-const step = ref(1)
-function nextStep() {
-  step.value++
-}
+<script setup lang="ts">
+import { Field, ErrorMessage } from 'vee-validate';
+import * as yup from 'yup';
+import FormWizard from '../../components/FormWizard.vue';
+import FormStep from '../../components/FormStep.vue';
 
-function prevStep() {
-  step.value--
+// break down the validation steps into multiple schemas
+const validationSchema = [
+  yup.object({
+    event: yup
+      .string()
+      .required()
+      .oneOf(['dj', 'party', 'beer'], 'Choose a event'),
+    fullName: yup.string().required().label('Full Name'),
+    email: yup.string().required().email().label('Email Address'),
+    phone: yup.string().required().label('Phone')
+  }),
+  yup.object({
+    dateevent: yup.string().required().label('Date of Event'),
+    location: yup.string().required().label('Event Location'),
+    venue: yup.string().required().label('Venue')    
+  }),
+  yup.object({
+    guestCount: yup.string().required().label('Estimated Guest Count'),
+    eBudget: yup.number().required().positive().integer().label('Estimated Budget'),
+  }),
+];
+
+/**
+ * Only Called when the last step is submitted
+ */
+function onSubmit(formData) {
+  console.log(JSON.stringify(formData, null, 2));
 }
 </script>
-
 <template>
     <div class="container">
         <div class="contactSec">
           <h2 v-motion-pop-bounce-visible-once>Let’s discuss about your next event</h2>
-          <div class="contactSecForm">
-            <!-- multistep form -->
-            <form id="multistepsform">
+          <div class="contactSecForm" id="multistepsform"> 
               <!-- progressbar -->
               <ul id="progressbar" class="progressbar" v-motion-left-in-visible-once>
                 <li class="active">Event and contact info
@@ -27,69 +46,73 @@ function prevStep() {
                 <p>Please tell about your preferred venue and managements</p></li>
                   <li>Estimated Budget
                 <p>We are good with all budgets for awesome events</p></li>
-              </ul>
+              </ul> 
               <div class="formField" v-motion-right-in-visible-once>
-              <!-- fieldsets -->
-              <Transition            
-              mode="out-in"
-              enter-active-class="animate__animated animate__bounceInRight"
-              leave-active-class="animate__animated animate__bounceOutRight"
-              >
-                <fieldset v-if="step === 1">
-                  <h2 class="fs-title">Select event type</h2>
-                  <h3 class="fs-subtitle"></h3>
-                  <select name="music" id="music">
-                    <option value="DJNight">DJ Night</option>
-                    <option value="dj">DJ</option>
-                    <option value="party">Party</option>
-                    <option value="beer">Beer</option>
-                  </select>
-                  <input type="text" name="fname" placeholder="Full Name" />
-                  <input type="text" name="email" placeholder="Email" />
-                  <input type="text" name="phone" placeholder="Phone" />
-                  <input type="button" name="next" class="next action-button" value="Continue" @click="nextStep"/>
-                </fieldset>
-              </Transition>
+                <FormWizard :validation-schema="validationSchema" @submit="onSubmit">
+                  <FormStep>
+                    <fieldset>
+                      <Field name="event" as="select" >
+                        <option>Select a Event</option>
+                        <option value="DJNight">DJ Night</option>
+                        <option value="dj">DJ</option>
+                        <option value="party">Party</option>
+                        <option value="beer">Beer</option>
+                      </Field>
+                      <ErrorMessage name="event" />
 
-              <Transition 
-                mode="out-in" 
-                enter-active-class="animate__animated animate__bounceInRight"
-                leave-active-class="animate__animated animate__bounceOutRight"             
-              >
-                <fieldset v-if="step === 2" >              
-                  <h2 class="fs-title">&nbsp;</h2>                
-                  <input type="text" name="cmpny" placeholder="Company" />
-                  <input type="text" name="wbsite" placeholder="Website" />
-                  <input type="text" name="devent" placeholder="Date of Event" />
-                  <input type="text" name="location" placeholder="Location (City, State)" />
-                  <input type="text" name="vanue" placeholder="Vanue" />                
-                  <input type="button" name="previous" class="previous action-button" value="Previous" @click="prevStep"/>
-                  <input type="button" name="next" class="next action-button" value="Continue" @click="nextStep"/>
-                </fieldset>
-              </Transition>
+                      <Field name="fullName" type="text" placeholder="Full Name" />
+                      <ErrorMessage name="fullName" />
 
-              <Transition 
-              mode="out-in" 
-              enter-active-class="animate__animated animate__bounceInRight"
-              leave-active-class="animate__animated animate__bounceOutRight"            
-              >
-                <fieldset v-if="step === 3" >             
-                  <h2 class="fs-title">&nbsp;</h2>
-                  <input type="text" name="gCount" placeholder="Estimated Guest Count" />
-                  <input type="text" name="eBudget" placeholder="Estimated Budget $" />
-                  <select name="music" id="music">
-                    <option value="haboutus">How did you hear about us?</option>
-                    <option value="dj">DJ</option>
-                    <option value="party">Party</option>
-                    <option value="beer">Beer</option>
-                  </select>
-                  <textarea name="aInformation" placeholder="Additional Information"></textarea>
-                  <input type="button" name="previous" class="previous action-button" value="Previous" @click="prevStep"/>
-                  <input type="submit" name="submit" class="submit action-button" value="Submit" />
-                </fieldset>
-              </Transition>
-              </div>
-            </form>
+                      <Field name="email" type="email" placeholder="Email" />
+                      <ErrorMessage name="email" />
+                      
+                      <Field name="phone" type="text" placeholder="Phone" />
+                      <ErrorMessage name="phone" />
+                    </fieldset>
+                  </FormStep>
+
+                  <FormStep>
+                    <fieldset> 
+                      <Field name="company" type="text" placeholder="Company" />
+                      <ErrorMessage name="company" />
+
+                      <Field name="website" type="text" placeholder="Website" />
+                      <ErrorMessage name="website" />
+                      
+                      <Field name="dateevent" type="text" placeholder="Date of Event" />
+                      <ErrorMessage name="dateevent" />
+
+                      <Field name="location" type="text" placeholder="Location (City, State)" />
+                      <ErrorMessage name="location" />
+
+                      <Field name="venue" type="text" placeholder="Venue" />
+                      <ErrorMessage name="venue" />                      
+                    </fieldset>
+                  </FormStep>
+
+                  <FormStep>
+                    <fieldset> 
+                      <Field name="guestCount" type="text" placeholder="Estimated Guest Count" />
+                      <ErrorMessage name="guestCount" />
+
+                      <Field name="eBudget" type="number" placeholder="Estimated Budget $" />
+                      <ErrorMessage name="eBudget" />
+                      
+                      <Field name="knowAbout" as="select" >
+                        <option>How did you hear about us?</option>                        
+                        <option value="dj">DJ</option>
+                        <option value="party">Party</option>
+                        <option value="beer">Beer</option>
+                      </Field>
+                      <ErrorMessage name="knowAbout" />
+
+                      <Field name="otherInfo" type="text" placeholder="Additional Information" />
+                      <ErrorMessage name="otherInfo" />
+                                           
+                    </fieldset>
+                  </FormStep>
+                </FormWizard>          
+              </div>         
           </div>
           <div class="contactSecFormMeta">
             <span><a href="mailto:info@moneytrainent.com"><i class="fa-regular fa-envelope"></i> &nbsp;info@moneytrainent.com</a></span>
@@ -100,6 +123,5 @@ function prevStep() {
     </div>
 </template>
 <style>
-
-
+fieldset{position: absolute;}
 </style>
