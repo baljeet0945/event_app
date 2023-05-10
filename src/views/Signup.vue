@@ -1,37 +1,24 @@
 <script setup>
-import {useForm, Form, Field, ErrorMessage } from 'vee-validate';
+import {Form, Field, ErrorMessage } from 'vee-validate';
 import * as yup from 'yup';
 import { APISettings } from '../stores/config';
 
-const { handleSubmit, setFieldError, setErrors } = useForm();
 const schema = yup.object({
   name: yup.string().required(),
   email: yup.string().required().email(),
   password: yup.string().required().min(8),
 });
 
-// Create a form context with the validation schema
-useForm({
-  validationSchema: schema,
-});
+async function onSubmit(values) {
+	const requestOptions = {
+		method: "POST",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify(values)
+	};
+	const response = await fetch(APISettings.baseURL + 'signup', requestOptions);
+	console.log(response)
+}
 
-const onSubmit = handleSubmit(async (values, actions)=> {
-  // Send data to the API 
-  const requestOptions = {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(values)
-  };
-  const response = await fetch(APISettings.baseURL + 'signup', requestOptions);
-  console.log(response)
-  // set single field error
-//   if (response.errors.email) {
-//     actions.setFieldError('email', response.errors.email);
-//   }
-  // set multiple errors, assuming the keys are the names of the fields
-  // and the values is the error message
-  //actions.setErrors(response.errors);
-});
 </script>
 <template>
 	<main>
@@ -53,7 +40,7 @@ const onSubmit = handleSubmit(async (values, actions)=> {
 						<div class="row">
 							<div class="col-md-12 col-lg-12">
 								<h2>Create an account</h2>
-								<form @submit="onSubmit">
+								<Form @submit="onSubmit" :validation-schema="schema">
 									<div class="formField">
 											<label>Full Name</label>
 											<Field name="name" type="text" placeholder="Enter your name"/>
@@ -104,7 +91,7 @@ const onSubmit = handleSubmit(async (values, actions)=> {
 											</div>
 										</div>
 									</div>
-								</form>
+								</Form>>
 							</div>
 						</div>
 					</div>

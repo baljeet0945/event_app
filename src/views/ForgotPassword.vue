@@ -3,26 +3,19 @@ import {useForm, Form, Field, ErrorMessage } from 'vee-validate';
 import * as yup from 'yup';
 import { APISettings } from '../stores/config';
 
-const { handleSubmit, setFieldError, setErrors } = useForm();
 const validationSchema = yup.object({  
   email: yup.string().required().email()
 });
 
-const onSubmit = handleSubmit(async (values, actions)=> {
-  // Send data to the API 
-  const response = await fetch(APISettings.baseURL + 'forgot-password', {
-      method: 'POST',
-      headers: APISettings.headers,
-      body: JSON.stringify(values)
-    });
-  // set single field error
-//   if (response.errors.email) {
-//     actions.setFieldError('email', response.errors.email);
-//   }
-  // set multiple errors, assuming the keys are the names of the fields
-  // and the values is the error message
-//   actions.setErrors(response.errors);
-});
+async function onSubmit(values) {
+	const requestOptions = {
+		method: "POST",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify(values)
+	};
+	const response = await fetch(APISettings.baseURL + 'forgot-password', requestOptions);
+	console.log(response)
+}
 </script>
 <template>
 	<main>

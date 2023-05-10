@@ -1,10 +1,10 @@
 <script setup>
 import EventForm from './Events/Form.vue'
 import Services from '../views/Services/List.vue'
+import TestimonialCarousel from '../components/TestimonialCarousel.vue';
 </script>
 
-<template>
-  
+<template>  
   <main>
     <div class="container">
         <section class="serviceTab spaceSec">
@@ -155,69 +155,35 @@ import Services from '../views/Services/List.vue'
                 </div>
             </div>
         </section>
-        
+
 
         <section class="sectionTestimonial sectionSrTestimonial spaceSec">
-		    <div class="row">
-				<div class="col-md-12 col-lg-12">
-						<h2 class="secTitle">People’s party experience</h2>
-				</div>
-		    </div>
-		    <div class="row post-box-tst owl-carousel-ser-tst owl-carousel owl-theme">
-                <div class="post-grid">
-                    <div class="post-content animatable bounceInLeft">
-                        <div class="postTitle">
-                            <img src="@/assets/images/quote.png" style="width: auto;">
-                        </div>
-                        <p>“Congue porta sollicitudin et mattis vitae interdum. Risus dolor molestie tellus interdum consequat massa accumsan ipsum in. Nec laoreet nam gravida vulputate pellentesque sed integer augue suspendisse. Maecenas donec nec est tinc idunt sed antest.”</p>
-                        <div class="instaHead">
-                            <div class="instaLogo"><img src="@/assets/images/nstaLogo.png"></div>
-                            <div class="instaTitle">
-                            Garry Gill
-                                <img src="@/assets/images/stars.jpg" style="width: auto;">
-                            </div>
-                         </div>
-                    </div>
+            <div class="row">
+                <div class="col-md-12 col-lg-12">
+                    <h2 class="secTitle">People’s party experience</h2>
                 </div>
-				<div class="post-grid">
-					<div class="post-content">
-						<div class="postTitle">
-						    <img src="@/assets/images/quote.png" style="width: auto;">
-						</div>
-						<p>“Congue porta sollicitudin et mattis vitae interdum. Risus dolor molestie tellus interdum consequat massa accumsan ipsum in. Nec laoreet nam gravida vulputate pellentesque sed integer augue suspendisse. Maecenas donec nec est tinc idunt sed antest.”</p>
-						<div class="instaHead">
-					    <div class="instaLogo"><img src="@/assets/images/nstaLogo.png"></div>
-					    <div class="instaTitle">
-					    	Garry Gill
-						    <img src="@/assets/images/stars.jpg" style="width: auto;">
-					    </div>
-				        </div>
-					</div>
-				</div>
-						
-				<div class="post-grid">
-					<div class="post-content">
-						<div class="postTitle">
-							<img src="@/assets/images/quote.png" style="width: auto;">
-						</div>
-						<p>“Congue porta sollicitudin et mattis vitae interdum. Risus dolor molestie tellus interdum consequat massa accumsan ipsum in. Nec laoreet nam gravida vulputate pellentesque sed integer augue suspendisse. Maecenas donec nec est tinc idunt sed antest.”</p>
-					<div class="instaHead">
-                        <div class="instaLogo"><img src="@/assets/images/nstaLogo.png"></div>
-                        <div class="instaTitle">
-                            Garry Gill
-                            <img src="@/assets/images/stars.jpg" style="width: auto;">
+            </div>
+        
+            <div class="row post-box-tst">
+                <TestimonialCarousel #testimonial="slotProps" >
+                    <div class="post-grid carousel__item">
+                        <div class="post-content">
+                            <div class="postTitle">
+                                <img src="@/assets/images/quote.png" style="width: auto;">
+                            </div>
+                            <p v-html="slotProps.testimonials"></p>
+                            <div class="instaHead">
+                                <div class="instaLogo"><img :src="slotProps.client_image" alt="client image"></div>
+                                <div class="instaTitle">
+                                    {{slotProps.client_name}}
+                                    <img src="@/assets/images/stars.jpg" style="width: auto;">
+                                </div>
+                            </div>
                         </div>
-				    </div>
-					</div>
-				</div>
-						
-			</div>
+                    </div>                   
+                </TestimonialCarousel>     
+            </div>        	
         </section>
-		
-	
-
-
-	
 		
 		<section class="sectionContact spaceSec" style="padding-top: 0;">
             <EventForm/>

@@ -3,7 +3,6 @@ import { createPinia } from 'pinia'
 
 import App from './App.vue'
 import router from './router'
-import('@/assets/css/style.css')
 
 import { MotionPlugin } from '@vueuse/motion'
 
@@ -21,8 +20,7 @@ app.use(MotionPlugin, {
         visibleOnce: {
           scale: 1,
           opacity: 1,
-          transition: {            
-            delay: 200,
+          transition: {  
             type: 'spring',
             stiffness: 250,
             damping: 50,
@@ -38,8 +36,7 @@ app.use(MotionPlugin, {
         enter: {
           scale: 1,
           opacity: 1,
-          transition: {            
-            delay: 200,
+          transition: { 
             type: 'spring',
             stiffness: 250,
             damping: 50,
@@ -55,8 +52,7 @@ app.use(MotionPlugin, {
         visibleOnce: {
           x: 0,
           opacity: 1,
-          transition: {            
-            delay: 500,
+          transition: { 
             type: 'spring',
             stiffness: 250,
             damping: 50,           
@@ -71,8 +67,7 @@ app.use(MotionPlugin, {
         visibleOnce: {
           x: 0,
           opacity: 1,
-          transition: {            
-            delay: 500,
+          transition: {  
             type: 'spring',
             stiffness: 250,
             damping: 50,           
@@ -87,8 +82,7 @@ app.use(MotionPlugin, {
         enter: {
           x: 0,
           opacity: 1,
-          transition: {            
-            delay: 500,
+          transition: { 
             type: 'spring',
             stiffness: 250,
             damping: 50,           
@@ -103,8 +97,7 @@ app.use(MotionPlugin, {
         enter: {
           x: 0,
           opacity: 1,
-          transition: {            
-            delay: 500,
+          transition: {  
             type: 'spring',
             stiffness: 250,
             damping: 50,           

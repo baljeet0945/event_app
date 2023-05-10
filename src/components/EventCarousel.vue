@@ -48,8 +48,6 @@ onMounted(() => {
 import { defineComponent } from 'vue'
 import { Carousel, Navigation, Slide } from 'vue3-carousel'
 
-import 'vue3-carousel/dist/carousel.css'
-
 export default defineComponent({
   name: 'Breakpoints',
   components: {
@@ -75,3 +73,6 @@ export default defineComponent({
   }),
 })
 </script>
+<style>
+@import 'vue3-carousel/dist/carousel.css'
+</style>
