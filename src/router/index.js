@@ -6,7 +6,7 @@ import Portfolio from '../views/Portfolio.vue'
 import Events from '../views/Events.vue'
 import Contact from '../views/ContactUs.vue'
 import Login from '../views/Login.vue'
-import Singup from '../views/Signup.vue'
+import Signup from '../views/Signup.vue'
 import Profile from '../views/Profile.vue'
 import Packages from '../views/Packages.vue'
 import PackagePayment from '../views/PackagePayment.vue'
@@ -70,8 +70,7 @@ const router = createRouter({
       meta:{
         title: 'MTE Contact'
       }
-    },
-   
+    },   
     {
       path: '/login',
       name: 'login',
@@ -82,9 +81,9 @@ const router = createRouter({
       }
     },
     {
-      path: '/singup',
-      name: 'singup',
-      component: Singup,
+      path: '/signup',
+      name: 'signup',
+      component: Signup,
       meta: { 
         hideNavigation: true,
         title: 'MTE Signup' 
@@ -129,7 +128,10 @@ const router = createRouter({
       path: '/forgot-password',
       name: 'forgot-password',
       component: ForgotPasswords,
-      meta: { hideNavigation: true }
+      meta: { 
+        hideNavigation: true,
+        title: 'MTE Forgot Password' 
+      }
     }
   ]
 })

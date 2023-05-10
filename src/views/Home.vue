@@ -36,6 +36,3 @@ import EventForm from './Events/Form.vue'
     </section>
   </main>
 </template>
-<style>
-@import url(@/assets/css/style.css);
-</style>
