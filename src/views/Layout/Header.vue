@@ -15,7 +15,7 @@ watch(() => route.name, () => {
   
 </script>
 <template>
-  <header id="header" :class="headerClass" v-if="!$route.meta.hideNavigation">
+  <header id="header" :class="headerClass">
     <div class="top-head">
           <div class="container">
           <div class="row headerTop">
