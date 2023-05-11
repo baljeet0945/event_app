@@ -1,5 +1,12 @@
 <script setup>
+import { useTestimonialStore } from '@/stores'
+import { storeToRefs } from "pinia";
 import { InquiryForm, TestimonialCarousel} from '@/components';
+const usersStore = useTestimonialStore();
+const { testimonialSlides } = storeToRefs(usersStore);
+testimonialSlides.value = 1
+
+
 </script>
 <template>
   <main>

@@ -3,16 +3,30 @@ import { onMounted } from 'vue'
 
 import { useTestimonialStore } from '@/stores'
 import { storeToRefs } from "pinia";
+import { Carousel, Navigation, Slide } from 'vue3-carousel'
 
 const usersStore = useTestimonialStore();
-const { testimonials } = storeToRefs(usersStore);
-
+const { testimonials, testimonialSlides } = storeToRefs(usersStore);
 onMounted(() => {
     usersStore.getTestimonial();   
 })
+
+const breakpoints = {
+  // 700px and up
+  700: {
+    itemsToShow: testimonialSlides,
+    snapAlign: 'center',
+  },
+  // 1024 and up
+  1024: {
+    itemsToShow: testimonialSlides,
+    snapAlign: 'start',
+  },
+}
 </script>
+
 <template>
-    <Carousel :itemsToShow="1" :breakpoints="breakpoints">
+    <Carousel :breakpoints="breakpoints" >
         <template #slides>
             <Slide v-for="slide in testimonials" :key="slide">
                 <slot name="testimonialWithFeature" 
@@ -39,35 +53,7 @@ onMounted(() => {
     </Carousel> 
      
 </template>
-<script>
-import { defineComponent } from 'vue'
-import { Carousel, Navigation, Slide } from 'vue3-carousel'
 
-export default defineComponent({
-  name: 'Breakpoints',
-  components: {
-    Carousel,
-    Slide,
-    Navigation,
-  },
-  data: () => ({ 
-    // breakpoints are mobile first
-    // any settings not specified will fallback to the carousel settings
-    breakpoints: {
-      // 700px and up
-      700: {
-        itemsToShow: 1,
-        snapAlign: 'center',
-      },
-      // 1024 and up
-      1024: {
-        itemsToShow: 1,
-        snapAlign: 'center',
-      },
-    },
-  }),
-})
-</script>
 <style>
 @import 'vue3-carousel/dist/carousel.css';
 .sectionTestimonial .post-content{

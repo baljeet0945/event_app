@@ -1,5 +1,11 @@
 <script setup>
-import { InquiryForm, EventCarousel, InstaFeed} from '@/components';
+import { InquiryForm, EventCarousel, InstaFeed, TestimonialCarousel} from '@/components';
+import { useTestimonialStore } from '@/stores'
+import { storeToRefs } from "pinia";
+
+const usersStore = useTestimonialStore();
+const { testimonialSlides } = storeToRefs(usersStore);
+testimonialSlides.value = 1
 </script>
 
 <template>
@@ -56,31 +62,32 @@ import { InquiryForm, EventCarousel, InstaFeed} from '@/components';
 	</section>
 
 	<section class="sectionTestimonial spaceSec" style="padding-top: 30px;">
-	<div class="container">
-			<div class="row post-box-tst owl-carousel-tst owl-carousel owl-theme">
-				<div class="post-grid">
-					<div class="post-content" v-motion-left-in-visible-once>
-						<div class="postTitle">
-							<img src="@/assets/images/quote.png" style="width: auto;">
-							<h3>Clients Testimonials</h3>
-						</div>
-						<p>“Congue porta sollicitudin et mattis vitae interdum. Risus dolor molestie tellus interdum consequat massa accumsan ipsum in. Nec laoreet nam gravida vulputate pellentesque sed integer augue suspendisse. Maecenas donec nec est tinc idunt sed antest.”</p>
+		<div class="container">
+			<div class="row post-box-tst">
+				<TestimonialCarousel #testimonialWithFeature="slotProps" >
+					<div class="post-grid carousel__item">
+						<div class="post-content" v-motion-slide-right>
+							<div class="postTitle">
+								<img src="@/assets/images/quote.png" style="width: auto;">
+								<h3>Clients Testimonials</h3>
+							</div>
+							<p v-html="slotProps.testimonials"></p>
 						<div class="instaHead">
-						<div class="instaLogo"><img src="@/assets/images/nstaLogo.png"></div>
-						<div class="instaTitle">
-							Garry Gill
-							<img src="@/assets/images/stars.jpg" style="width: auto;">
+								<div class="instaLogo"><img :src="slotProps.client_image" alt="client image"></div>
+								<div class="instaTitle">
+									{{slotProps.client_name}}
+									<img src="@/assets/images/stars.jpg" style="width: auto;">
+								</div>
+							</div>
 						</div>
+						
+						<div class="featureImg" v-motion-slide-right>
+							<a href="#"><img :src="slotProps.feature_image" alt="feature image"></a>								
 						</div>
-					</div>
-								
-					<div class="featureImg" v-motion-right-in-visible-once>
-						<a href="#"><img src="@/assets/images/testimonial1.jpg"></a>
-									
-					</div>
-				</div>
+					</div> 
+				</TestimonialCarousel>   
 			</div>
-	</div>
+		</div>
 	</section>
 
 	<section class="sectionTestimonial spaceSec" style="padding-top: 0;">

@@ -1,16 +1,15 @@
 import { ref } from 'vue'
+import { fetchWrapper } from '@/helpers';
 import { defineStore } from 'pinia'
-import { APISettings } from './config';
+
+const baseUrl = `${import.meta.env.VITE_API_URL}`;
+
 export const useServiceStore = defineStore('services', () => { 
   const services = ref([]) 
 
   const getServices = async () => {
-    const response = await fetch(APISettings.baseURL + 'services', {
-      method: 'GET',
-      headers: APISettings.headers
-    });
-    const json = await response.json();
-    services.value = json.data
+    const response = await fetchWrapper.get(`${baseUrl}services`);        
+    services.value = response.data
   }
   return { services, getServices }
 })

@@ -15,13 +15,11 @@ export const useAuthStore = defineStore('auth', () => {
     const login = async (email, password) => {
         try {
             const response = await fetchWrapper.post(`${baseUrl}signin`, { email, password });
-            console.log(response); 
-            
+                 
              // store user details and jwt in local storage to keep user logged in between page refreshes
-             //localStorage.setItem('user', JSON.stringify(user));
-
+             localStorage.setItem('user', JSON.stringify(response.data));
              // redirect to previous url or default to home page
-             //router.push(this.returnUrl || '/');
+             router.push('/');
         } catch (error) {
             const alertStore = useAlertStore();
             alertStore.error(error);                

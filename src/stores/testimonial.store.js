@@ -12,10 +12,5 @@ export const useTestimonialStore = defineStore('testimonial', () => {
     const response = await fetchWrapper.get(`${baseUrl}testimonials`);  
     testimonials.value = response.data
   }
-
-  // function changeName () {
-  //   testimonialSlides.value = "Franklin"
-  // }
-
   return { testimonials, getTestimonial, testimonialSlides}
 })

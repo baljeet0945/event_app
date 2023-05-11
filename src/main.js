@@ -20,12 +20,11 @@ app.use(MotionPlugin, {
         visibleOnce: {
           scale: 1,
           opacity: 1,
-          transition: {  
-            type: 'spring',
-            stiffness: 250,
-            damping: 50,
-            mass:0.5
-          },
+          transition: {
+            duration: 1000,
+            type: 'keyframes',
+            ease: 'backOut',
+          },         
         },
       },
       'pop-bounce': {
@@ -36,12 +35,11 @@ app.use(MotionPlugin, {
         enter: {
           scale: 1,
           opacity: 1,
-          transition: { 
-            type: 'spring',
-            stiffness: 250,
-            damping: 50,
-            mass:0.5
-          },
+          transition: {
+            duration: 1000,
+            type: 'keyframes',
+            ease: 'backOut',
+          }, 
         },
       },
       'left-in-visible-once': {
@@ -52,11 +50,11 @@ app.use(MotionPlugin, {
         visibleOnce: {
           x: 0,
           opacity: 1,
-          transition: { 
-            type: 'spring',
-            stiffness: 250,
-            damping: 50,           
-          },
+          transition: {
+            duration: 1000,
+            type: 'keyframes',
+            ease: 'backInOut',
+          }, 
         },
       },
       'right-in-visible-once': {
@@ -67,11 +65,11 @@ app.use(MotionPlugin, {
         visibleOnce: {
           x: 0,
           opacity: 1,
-          transition: {  
-            type: 'spring',
-            stiffness: 250,
-            damping: 50,           
-          },
+          transition: {
+            duration: 1000,
+            type: 'keyframes',
+            ease: 'backInOut',
+          }, 
         },
       },
       'left-in': {
@@ -82,11 +80,11 @@ app.use(MotionPlugin, {
         enter: {
           x: 0,
           opacity: 1,
-          transition: { 
-            type: 'spring',
-            stiffness: 250,
-            damping: 50,           
-          },
+          transition: {
+            duration: 1000,
+            type: 'keyframes',
+            ease: 'backInOut',
+          }, 
         },
       },
       'right-in': {
@@ -97,11 +95,11 @@ app.use(MotionPlugin, {
         enter: {
           x: 0,
           opacity: 1,
-          transition: {  
-            type: 'spring',
-            stiffness: 250,
-            damping: 50,           
-          },
+          transition: {
+            duration: 1000,
+            type: 'keyframes',
+            ease: 'backInOut',
+          }, 
         },
       }
     },
