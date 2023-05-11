@@ -1,14 +1,10 @@
 <script setup>
-import { RouterLink, RouterView} from 'vue-router'
-import Header from './views/Layout/Header.vue'
-import Footer from './views/Layout/Footer.vue'
+import { RouterView } from 'vue-router'
 </script>
 
 <template>
-  <Header v-if="!$route.meta.hideNavigation"/>
 
-  <RouterView />
+    <RouterView />
 
-  <Footer v-if="!$route.meta.hideNavigation"/>
 </template>
 

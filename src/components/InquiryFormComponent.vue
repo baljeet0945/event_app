@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import {useForm, Field, ErrorMessage } from 'vee-validate';
 import * as yup from 'yup';
-import FormWizard from '../../components/FormWizard.vue';
-import FormStep from '../../components/FormStep.vue';
-import { APISettings } from '../../stores/config';
+
+import { FormWizard, FormStep} from '@/components';
+
 
 const { handleSubmit, setFieldError, setErrors } = useForm();
 // break down the validation steps into multiple schemas

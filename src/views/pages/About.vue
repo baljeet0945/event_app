@@ -1,6 +1,5 @@
 <script setup>
-import EventForm from './Events/Form.vue'
-import TestimonialCarousel from '../components/TestimonialCarousel.vue';
+import { InquiryForm, TestimonialCarousel} from '@/components';
 </script>
 <template>
   <main>
@@ -141,7 +140,7 @@ import TestimonialCarousel from '../components/TestimonialCarousel.vue';
         </section>
 		
 		<section class="sectionContact spaceSec" style="padding-top: 0;">
-            <EventForm/>
+            <InquiryForm/>
         </section>
 
 	</div>

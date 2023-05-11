@@ -4,8 +4,8 @@ import {useRoute } from 'vue-router'
 const route = useRoute()
 const headerClass = ref('inner-header')
 // You can watch the property for triggering some other action on change
-watch(() => route.name, () => {
-  if(route.name == 'home'){
+watch(() => route.path, () => {
+  if(route.path == '/'){
     headerClass.value = 'header';
   }else{
     headerClass.value = 'inner-header';
@@ -33,8 +33,8 @@ watch(() => route.name, () => {
                   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">                    
                       <router-link class="nav-link" to="/">Home</router-link>
-                      <router-link class="nav-link" to="/about-us">About Us</router-link>
-                      <router-link class="nav-link" to="/services">Services</router-link>
+                      <router-link class="nav-link" to="/about">About Us</router-link>
+                      <router-link class="nav-link" to="/service">Services</router-link>
                       <router-link class="nav-link" to="/portfolio">Portfolio</router-link>
                       <router-link class="nav-link" to="/event">Event</router-link>
                       <router-link class="nav-link" to="/contact">Contact</router-link>                   
@@ -53,12 +53,12 @@ watch(() => route.name, () => {
         </div>
     </div>
 
-    <div class="top-banner" v-if="route.name == 'home'">
+    <div class="top-banner" v-if="route.path == '/'">
       <div class="container">
       <div class="row">
         <div class="col-md-9 col-lg-9">
           <div class="banner-txt">
-            <h4 v-motion-left-in>Make your event {{ route.name }}</h4>
+            <h4 v-motion-left-in>Make your event</h4>
             <img src="@/assets/images/stand-out.png" v-motion-pop-bounce>
             <h5 v-motion-left-in><img src="@/assets/images/play.png"> &nbsp; &nbsp;Recent Event Shoot</h5>
           </div>
@@ -84,7 +84,7 @@ watch(() => route.name, () => {
       </div>
     </div>
 
-    <div class="inner-top-banner" v-if="route.name == 'about'" style="background-image: url('src/assets/images/about-banner.jpg')" >
+    <div class="inner-top-banner" v-if="route.path == '/about'" style="background-image: url('src/assets/images/about-banner.jpg')" >
       <div class="container">
         <div class="row">
           <div class="col-md-12 col-lg-12">
@@ -97,7 +97,7 @@ watch(() => route.name, () => {
       </div>
 	  </div>
 
-    <div class="inner-top-banner" v-if="route.name == 'service'" style="background-image: url('src/assets/images/events.jpg');">
+    <div class="inner-top-banner" v-if="route.path == '/service'" style="background-image: url('src/assets/images/events.jpg');">
       <div class="container">
         <div class="row">
           <div class="col-md-12 col-lg-12">
@@ -110,7 +110,7 @@ watch(() => route.name, () => {
 		  </div>
 	  </div>
 
-    <div class="inner-top-banner" v-if="route.name == 'portfolio'" style="background-image: url('src/assets/images/portfolio.jpg');">
+    <div class="inner-top-banner" v-if="route.path == '/portfolio'" style="background-image: url('src/assets/images/portfolio.jpg');">
       <div class="container">
         <div class="row">
           <div class="col-md-12 col-lg-12">
@@ -123,7 +123,7 @@ watch(() => route.name, () => {
       </div>
     </div>
 
-    <div class="inner-top-banner" v-if="route.name == 'event'" style="background-image: url('src/assets/images/events.jpg');">
+    <div class="inner-top-banner" v-if="route.path == '/event'" style="background-image: url('src/assets/images/events.jpg');">
       <div class="container">
         <div class="row">
           <div class="col-md-12 col-lg-12">
@@ -136,7 +136,7 @@ watch(() => route.name, () => {
       </div>
 	  </div>
 
-    <div class="inner-top-banner" v-if="route.name == 'contact'" style="background-image: url('src/assets/images/contact.jpg');">
+    <div class="inner-top-banner" v-if="route.path == '/contact'" style="background-image: url('src/assets/images/contact.jpg');">
       <div class="container">
         <div class="row">
           <div class="col-md-12 col-lg-12">

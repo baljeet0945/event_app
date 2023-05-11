@@ -1,7 +1,6 @@
 <script setup>
-import EventGallery from '../views/Events/Gallery.vue'
-import InstaFeeds from '../views/InstaFeeds.vue'
-import EventForm from './Events/Form.vue'
+
+import { EventGallery, InquiryForm, InstaFeed} from '@/components';
 </script>
 
 <template>
@@ -11,11 +10,11 @@ import EventForm from './Events/Form.vue'
     </section>
 
     <section class="sectionfrst spaceSec" style="padding-top: 0;">
-      <InstaFeeds/>
+      <InstaFeed/>
     </section>
     
     <section class="sectionContact spaceSec" style="padding-top: 0;">
-      <EventForm/>
+      <InquiryForm/>
     </section>
   </main>
 </template>

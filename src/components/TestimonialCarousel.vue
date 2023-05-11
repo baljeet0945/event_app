@@ -1,13 +1,14 @@
 <script setup>
 import { onMounted } from 'vue'
-import { useTestimonialStore } from '../stores/testimonial'
+
+import { useTestimonialStore } from '@/stores'
 import { storeToRefs } from "pinia";
-const store = useTestimonialStore()
-const {testimonials} = storeToRefs (store)
-const { getTestimonial } = store;
+
+const usersStore = useTestimonialStore();
+const { testimonials } = storeToRefs(usersStore);
 
 onMounted(() => {
-    getTestimonial()
+    usersStore.getTestimonial();   
 })
 </script>
 <template>
@@ -55,12 +56,12 @@ export default defineComponent({
     breakpoints: {
       // 700px and up
       700: {
-        itemsToShow: 2,
+        itemsToShow: 1,
         snapAlign: 'center',
       },
       // 1024 and up
       1024: {
-        itemsToShow: 2,
+        itemsToShow: 1,
         snapAlign: 'center',
       },
     },

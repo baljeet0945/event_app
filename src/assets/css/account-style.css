@@ -57,11 +57,11 @@ input[type="text"], input[type="password"], input[type="email"], select, textare
     color: #000;
     font-size: 16px;
 }
-.formField input[type="submit"]{background: rgb(99,195,191);
+.formField .action-button{background: rgb(99,195,191);
     background: linear-gradient(90deg, rgba(99,195,191,1) 0%, rgba(107,195,102,1) 75%);font-weight: 600;width: 100%;
     border-radius: 5px;
     padding: 15px;}
-.formField input[type="submit"]:hover{background: rgb(99,195,191);
+.formField .action-button:hover{background: rgb(99,195,191);
     background: linear-gradient(90deg, rgba(107,195,102,1) 0%, rgba(99,195,191,1) 75%);}
 .text-right{text-align:right;}
 .formField .forgetmenot {

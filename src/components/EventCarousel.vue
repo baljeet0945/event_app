@@ -1,8 +1,8 @@
 <script setup>
 import { onMounted } from 'vue'
-import { useServiceStore } from '../stores/event'
+import { useEventStore} from '@/stores' 
 import { storeToRefs } from "pinia";
-const store = useServiceStore()
+const store = useEventStore()
 const {events} = storeToRefs (store)
 const { getEvents } = store;
 

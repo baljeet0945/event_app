@@ -1,7 +1,7 @@
 <script setup>
 import {Form, Field, ErrorMessage } from 'vee-validate';
 import * as yup from 'yup';
-import { APISettings } from '../stores/config';
+// import { APISettings } from '../stores/config';
 
 const schema = yup.object({
   name: yup.string().required(),

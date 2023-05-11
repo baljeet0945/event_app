@@ -1,0 +1,11 @@
+export { default as Header } from './HeaderComponent.vue';
+export { default as Footer } from './FooterComponent.vue';
+export { default as InquiryForm } from './InquiryFormComponent.vue';
+export { default as EventGallery } from './EventGallery.vue';
+export { default as FormStep } from './FormStep.vue';
+export { default as FormWizard } from './FormWizard.vue';
+export { default as EventCarousel } from './EventCarousel.vue';
+export { default as TestimonialCarousel } from './TestimonialCarousel.vue';
+export { default as Services } from './ServiceComponent.vue';
+export { default as InstaFeed } from './InstaFeedComponent.vue';
+export { default as Alerts } from './AlertComponent.vue';

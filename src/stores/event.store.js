@@ -1,7 +1,7 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
-import { APISettings } from '../stores/config';
-export const useServiceStore = defineStore('events', () => { 
+import { APISettings } from './config';
+export const useEventStore = defineStore('events', () => { 
   const events = ref([]) 
 
   const getEvents = async () => {   

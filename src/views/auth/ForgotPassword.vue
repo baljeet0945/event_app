@@ -1,7 +1,7 @@
 <script setup>
 import {useForm, Form, Field, ErrorMessage } from 'vee-validate';
 import * as yup from 'yup';
-import { APISettings } from '../stores/config';
+// import { APISettings } from '../stores/config';
 
 const validationSchema = yup.object({  
   email: yup.string().required().email()

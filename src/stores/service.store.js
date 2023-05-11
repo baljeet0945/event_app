@@ -1,7 +1,6 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
-import { APISettings } from '../stores/config';
-
+import { APISettings } from './config';
 export const useServiceStore = defineStore('services', () => { 
   const services = ref([]) 
 
@@ -13,6 +12,5 @@ export const useServiceStore = defineStore('services', () => {
     const json = await response.json();
     services.value = json.data
   }
-
-  return { services, getServices}
+  return { services, getServices }
 })

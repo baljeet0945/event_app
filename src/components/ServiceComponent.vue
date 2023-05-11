@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted } from 'vue'
-import { useServiceStore } from '../../stores/service'
+import { useServiceStore } from '@/stores'
 import { storeToRefs } from "pinia";
 const store = useServiceStore()
 const {services} = storeToRefs (store)
