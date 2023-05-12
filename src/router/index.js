@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
 import { useAuthStore, useAlertStore } from '@/stores';
-import { Layout, Service, About, Portfolio, Event, Contact, Home } from '@/views/pages';
+import { Layout, Service, About, Portfolio, Event, Contact, Home, EventsDetail } from '@/views/pages';
 import { Login, Signup, ForgotPassword} from '@/views/auth';
 
 
@@ -18,7 +18,8 @@ export const router = createRouter({
                 { path: 'service', component: Service, meta:{title: 'MTE Service'}  },
                 { path: 'portfolio', component: Portfolio, meta:{title: 'MTE Portfolio'}  },
                 { path: 'event', component: Event, meta:{title: 'MTE Event'}  },
-                { path: 'contact', component: Contact, meta:{title: 'MTE Contact'}  }
+                { path: 'contact', component: Contact, meta:{title: 'MTE Contact'}  },
+                {path: 'event-detail/:slug', component: EventsDetail, meta:{title: 'MTE Event Detail'} },
             ]
         },
         {path: '/login', component: Login, meta: { title: 'MTE Login' }},

@@ -5,6 +5,7 @@ import App from './App.vue'
 import  { router }  from './router'
 
 import { MotionPlugin } from '@vueuse/motion'
+import VueGoogleMaps from '@fawmi/vue-google-maps'
 
 const app = createApp(App)
 
@@ -104,5 +105,5 @@ app.use(MotionPlugin, {
       }
     },
   })
-
+// app.use(VueGoogleMaps, {load: {key: "jeeueuue"}})
 app.mount('#app')

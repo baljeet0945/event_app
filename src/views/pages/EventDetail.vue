@@ -1,3 +1,14 @@
+<script setup>
+import { InquiryForm, EventCarousel, InstaFeed, TestimonialCarousel} from '@/components';
+import { useRoute } from 'vue-router';
+import { useEventStore } from '@/stores'
+import { storeToRefs } from "pinia";
+const route = useRoute();
+
+const store = useEventStore()
+const { eventDetail } = storeToRefs(store);
+store.getEventDetail(route.params.slug)
+</script>
 <template>
     <main>
         <div class="container edckcustom-container">
@@ -16,14 +27,13 @@
             <section class="ed-title">
 			    <div class="row">
                     <div class="col-sm-6 col-lg-6">
-                        <h2>Carnival Night</h2>
+                        <h2>{{ eventDetail.title }}</h2>
                     </div>
                     <div class="col-sm-6 col-lg-6">
                         <div class="postMeta">
-                                        <span class="postDate">Newark</span>
-                                        <span class="postDate">5/12/2023</span>
-                                        <span class="postDate"><img src="@/assets/images/time.png"> &nbsp;10:30 PM</span>
-                                        
+                            <span class="postDate">{{eventDetail.eventLocation}}</span>
+                            <span class="postDate">{{ eventDetail.eventDate }}</span>
+                            <span class="postDate"><img src="@/assets/images/time.png"> &nbsp;{{ eventDetail.eventTime }}</span>
                         </div>
                     </div>
 			    </div>
@@ -32,7 +42,7 @@
                 <div class="row">
                     <div class="col-sm-12 col-lg-12" v-motion-pop-bounce-visible-once>
                         <div class="featureImg">
-                                    <a href="#"><img src="@/assets/images/bigLargeImg.jpg"></a>
+                                    <a href="#"><img :src="eventDetail.featureImage" alt="event-img"></a>
                                     <span class="post_date"><span class="lg-font">14</span><br><span>MAY</span></span>
                                 </div>
                     </div>
@@ -52,15 +62,15 @@
                     <div class="col-sm-6 col-lg-6">
                         <div class="ed-location">
                             <h3>Location</h3>
-                            <p>248 Mulberry St, Newark, NJ 07102, United States</p>
+                            <p>{{ eventDetail.eventLocation }}</p>
                         </div>
                     </div>
                     <div class="col-sm-6 col-lg-6">
                         <div class="ed-location">
                             <h3>Ticket
-                                <span>48 available</span>
+                                <span>{{ eventDetail.eventTickets }} available</span>
                             </h3>
-                            <p>$20 / person</p>
+                            <p>${{eventDetail.eventTicketsPrice}} / person</p>
                             <a href="#" class="viewBtn">Buy Now</a>
                         </div>
                     </div>

@@ -12,7 +12,7 @@ watch(() => route.path, () => {
   }
 // Optionally you can set immediate: true config for the watcher to run on init
 }, { immediate: true });
-  
+
 </script>
 <template>
   <header id="header" :class="headerClass">

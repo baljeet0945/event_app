@@ -31,7 +31,7 @@ onMounted(() => {
                             <span class="postDate" style="color: #5C5C5C; font-size: 16px;"><img src="@/assets/images/heart.png"> &nbsp;Saved</span>
                         </div>
                         <div class="postBtn">
-                            <span class="postBtnT"><a href="#" class="viewBtn">Tickets & Details</a></span>
+                            <span class="postBtnT"> <router-link class="viewBtn" :to="'/event-detail/' + slide.slug">Tickets & Details</router-link></span>                          
                             <span class="postAdd"><img src="@/assets/images/lock.png"> &nbsp; <a href="#">Add</a></span>
                         </div>
                     </div>

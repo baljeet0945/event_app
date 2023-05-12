@@ -1,22 +1,18 @@
 <script setup>
-import {Form, Field, ErrorMessage } from 'vee-validate';
-import * as yup from 'yup';
-// import { APISettings } from '../stores/config';
+import {Form, Field} from 'vee-validate';
+import * as Yup from 'yup';
+import { useAuthStore } from '@/stores';
 
-const schema = yup.object({
-  name: yup.string().required(),
-  email: yup.string().required().email(),
-  password: yup.string().required().min(8),
+const schema = Yup.object().shape({
+    email: Yup.string().required('Email is required'),
+    name: Yup.string().required('Name is required'),
+	password: Yup.string().required('Password is required').min(8),
 });
 
 async function onSubmit(values) {
-	const requestOptions = {
-		method: "POST",
-		headers: { "Content-Type": "application/json" },
-		body: JSON.stringify(values)
-	};
-	const response = await fetch(APISettings.baseURL + 'signup', requestOptions);
-	console.log(response)
+	const authStore = useAuthStore();
+    const { email, password } = values;
+    await authStore.login(email, password);
 }
 
 </script>
@@ -40,27 +36,30 @@ async function onSubmit(values) {
 						<div class="row">
 							<div class="col-md-12 col-lg-12">
 								<h2>Create an account</h2>
-								<Form @submit="onSubmit" :validation-schema="schema">
+								<Form @submit="onSubmit" :validation-schema="schema"  v-slot="{ errors, isSubmitting }">
 									<div class="formField">
 											<label>Full Name</label>
-											<Field name="name" type="text" placeholder="Enter your name"/>
-    										<ErrorMessage name="name" />
+											<Field name="name" type="text" class="form-control" placeholder="Enter your name" :class="{ 'is-invalid': errors.name }" />
+                    						<div class="invalid-feedback">{{ errors.name }}</div>
 									</div>
 									<div class="formField">
 											<label>Email</label>
-											<Field name="email" type="email" placeholder="Enter your email"/>
-    										<ErrorMessage name="email" />
+											<Field name="email" type="email" class="form-control" placeholder="Enter your email" :class="{ 'is-invalid': errors.email }" />
+                    						<div class="invalid-feedback">{{ errors.email }}</div>
 									</div>
 									<div class="formField">
 											<label>Password</label>
-											<Field name="password" type="password" placeholder="******"/>
-    										<ErrorMessage name="password" />
+											<Field name="password" type="password" class="form-control" placeholder="******" :class="{ 'is-invalid': errors.password }" />
+                    						<div class="invalid-feedback">{{ errors.password }}</div>
 									</div>
 									
 									<div class="formField">
 										<div class="row">
 											<div class="col-md-12 col-lg-12">
-												<input type="submit" name="submit" class="submit action-button" value="Create Account" />
+												<button class="submit action-button" :disabled="isSubmitting">
+													<span v-show="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>
+													Create Account
+												</button>
 											</div>
 										</div>
 									</div>

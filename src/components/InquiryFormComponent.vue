@@ -46,7 +46,7 @@ const onSubmit = handleSubmit(async (values, actions)=> {
 });
 </script>
 <template>
-    <div class="container">
+    <div class="container" ref="scrollToDiv">
         <div class="contactSec">
           <h2 v-motion-pop-bounce-visible-once>Let’s discuss about your next event</h2>
           <div class="contactSecForm" id="multistepsform"> 

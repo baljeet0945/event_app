@@ -2,9 +2,7 @@
 import {Form, Field} from 'vee-validate';
 import * as Yup from 'yup';
 import { useAuthStore } from '@/stores';
-import { useRouter } from 'vue-router'
 
-const router = useRouter()
 
 const schema = Yup.object().shape({
     email: Yup.string().required('Email is required'),

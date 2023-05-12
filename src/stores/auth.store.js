@@ -26,6 +26,10 @@ export const useAuthStore = defineStore('auth', () => {
         }
     }
 
+    const signup = async (name, email, password) => {
+        await fetchWrapper.post(`${baseUrl}signup`, user);
+    }
+
     const logout = () => {
         auth.value.user = null;
         localStorage.removeItem('user');
