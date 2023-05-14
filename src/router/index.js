@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router';
-
-import { useAuthStore, useAlertStore } from '@/stores';
-import { Layout, Service, About, Portfolio, Event, Contact, Home, EventsDetail, Checkout } from '@/views/pages';
-import { Login, Signup, ForgotPassword} from '@/views/auth';
-
+// import { useAuthStore, useAlertStore } from '@/stores';
+import Layout from '../views/pages/Layout.vue'
+import Login from '../views/auth/Login.vue'
+import Signup from '../views/auth/Signup.vue'
+import ForgotPassword from '../views/auth/ForgotPassword.vue'
 
 export const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -13,21 +13,63 @@ export const router = createRouter({
             path: '/',
             component: Layout,
             children: [
-                { path: '', component: Home, meta:{title: 'MTE Homepage'} },
-                { path: 'about', component: About, meta:{title: 'MTE About'} },
-                { path: 'service', component: Service, meta:{title: 'MTE Service'}  },
-                { path: 'portfolio', component: Portfolio, meta:{title: 'MTE Portfolio'}  },
-                { path: 'event', component: Event, meta:{title: 'MTE Event'}  },
-                { path: 'contact', component: Contact, meta:{title: 'MTE Contact'}  },
-                {path: 'event-detail/:slug', component: EventsDetail, meta:{title: 'MTE Event Detail'} },
-                {path: 'checkout', component: Checkout, meta:{title: 'MTE Checkout'} },
+                { 
+                    path: '',
+                    component: () => import ('@/views/pages/Home.vue'), 
+                    meta:{title: 'MTE Homepage'} 
+                },
+                {
+                    path: 'about', 
+                    component: () => import ('@/views/pages/About.vue'), 
+                    meta:{title: 'MTE About'} 
+                },
+                {
+                    path: 'portfolio', 
+                    component: () => import ('@/views/pages/Portfolio.vue'), 
+                    meta:{title: 'MTE Portfolio'} 
+                },
+                { 
+                    path: 'service', 
+                    component: () => import ('@/views/pages/Service.vue'), 
+                    meta:{title: 'MTE Service'}  
+                },
+                { 
+                    path: 'event', 
+                    component:() => import ('@/views/pages/Event.vue'), 
+                    meta:{title: 'MTE Event'} 
+                },
+                { 
+                    path: 'contact', 
+                    component: () => import ('@/views/pages/Contact.vue'), 
+                    meta:{title: 'MTE Contact'}  
+                },
+                {
+                    path: 'event-detail/:slug', 
+                    component: () => import ('@/views/pages/EventDetail.vue'),  
+                    meta:{title: 'MTE Event Detail'} 
+                },
+                {
+                    path: 'checkout', 
+                    component: () => import ('@/views/pages/Checkout.vue'), 
+                    meta:{title: 'MTE Checkout'} 
+                },
             ]
         },
-        {path: '/login', component: Login, meta: { title: 'MTE Login' }},
-        {path: '/signup', component: Signup, meta: { title: 'MTE Signup'}},
-        {path: '/forgot-password', component: ForgotPassword, meta: { title: 'MTE Forgot Password'}},
-
-        
+        {
+            path: '/login', 
+            component: Login, 
+            meta: { title: 'MTE Login' }
+        },
+        {
+            path: '/signup', 
+            component: Signup,  
+            meta: { title: 'MTE Signup'}
+        },
+        {
+            path: '/forgot-password', 
+            component: ForgotPassword, 
+            meta: { title: 'MTE Forgot Password'}
+        },        
         // catch all redirect to home page
         { path: '/:pathMatch(.*)*', redirect: '/' }
     ]

@@ -1,3 +1,25 @@
+<script setup>
+import { useRouter } from 'vue-router';
+import {useTicketStore} from '@/stores/ticket'
+import { storeToRefs } from "pinia";
+
+const store = useTicketStore()
+// store.resetCart()
+const { cart, cartPriceTotal } = storeToRefs(store);
+const router = useRouter();
+
+function updateCart(event, item) {	
+	if(event.target.value <= item.eventTickets){
+    	store.updateToCart(item.id, event.target.value);   
+	}else{
+		alert("Can't add more the available tickets.")
+	}
+}
+
+function removeTicket(item){
+	store.removeToCart(item);   
+}
+</script>
 <template>
     <main>
         <div class="container custom-container">
@@ -5,12 +27,12 @@
 				<div class="row">
 					<div class="col-md-6 col-lg-6">Checkout</div>
 					<div class="col-md-6 col-lg-6 text-right">
-						<div class="backNav"><img src="@/assets/images/arrow.png"> &nbsp; <a href="#">Back</a></div>
+						<div class="backNav"><img src="@/assets/images/arrow.png"> &nbsp; <router-link @click="router.go(-1)" to="">Back</router-link></div>
 					</div>
 				</div>
 			</section>
 			
-		    <section class="evList">
+		    <section class="evList" v-for="item in cart" :key="item">
 				<div class="row">
 					<div class="col-md-2 col-lg-2">
 					   <div class="featureImg">
@@ -19,59 +41,28 @@
 					</div>
 					<div class="col-md-4 col-lg-4">
 						<div class="evntTitle">
-							<h3>Lightfox Night Party</h3>
-							<h4>Newark</h4>
+							<h3>{{item.title}}</h3>
+							<h4>{{item.eventLocation}}</h4>
 							<div class="postMeta">
-									<span class="postDate">5/12/2023</span>
-									<span class="postDate"><img src="@/assets/images/time.png"> &nbsp;10:30 PM-2:00AM</span>
+									<span class="postDate">{{item.eventDate}}</span>
+									<span class="postDate"><img src="@/assets/images/time.png"> &nbsp;{{item.eventTime}}</span>
 								</div>
 						</div>
 					</div>
 					<div class="col-md-3 col-lg-3 text-center pdnumber">
-						<input type="number" name="age"><span class="rmText"><a href="#">Remove</a></span><br>
-						<span class="subText">48 tickets available</span>
+						<input type="number" name="age" min="1" :max="item.eventTickets" :value="item.ticketInQueue" @input="updateCart($event, item)"><span class="rmText"><router-link @click="removeTicket(item)" to="">Remove</router-link></span><br>
+						<span class="subText">{{ item.eventTickets }} tickets available</span>
 					</div>
 					<div class="col-md-2 col-lg-2">
-							<div class="evntPrice">Subtotal <br> <span>$20</span></div>
-					</div>
-					
-					
+							<div class="evntPrice">Subtotal <br> <span>${{ item.eventTicketsPrice * item.ticketInQueue}}</span></div>
+					</div>	
 				</div>
-			</section>
+			</section>			
 			
-			
-		    <section class="evList">
-				<div class="row">
-					<div class="col-md-2 col-lg-2">
-					   <div class="featureImg">
-							<a href="#"><img src="@/assets/images/event1.jpg"></a>
-						</div>
-					</div>
-					<div class="col-md-4 col-lg-4">
-						<div class="evntTitle">
-							<h3>Lightfox Night Party</h3>
-							<h4>Newark</h4>
-							<div class="postMeta">
-									<span class="postDate">5/12/2023</span>
-									<span class="postDate"><img src="@/assets/images/time.png"> &nbsp;10:30 PM-2:00AM</span>
-								</div>
-						</div>
-					</div>
-					<div class="col-md-3 col-lg-3 text-center pdnumber">
-						<input type="number" name="age"><span class="rmText"><a href="#">Remove</a></span><br>
-						<span class="subText">48 tickets available</span>
-					</div>
-					<div class="col-md-2 col-lg-2">
-							<div class="evntPrice">Subtotal <br> <span>$40</span></div>
-					</div>
-					
-					
-				</div>
-			</section>
-			
+		  
 			 <section class="totalCost">
 				<div class="row">
-					<div class="col-md-12 col-lg-12">Total: $60</div>
+					<div class="col-md-12 col-lg-12">Total: ${{ cartPriceTotal }}</div>
 				</div>
 			</section>
 			

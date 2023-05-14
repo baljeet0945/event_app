@@ -1,7 +1,6 @@
 <script setup>
 import { onMounted } from 'vue'
-
-import { useTestimonialStore } from '@/stores'
+import  {useTestimonialStore} from '@/stores/testimonial.store'
 import { storeToRefs } from "pinia";
 import { Carousel, Navigation, Slide } from 'vue3-carousel'
 

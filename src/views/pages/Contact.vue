@@ -1,7 +1,19 @@
 <script setup>
+import {Form, Field} from 'vee-validate';
+import * as Yup from 'yup';
+import { fetchWrapper } from '@/helpers';
 
+const schema = Yup.object().shape({
+    email: Yup.string().required('Email is required'),
+    name: Yup.string().required('Name is required'),
+	phone: Yup.string().required('Phone is required'),
+	message: Yup.string().required('Message is required')
+});
+
+async function onSubmit(values) {	
+	await fetchWrapper.post('contact', values);
+}
 </script>
-
 <template>
 <main>
 	<div class="container">
@@ -15,15 +27,25 @@
 					</div>
 				</div>
 				<div class="col-md-4 col-lg-4" v-motion-right-in>
-					<form  class="cForm">
-						<fieldset>
-							<input type="text" name="fname" placeholder="Full Name">
-							<input type="text" name="email" placeholder="Email">
-							<input type="text" name="phone" placeholder="Phone">
-							<textarea name="aInformation" placeholder="Message"></textarea>
-							<input type="submit" name="submit" class="submit action-button" value="Send Message" />
+					<Form class="cForm" @submit="onSubmit" :validation-schema="schema"  v-slot="{ errors, isSubmitting }">
+						<fieldset>							
+							<Field name="name" type="text" class="form-control" placeholder="Full Name" :class="{ 'is-invalid': errors.name }" />
+                    		<div class="invalid-feedback">{{ errors.name }}</div>
+
+							<Field name="email" type="email" class="form-control" placeholder="Email" :class="{ 'is-invalid': errors.email }" />
+                    		<div class="invalid-feedback">{{ errors.email }}</div>
+
+							<Field name="phone" type="text" class="form-control" placeholder="Phone" :class="{ 'is-invalid': errors.phone }" />
+                    		<div class="invalid-feedback">{{ errors.phone }}</div>
+
+							<Field as="textarea" name="message" class="form-control" cols="30" rows="10" :class="{ 'is-invalid': errors.message }" />
+							<div class="invalid-feedback">{{ errors.message }}</div>
+							<button class="submit action-button" :disabled="isSubmitting">
+								<span v-show="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>
+								Send Message
+							</button>							
 						</fieldset>
-					</form>
+					</Form>
 				</div>
 			</div>
 		</section>

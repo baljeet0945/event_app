@@ -1,7 +1,11 @@
 <script setup>
-import { useTestimonialStore } from '@/stores'
+import { useTestimonialStore } from '@/stores/testimonial.store'
 import { storeToRefs } from "pinia";
-import { TestimonialCarousel, InquiryForm, Services} from '@/components';
+
+import TestimonialCarousel from '@/components/TestimonialCarousel.vue';
+import Services from '@/components/ServiceComponent.vue';
+import InquiryForm from '@/components/InquiryFormComponent.vue';
+
 const usersStore = useTestimonialStore();
 const { testimonialSlides } = storeToRefs(usersStore);
 testimonialSlides.value = 2

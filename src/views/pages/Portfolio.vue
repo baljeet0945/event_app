@@ -1,6 +1,7 @@
 <script setup>
-
-import { EventGallery, InquiryForm, InstaFeed} from '@/components';
+import EventGallery from '@/components/EventGallery.vue';
+import InstaFeed from '@/components/InstaFeedComponent.vue';
+import InquiryForm from '@/components/InquiryFormComponent.vue';
 </script>
 
 <template>

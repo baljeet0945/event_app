@@ -1,5 +1,5 @@
-import { useAuthStore } from '@/stores';
-
+import { useAuthStore } from '@/stores/auth.store';
+const baseUrl = `${import.meta.env.VITE_API_URL}`;
 export const fetchWrapper = {
     get: request('GET'),
     post: request('POST'),
@@ -8,16 +8,16 @@ export const fetchWrapper = {
 };
 
 function request(method) {
-    return (url, body) => {
+    return (apiRoute, body) => {
         const requestOptions = {
             method,
-            headers: authHeader(url)
+            headers: authHeader(baseUrl+apiRoute)
         };
         if (body) {
             requestOptions.headers['Content-Type'] = 'application/json';
             requestOptions.body = JSON.stringify(body);
         }
-        return fetch(url, requestOptions).then(handleResponse);
+        return fetch(baseUrl+apiRoute, requestOptions).then(handleResponse);
     }
 }
 

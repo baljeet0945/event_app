@@ -2,7 +2,8 @@
 import {useForm, Field, ErrorMessage } from 'vee-validate';
 import * as yup from 'yup';
 
-import { FormWizard, FormStep} from '@/components';
+import   FormStep  from './FormStep.vue';
+import   FormWizard  from './FormWizard.vue';
 
 
 const { handleSubmit, setFieldError, setErrors } = useForm();

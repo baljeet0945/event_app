@@ -1,6 +1,10 @@
 <script setup>
-import { InquiryForm, EventCarousel, InstaFeed, TestimonialCarousel} from '@/components';
-import { useTestimonialStore } from '@/stores'
+import EventCarousel from '@/components/EventCarousel.vue';
+import TestimonialCarousel from '@/components/TestimonialCarousel.vue';
+import InstaFeed from '@/components/InstaFeedComponent.vue';
+import InquiryForm from '@/components/InquiryFormComponent.vue';
+
+import { useTestimonialStore } from '@/stores/testimonial.store'
 import { storeToRefs } from "pinia";
 
 const usersStore = useTestimonialStore();

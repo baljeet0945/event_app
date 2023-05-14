@@ -2,9 +2,7 @@ import { ref } from 'vue'
 import { defineStore } from 'pinia';
 import { fetchWrapper } from '@/helpers';
 import { router }  from '@/router';
-import { useAlertStore } from '@/stores';
-
-const baseUrl = `${import.meta.env.VITE_API_URL}`;
+import { useAlertStore } from '@/stores/alert.store';
 
 export const useAuthStore = defineStore('auth', () => { 
     const auth = ref({
@@ -14,7 +12,7 @@ export const useAuthStore = defineStore('auth', () => {
   
     const login = async (email, password) => {
         try {
-            const response = await fetchWrapper.post(`${baseUrl}signin`, { email, password });
+            const response = await fetchWrapper.post('signin', { email, password });
                  
              // store user details and jwt in local storage to keep user logged in between page refreshes
              localStorage.setItem('user', JSON.stringify(response.data));
@@ -27,7 +25,7 @@ export const useAuthStore = defineStore('auth', () => {
     }
 
     const signup = async (name, email, password) => {
-        await fetchWrapper.post(`${baseUrl}signup`, user);
+        await fetchWrapper.post('signup', user);
     }
 
     const logout = () => {

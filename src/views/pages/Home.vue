@@ -1,5 +1,9 @@
 <script setup>
-import { EventGallery, Services, InquiryForm, EventCarousel, InstaFeed} from '@/components';
+import EventGallery from '@/components/EventGallery.vue';
+import InquiryForm from '@/components/InquiryFormComponent.vue';
+import EventCarousel from '@/components/EventCarousel.vue';
+import InstaFeed from '@/components/InstaFeedComponent.vue';
+import Services from '@/components/ServiceComponent.vue';
 </script>
 
 <template>

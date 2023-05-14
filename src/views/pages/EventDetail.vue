@@ -1,13 +1,20 @@
 <script setup>
-import { InquiryForm, EventCarousel, InstaFeed, TestimonialCarousel} from '@/components';
-import { useRoute } from 'vue-router';
-import { useEventStore } from '@/stores'
+import { useRoute, useRouter } from 'vue-router';
+import {useEventStore} from '@/stores/event.store'
+import {useTicketStore} from '@/stores/ticket'
 import { storeToRefs } from "pinia";
 const route = useRoute();
+const router = useRouter();
 
 const store = useEventStore()
 const { eventDetail } = storeToRefs(store);
 store.getEventDetail(route.params.slug)
+
+function buyTicket(item) {
+	const ticketStore = useTicketStore();    
+    ticketStore.addToCart(item);
+    router.push('/checkout');
+}
 </script>
 <template>
     <main>
@@ -15,7 +22,7 @@ store.getEventDetail(route.params.slug)
             <section class="backNavSec">
                 <div class="row">
                     <div class="col-sm-6 col-lg-6">
-                        <div class="backNav"><img src="@/assets/images/arrow.png"> &nbsp; <router-link  to="">Back to all events</router-link></div>
+                        <div class="backNav"><img src="@/assets/images/arrow.png"> &nbsp; <router-link  to="/event">Back to all events</router-link></div>
                     </div>
                     <div class="col-sm-6 col-lg-6">
                         <div class="sPost">
@@ -42,9 +49,9 @@ store.getEventDetail(route.params.slug)
                 <div class="row">
                     <div class="col-sm-12 col-lg-12" v-motion-pop-bounce-visible-once>
                         <div class="featureImg">
-                                    <a href="#"><img :src="eventDetail.featureImage" alt="event-img"></a>
-                                    <span class="post_date"><span class="lg-font">14</span><br><span>MAY</span></span>
-                                </div>
+                            <a href="#"><img :src="eventDetail.featureImage" alt="event-img"></a>
+                            <span class="post_date"><span class="lg-font">14</span><br><span>MAY</span></span>
+                        </div>
                     </div>
                 </div>
 		    </section>
@@ -71,7 +78,7 @@ store.getEventDetail(route.params.slug)
                                 <span>{{ eventDetail.eventTickets }} available</span>
                             </h3>
                             <p>${{eventDetail.eventTicketsPrice}} / person</p>
-                            <a href="#" class="viewBtn">Buy Now</a>
+                            <button @click="buyTicket(eventDetail)" class="viewBtn">Buy Now</button>
                         </div>
                     </div>
                 </div>

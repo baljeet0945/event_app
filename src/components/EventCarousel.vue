@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted } from 'vue'
-import { useEventStore} from '@/stores' 
+import  {useEventStore} from '@/stores/event.store'
+
 import { storeToRefs } from "pinia";
 const store = useEventStore()
 const {events} = storeToRefs (store)
