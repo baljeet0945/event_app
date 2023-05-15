@@ -1,10 +1,9 @@
-<script setup lang="ts">
+<script setup>
 import {useForm, Field, ErrorMessage } from 'vee-validate';
 import * as yup from 'yup';
 
-import   FormStep  from './FormStep.vue';
-import   FormWizard  from './FormWizard.vue';
-
+import FormStep  from './FormStep.vue';
+import FormWizard  from './FormWizard.vue';
 
 const { handleSubmit, setFieldError, setErrors } = useForm();
 // break down the validation steps into multiple schemas
@@ -47,7 +46,7 @@ const onSubmit = handleSubmit(async (values, actions)=> {
 });
 </script>
 <template>
-    <div class="container" ref="scrollToDiv">
+    <div class="container" id="Inquiry">
         <div class="contactSec">
           <h2 v-motion-pop-bounce-visible-once>Let’s discuss about your next event</h2>
           <div class="contactSecForm" id="multistepsform"> 

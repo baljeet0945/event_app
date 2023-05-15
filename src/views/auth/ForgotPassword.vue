@@ -1,7 +1,8 @@
 <script setup>
 import {Form, Field, ErrorMessage } from 'vee-validate';
 import * as yup from 'yup';
-// import { APISettings } from '../stores/config';
+
+document.querySelector('body').style.backgroundColor = '#000'
 
 const validationSchema = yup.object({  
   email: yup.string().required().email()
@@ -29,7 +30,7 @@ async function onSubmit(values) {
 							<div class="col-xs-6 col-md-6 col-lg-6 text-right"><div class="backNav"><i class="fa-regular fa-arrow-left"></i> &nbsp;<router-link to="/">Back to website</router-link></div></div>
 						</div>
 					</div>
-					<br><br><br>
+					<br/><br/><br/>
 					<div class="accountFormField">
 						<div class="row">
 							<div class="col-md-12 col-lg-12">
@@ -65,6 +66,7 @@ async function onSubmit(values) {
 	</main>
 </template>
 <style scoped>
+
 @import url(@/assets/css/account-style.css);
 .formField{width:unset;position: unset; float: unset;}
 #rememberme{width:auto;}

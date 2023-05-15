@@ -46,7 +46,7 @@ watch(() => route.path, () => {
             <div class="col-md-3 col-lg-3">
               <div class="top-btn">
                 <router-link class="t-btn" to="/login">Login</router-link>  
-                <router-link class="t-btn" to="/signup">Book Now</router-link>                
+                <a class="t-btn" href="#Inquiry">Book Now</a>                
               </div>
             </div>
           </div>

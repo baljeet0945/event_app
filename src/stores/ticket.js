@@ -60,4 +60,4 @@ export const useTicketStore = defineStore('ticket', () => {
   }
 
   return {cart, addToCart, resetCart, getCartItems, updateToCart, removeToCart, cartPriceTotal}
-}, {persist: true})
+}, {persist: { storage: sessionStorage, key: 'cart'}})

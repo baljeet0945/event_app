@@ -3,6 +3,8 @@ import {Form, Field} from 'vee-validate';
 import * as Yup from 'yup';
 import { useAuthStore } from '../../stores/auth.store'
 
+document.querySelector('body').style.backgroundColor = '#000'
+
 const schema = Yup.object().shape({
     email: Yup.string().required('Email is required'),
     password: Yup.string().required('Password is required')

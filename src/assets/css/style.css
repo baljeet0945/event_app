@@ -1219,11 +1219,11 @@ footer p{font-size: 18px; color: #000;}
     margin: 0;
     width: auto;
 }
-.cardDetails input[type="submit"]{ background: #6DC461;
-    font-size: 18px;
-    color: #000;
-    font-weight: 500;
-    padding: 15px 0;}
+.cardDetails button{ background: #6DC461!important;
+    font-size: 18px !important;
+    color: #000 !important;
+    font-weight: 500 !important;
+    padding: 15px 0!important;}
 	
 .makePayment form ul.radioSec li{
   color: #AAAAAA;

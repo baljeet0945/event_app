@@ -1,7 +1,9 @@
 <script setup>
+import SquarePayment from "@/components/SquarePayment.vue"
 import { useRouter } from 'vue-router';
 import {useTicketStore} from '@/stores/ticket'
 import { storeToRefs } from "pinia";
+
 
 const store = useTicketStore()
 // store.resetCart()
@@ -73,53 +75,32 @@ function removeTicket(item){
 						
 							<form action="#">
 							 <ul class="radioSec">
-								<li><input type="radio" id="html" name="fav_language" value="HTML">
-								<label for="html">Pay with Debit/Credit/ATM Cards</label>
-								<div class="check"></div></li>
-								<li><input type="radio" id="css" name="fav_language" value="CSS">
-								<label for="css">Paypal</label>
-								<div class="check"></div></li>
+								<li><input type="radio" id="pay_card" name="payment_type" value="pay_card" checked>
+								<label for="pay_card">Pay with Debit/Credit/ATM Cards</label>
+								<div class="check"></div></li>								
 							 </ul>
 							</form>
 					</div>
 					<div class="col-md-7 col-lg-7">
-						<div class="cardDetails">
-							<form action="#">
-								<div class="row" style="margin-bottom: 15px;">
-									<div class="col-md-9 col-lg-9">
-										<label for="ccnum">Card Number</label>
-										<input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444">
+						<div class="cardDetails">							
+							<SquarePayment>
+								<template #GuestPayment>
+									<div class="row" style="margin-bottom: 15px;">
+										<div class="col-md-12 col-lg-12">
+											<label for="ccnum">Full Name</label>
+											<input type="text" id="ccnum" name="name">
+										</div>	
+										<div class="col-md-12 col-lg-12">
+											<label for="ccnum">Email</label>
+											<input type="email" id="ccnum" name="email">
+										</div>								
 									</div>
-									<div class="col-md-3 col-lg-3">
-										<label for="cvv">CVV</label>
-										<input type="text" id="cvv" name="cvv" placeholder="352">
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-md-9 col-lg-9">
-										<label for="ccnum">Name on Card</label>
-										<input type="text" id="cname" name="cardname" placeholder="John More Doe">
-									</div>
-									<div class="col-md-3 col-lg-3">
-										<label for="cvv">Expiry</label>
-										<input type="text" id="expyear" name="expyear" placeholder="2018">
-									</div>
-								</div>
-								<div class="row" style="margin-top: 10px;">
-									<label style="margin-bottom: 20px;">
-										<input type="checkbox"  name="sameadr"> Save this card for future transactions
-									</label>
-								</div>
-								<div class="row">
-								 <input type="submit" value="Make a Payment" class="btn">
-								</div>
-							</form>
+								</template>
+							</SquarePayment>
 						</div>
 					</div>
 				</div>
-
-			</section>			
-		
+			</section>	
 	</div>
   
     </main>

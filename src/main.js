@@ -7,13 +7,16 @@ import  { router }  from './router'
 
 import { MotionPlugin } from '@vueuse/motion'
 
+import Toast, { POSITION, TYPE } from "vue-toastification";
+// Import the CSS or use your own!
+import "vue-toastification/dist/index.css";
+
 
 
 const app = createApp(App)
 const pinia = createPinia()
 pinia.use(piniaPluginPersistedstate)
 app.use(pinia)
-
 app.use(router)
 app.use(MotionPlugin, {
     directives: {
@@ -109,5 +112,21 @@ app.use(MotionPlugin, {
       }
     },
   })
+const options = {
+    // You can set your default options here
+    position: POSITION.BOTTOM,
+    transition: "Vue-Toastification__bounce",
+    maxToasts: 5,
+    pauseOnHover: true,
+    timeout: 10000,
+    newestOnTop: true,
+  //   transition: {
+  //     enter: "fade-enter-active",
+  //     leave: "Vue-Toastification__bounce-leave-active",
+  //     move: "fade-move"
+  // }
+};
+
+app.use(Toast, options);
 
 app.mount('#app')

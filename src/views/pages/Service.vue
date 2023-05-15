@@ -174,22 +174,24 @@ testimonialSlides.value = 2
             </div>
         
             <div class="row post-box-tst">
-                <TestimonialCarousel #testimonial="slotProps" >
-                    <div class="post-grid carousel__item">
-                        <div class="post-content">
-                            <div class="postTitle">
-                                <img src="@/assets/images/quote.png" style="width: auto;">
-                            </div>
-                            <p v-html="slotProps.testimonials"></p>
-                            <div class="instaHead">
-                                <div class="instaLogo"><img :src="slotProps.client_image" alt="client image"></div>
-                                <div class="instaTitle">
-                                    {{slotProps.client_name}}
-                                    <img src="@/assets/images/stars.jpg" style="width: auto;">
+                <TestimonialCarousel>
+                    <template #testimonial="slotProps">
+                        <div class="post-grid carousel__item">
+                            <div class="post-content">
+                                <div class="postTitle">
+                                    <img src="@/assets/images/quote.png" style="width: auto;">
+                                </div>
+                                <p v-html="slotProps.testimonials"></p>
+                                <div class="instaHead">
+                                    <div class="instaLogo"><img :src="slotProps.client_image" alt="client image"></div>
+                                    <div class="instaTitle">
+                                        {{slotProps.client_name}}
+                                        <img src="@/assets/images/stars.jpg" style="width: auto;">
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>                   
+                    </template>                   
                 </TestimonialCarousel>     
             </div>        	
         </section>

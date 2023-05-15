@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 // import { useAuthStore, useAlertStore } from '@/stores';
-import Layout from '../views/pages/Layout.vue'
+import DashboardLayout from '../views/pages/Layout.vue'
 import Login from '../views/auth/Login.vue'
 import Signup from '../views/auth/Signup.vue'
 import ForgotPassword from '../views/auth/ForgotPassword.vue'
@@ -11,7 +11,7 @@ export const router = createRouter({
     routes: [
         {
             path: '/',
-            component: Layout,
+            component: DashboardLayout,
             children: [
                 { 
                     path: '',

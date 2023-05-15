@@ -2,9 +2,10 @@ import { ref } from 'vue'
 import { defineStore } from 'pinia';
 import { fetchWrapper } from '@/helpers';
 import { router }  from '@/router';
-import { useAlertStore } from '@/stores/alert.store';
+import { useToast } from 'vue-toastification'
 
 export const useAuthStore = defineStore('auth', () => { 
+    const toast = useToast();
     const auth = ref({
         // initialize state from local storage to enable user to stay logged in
         user: JSON.parse(localStorage.getItem('user'))      
@@ -19,13 +20,19 @@ export const useAuthStore = defineStore('auth', () => {
              // redirect to previous url or default to home page
              router.push('/');
         } catch (error) {
-            const alertStore = useAlertStore();
-            alertStore.error(error);                
+            toast('Login failed!');                
         }
     }
 
-    const signup = async (name, email, password) => {
-        await fetchWrapper.post('signup', user);
+    const signup = async (data) => {
+        try {
+            const response = await fetchWrapper.post('signup', data);
+            toast('Signup success!');    
+            
+        } catch (error) {
+            toast('Signup failed!');            
+        }
+      
     }
 
     const logout = () => {
@@ -34,6 +41,6 @@ export const useAuthStore = defineStore('auth', () => {
         router.push('/login');
     }
   
-    return { auth, login, logout}
+    return { auth, login, logout, signup}
   })
 

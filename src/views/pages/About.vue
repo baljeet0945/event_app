@@ -123,27 +123,29 @@ testimonialSlides.value = 1
         <section class="sectionTestimonial spaceSec">
         	<div class="container">
                 <div class="row post-box-tst">
-                    <TestimonialCarousel #testimonialWithFeature="slotProps" >
-						<div class="post-grid carousel__item">
-							<div class="post-content" v-motion-slide-right>
-								<div class="postTitle">
-									<img src="@/assets/images/quote.png" style="width: auto;">
-									<h3>Clients Testimonials</h3>
-								</div>
-								<p v-html="slotProps.testimonials"></p>
-							<div class="instaHead">
-									<div class="instaLogo"><img :src="slotProps.client_image" alt="client image"></div>
-									<div class="instaTitle">
-										{{slotProps.client_name}}
-										<img src="@/assets/images/stars.jpg" style="width: auto;">
+                    <TestimonialCarousel>
+						<template #testimonialWithFeature="slotProps">
+							<div class="post-grid carousel__item">
+								<div class="post-content" v-motion-slide-right>
+									<div class="postTitle">
+										<img src="@/assets/images/quote.png" style="width: auto;">
+										<h3>Clients Testimonials</h3>
+									</div>
+									<p v-html="slotProps.testimonials"></p>
+								<div class="instaHead">
+										<div class="instaLogo"><img :src="slotProps.client_image" alt="client image"></div>
+										<div class="instaTitle">
+											{{slotProps.client_name}}
+											<img src="@/assets/images/stars.jpg" style="width: auto;">
+										</div>
 									</div>
 								</div>
-							</div>
-							
-							<div class="featureImg" v-motion-slide-right>
-								<a href="#"><img :src="slotProps.feature_image" alt="feature image"></a>								
-							</div>
-						</div> 
+								
+								<div class="featureImg" v-motion-slide-right>
+									<a href="#"><img :src="slotProps.feature_image" alt="feature image"></a>								
+								</div>
+							</div> 
+						</template>
 					</TestimonialCarousel>     
                 </div>
         	</div>

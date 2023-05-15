@@ -2,7 +2,7 @@
 import {Form, Field} from 'vee-validate';
 import * as Yup from 'yup';
 import { useAuthStore } from '@/stores/auth.store'
-
+document.querySelector('body').style.backgroundColor = '#000'
 const schema = Yup.object().shape({
     email: Yup.string().required('Email is required'),
     name: Yup.string().required('Name is required'),
@@ -10,9 +10,8 @@ const schema = Yup.object().shape({
 });
 
 async function onSubmit(values) {
-	const authStore = useAuthStore();
-    const { email, password } = values;
-    await authStore.login(email, password);
+	const authStore = useAuthStore();    
+    await authStore.signup(values);
 }
 
 </script>
@@ -109,4 +108,5 @@ async function onSubmit(values) {
 @import url(@/assets/css/account-style.css);
 .formField{width:unset;position: unset; float: unset;}
 #rememberme{width:auto;}
+
 </style> 
