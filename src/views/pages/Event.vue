@@ -3,6 +3,7 @@ import EventCarousel from '@/components/EventCarousel.vue';
 import TestimonialCarousel from '@/components/TestimonialCarousel.vue';
 import InstaFeed from '@/components/InstaFeedComponent.vue';
 import InquiryForm from '@/components/InquiryFormComponent.vue';
+import Packages from '@/components/PackagesComponent.vue';
 
 import { useTestimonialStore } from '@/stores/testimonial.store'
 import { storeToRefs } from "pinia";
@@ -104,56 +105,8 @@ testimonialSlides.value = 1
 		</div>
 		
 		<div class="sectionPriceList">
-			<div class="row">
-				<div class="col-md-4 col-lg-4">
-					<div class="priceList">
-						<h2>Silver</h2>
-						<h4>$39</h4>
-						<ul class="listStyle">
-							<li>Aliquet sagittis magna</li> 
-							<li>elementum rhoncus. </li>
-							<li>Sit in orci condimentum </li>
-							<li>odio augue netus leo. </li>
-							<li>Vivamus lectus cras </li>
-						</ul>
-						<a href="#" class="t-btn">Buy Now</a>
-					</div>
-				</div>
-				<div class="col-md-4 col-lg-4 animatable bounceIn">
-					<div class="priceList">
-						<h2>Gold <span>people’s choice</span></h2>
-						<h4>$69</h4>
-						<ul class="listStyle">
-							<li>Aliquet sagittis magna</li> 
-							<li>elementum rhoncus. </li>
-							<li>Sit in orci condimentum </li>
-							<li>odio augue netus leo. </li>
-							<li>Vivamus lectus cras </li>
-							<li>odio augue netus leo. </li>
-							<li>Vivamus lectus cras </li>
-						</ul>
-						<a href="#" class="t-btn">Buy Now</a>
-					</div>
-				</div>
-			<div class="col-md-4 col-lg-4 animatable bounceIn">
-					<div class="priceList">
-						<h2>Platinum</h2>
-						<h4>$89</h4>
-						<ul class="listStyle">
-							<li>Aliquet sagittis magna</li> 
-							<li>elementum rhoncus. </li>
-							<li>Sit in orci condimentum </li>
-							<li>odio augue netus leo. </li>
-							<li>Vivamus lectus cras </li>
-							<li>Aliquet sagittis magna</li> 
-							<li>elementum rhoncus. </li>
-							<li>Sit in orci condimentum </li>
-							<li>odio augue netus leo. </li>
-							<li>Vivamus lectus cras </li>
-						</ul>
-						<a href="#" class="t-btn">Buy Now</a>
-					</div>
-				</div>
+			<div class="row">			
+				<Packages/>
 			</div>
 		</div>
 	</div>

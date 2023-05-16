@@ -1,12 +1,10 @@
 <script setup>
-import SquarePayment from "@/components/SquarePayment.vue"
+import SquareTicketPayment from "@/components/SquareTicketPayment.vue"
 import { useRouter } from 'vue-router';
 import {useTicketStore} from '@/stores/ticket'
 import { storeToRefs } from "pinia";
 
-
 const store = useTicketStore()
-// store.resetCart()
 const { cart, cartPriceTotal } = storeToRefs(store);
 const router = useRouter();
 
@@ -17,7 +15,6 @@ function updateCart(event, item) {
 		alert("Can't add more the available tickets.")
 	}
 }
-
 function removeTicket(item){
 	store.removeToCart(item);   
 }
@@ -71,38 +68,21 @@ function removeTicket(item){
             <section class="makePayment">
 				<div class="row">
 					<div class="col-md-5 col-lg-5">
-						<h2>Make a Payment</h2>
-						
-							<form action="#">
-							 <ul class="radioSec">
+						<h2>Make a Payment</h2>						
+						<form action="#">
+							<ul class="radioSec">
 								<li><input type="radio" id="pay_card" name="payment_type" value="pay_card" checked>
 								<label for="pay_card">Pay with Debit/Credit/ATM Cards</label>
 								<div class="check"></div></li>								
-							 </ul>
-							</form>
+							</ul>
+						</form>
 					</div>
-					<div class="col-md-7 col-lg-7">
-						<div class="cardDetails">							
-							<SquarePayment>
-								<template #GuestPayment>
-									<div class="row" style="margin-bottom: 15px;">
-										<div class="col-md-12 col-lg-12">
-											<label for="ccnum">Full Name</label>
-											<input type="text" id="ccnum" name="name">
-										</div>	
-										<div class="col-md-12 col-lg-12">
-											<label for="ccnum">Email</label>
-											<input type="email" id="ccnum" name="email">
-										</div>								
-									</div>
-								</template>
-							</SquarePayment>
-						</div>
+					<div class="col-md-7 col-lg-7">											
+						<SquareTicketPayment :amount="cartPriceTotal"/>			
 					</div>
 				</div>
 			</section>	
-	</div>
-  
+		</div>
     </main>
   </template>
   

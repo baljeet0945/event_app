@@ -53,6 +53,11 @@ export const router = createRouter({
                     component: () => import ('@/views/pages/Checkout.vue'), 
                     meta:{title: 'MTE Checkout'} 
                 },
+                {
+                    path: 'buy-package/:slug', 
+                    component: () => import ('@/views/pages/BuyPackage.vue'), 
+                    meta:{title: 'MTE Package'} 
+                }
             ]
         },
         {
