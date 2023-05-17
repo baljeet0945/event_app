@@ -2,7 +2,7 @@
 import { useRoute } from 'vue-router';
 import  {usePackageStore} from '@/stores/package'
 import { storeToRefs } from "pinia";
-import SquarePayment from "@/components/SquarePayment.vue"
+import SquarePackagePayment from "@/components/SquarePackagePayment.vue"
 const route = useRoute();
 const store = usePackageStore();
 const { plan } = storeToRefs(store);

@@ -1424,8 +1424,12 @@ img.secImg {
     border-radius: 20px;
 	border:1px solid transparent;
 }
-.serviceTab .tabSec .nav li:hover a{
+.serviceTab .tabSec .nav li.active a{
 	border:1px solid #D6D6D6;
+}
+
+.serviceTab .tabSec .nav li:hover a {
+    border: 1px solid #D6D6D6;
 }
 .serviceTab .tabSec .nav li label {
     width: 68%;

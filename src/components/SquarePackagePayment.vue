@@ -54,49 +54,22 @@ const tokenize = async (paymentMethod) => {
 }
 
 const createPayment = async (token) => {
-  const url = 'https://connect.squareup.com/v2/payments';
-const accessToken = 'ACCESS_TOKEN'; // Replace with your actual access token
-
-const requestData = {
-  idempotency_key: '7b0f3ec5-086a-4871-8f13-3c81b3875218',
-  amount_money: {
-    amount: 1000,
-    currency: 'USD',
-  },
-  source_id: 'EAAAEI17WW-Bb2Aan6qRuHNUsLS_3St2kIobFHRnBXdBIdRaoFaUhHODoe0qR0jS',
-  autocomplete: true,
-  customer_id: 'W92WH6P11H4Z77CTET0RNTGFW8',
-  location_id: locationId,
-  reference_id: '123456',
-  note: 'Brief description',
-  app_fee_money: {
-    amount: 10,
-    currency: 'USD',
-  },
-};
-
-const options = {
-  method: 'POST',
-  headers: {
-    'Square-Version': '2023-04-19',
-    'Authorization': `Bearer ${'EAAAEI17WW-Bb2Aan6qRuHNUsLS_3St2kIobFHRnBXdBIdRaoFaUhHODoe0qR0jS'}`,
-    'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*',
-  },
-  body: JSON.stringify(requestData),
-};
-
-fetch(url, options)
-  .then(response => response.json())
-  .then(data => {
-    // Handle the response data
-    console.log(data);
-  })
-  .catch(error => {
-    // Handle any errors
-    console.error(error);
-  });
-
+   const body = JSON.stringify({
+     locationId,
+     sourceId: token,
+   });
+   const paymentResponse = await fetch('/payment', {
+     method: 'POST',
+     headers: {
+       'Content-Type': 'application/json',
+     },
+     body,
+   });
+   if (paymentResponse.ok) {
+     return paymentResponse.json();
+   }
+   const errorBody = await paymentResponse.text();
+   throw new Error(errorBody);
  }
 
 const handlePaymentMethodSubmission = async () => {

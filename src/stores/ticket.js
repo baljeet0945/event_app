@@ -40,9 +40,9 @@ export const useTicketStore = defineStore('ticket', () => {
   }
 
 
-  const getCartItems = async(cart) => {  
+  const getCartItems = async(cart) => { 
     try {
-        const response = await fetchWrapper.get(`events-details/${slug}`);    
+        const response = await fetchWrapper.post('cart-items', cart);    
         eventDetail.value = response.data
     } catch (error) {
         // const alertStore = useAlertStore();
@@ -51,13 +51,5 @@ export const useTicketStore = defineStore('ticket', () => {
     }
   }
 
-  const resetCart = () => {
-    cart.value = []
-  }
-
-  const removeFromCart = (cart) =>{
-    //window.localStorage.setItem('cart', JSON.stringify(cart));
-  }
-
-  return {cart, addToCart, resetCart, getCartItems, updateToCart, removeToCart, cartPriceTotal}
+  return {cart, addToCart, getCartItems, updateToCart, removeToCart, cartPriceTotal}
 }, {persist: { storage: sessionStorage, key: 'cart'}})

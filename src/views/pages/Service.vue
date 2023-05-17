@@ -1,4 +1,5 @@
 <script setup>
+import { ref } from "vue";
 import { useTestimonialStore } from '@/stores/testimonial.store'
 import { storeToRefs } from "pinia";
 
@@ -8,9 +9,12 @@ import InquiryForm from '@/components/InquiryFormComponent.vue';
 
 const usersStore = useTestimonialStore();
 const { testimonialSlides } = storeToRefs(usersStore);
+const tab = ref(1);
 testimonialSlides.value = 2
 
-
+function changeTab(tabNo){
+    tab.value = tabNo
+}
 </script>
 
 <template>  
@@ -21,44 +25,36 @@ testimonialSlides.value = 2
                 <div class="col-md-12 col-lg-12">
                     <div id="exTab2" class="container tabSec" v-motion-pop-bounce>	
                         <ul  class="nav nav-pills">
-                            <li class="active"> <a  href="#1a" data-toggle="tab"><span><img src="@/assets/images/event.png"></span> <label>Event Management & Promotions</label></a></li>
-                            <li><a href="#2a" data-toggle="tab"><span><img src="@/assets/images/brand.png"></span> <label>Brand & Product Launch</label></a></li>
-                            <li><a href="#3a" data-toggle="tab"><span><img src="@/assets/images/marketing.png"></span> <label>Online and Offline Marketing</label></a></li>
-                            
-                        </ul>
-                        
+                            <li :class="{ 'active' : tab === 1 }"><router-link to="" @click="changeTab(1)"><span><img src="@/assets/images/event.png"></span> <label>Event Management & Promotions</label></router-link></li>
+                            <li :class="{ 'active' : tab === 2}"><router-link to="" @click="changeTab(2)"><span><img src="@/assets/images/brand.png"></span> <label>Brand & Product Launch</label></router-link></li>
+                            <li :class="{ 'active' : tab === 3}"><router-link to="" @click="changeTab(3)"><span><img src="@/assets/images/marketing.png"></span> <label>Online and Offline Marketing</label></router-link></li>
+                        </ul>                        
                     <div class="tab-content clearfix">
-                    <div class="tab-pane active" id="1a">
+                    <div class="" v-show="tab == 1">
                         <p>We help you organize, manage, promote, and make your event success! With over 2 decades of experience in hosting events, our team of professionals will help you:</p>
                         <ul class="listStyle">
                             <li>Plan: We help you with site selection, budget planning, timeline co-ordination, attendee registration, speaker set-up, food, beverages and everything else you’ll need for an amazing event.</li> 
-
                             <li>Promote: We’ll boost your attendance numbers through a series of promotional videos, street promotions, online ads, and more. From designing and distributing flyers in your local neighborhood to running a big digital campaign, we can do it all. </li>
 
                             <li>Manage: We ensure everything runs smooth as silk. We take care of your guest’s needs, any last-minute changes, and all other management related details.</li>
                         </ul>
                     </div>
-                    <div class="tab-pane" id="2a">
+                    <div class="" v-show="tab == 2">
                             <p>We help you organize, manage, promote, and make your event success! With over 2 decades of experience in hosting events, our team of professionals will help you:</p>
                         <ul class="listStyle">
                             <li>Plan: We help you with site selection, budget planning, timeline co-ordination, attendee registration, speaker set-up, food, beverages and everything else you’ll need for an amazing event.</li> 
-
-
                             <li>Manage: We ensure everything runs smooth as silk. We take care of your guest’s needs, any last-minute changes, and all other management related details.</li>
                         </ul>
                     </div>
                     
-                    <div class="tab-pane" id="3a">
+                    <div class="" v-show="tab == 3">
                             <p>We help you organize, manage, promote, and make your event success! With over 2 decades of experience in hosting events, our team of professionals will help you:</p>
                         <ul class="listStyle">
                             <li>Plan: We help you with site selection, budget planning, timeline co-ordination, attendee registration, speaker set-up, food, beverages and everything else you’ll need for an amazing event.</li> 
-
                             <li>Online ads, and more. From designing and distributing flyers in your local neighborhood to running a big digital campaign, we can do it all. </li>
-
                             <li>Manage: We ensure everything runs smooth as silk. We take care of your guest’s needs.</li>
                         </ul>
                     </div>
-        
                     </div>
                     
                     </div>
@@ -203,3 +199,6 @@ testimonialSlides.value = 2
 	</div>
   </main>
 </template>
+<style scoped>
+
+</style>
