@@ -1509,4 +1509,12 @@ img.secImg {
     left: -48px;}
 .sectionTestimonial.sectionSrTestimonial .post-box-tst.owl-carousel .owl-nav button.owl-next {
     right: -75px;}
-	
+span.modelclosebtn {
+    float: right;
+    font-size: 90px;
+    color: #fff;
+    cursor: pointer;
+    position: relative;
+    bottom: 50px;
+    left: 50px;
+}

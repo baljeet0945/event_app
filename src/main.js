@@ -6,18 +6,22 @@ import App from './App.vue'
 import  { router }  from './router'
 
 import { MotionPlugin } from '@vueuse/motion'
+import { createVfm } from 'vue-final-modal'
 
 import Toast, { POSITION, TYPE } from "vue-toastification";
+
 // Import the CSS or use your own!
 import "vue-toastification/dist/index.css";
-
+import 'vue-final-modal/style.css'
 
 
 const app = createApp(App)
 const pinia = createPinia()
+const vfm = createVfm()
 pinia.use(piniaPluginPersistedstate)
 app.use(pinia)
 app.use(router)
+app.use(vfm)
 app.use(MotionPlugin, {
     directives: {
       'pop-bounce-visible-once': {

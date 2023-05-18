@@ -1,9 +1,15 @@
 <script setup>
+import { toRefs } from "vue";
 import {useForm, Field, ErrorMessage } from 'vee-validate';
 import * as yup from 'yup';
 
 import FormStep  from './FormStep.vue';
 import FormWizard  from './FormWizard.vue';
+
+const props = defineProps({
+  modal: false
+})
+const { modal } = toRefs(props)
 
 const { handleSubmit, setFieldError, setErrors } = useForm();
 // break down the validation steps into multiple schemas
@@ -46,8 +52,13 @@ const onSubmit = handleSubmit(async (values, actions)=> {
 });
 </script>
 <template>
-    <div class="container" id="Inquiry">
+    <div class="container" id="Inquiry">      
         <div class="contactSec">
+            <div class="row" v-if="modal == true">              
+              <div class="col-sm-12">
+                <span @click="$emit('closeModal')" class="modelclosebtn">&times;</span>
+              </div>
+            </div>
           <h2 v-motion-pop-bounce-visible-once>Let’s discuss about your next event</h2>
           <div class="contactSecForm" id="multistepsform"> 
               <!-- progressbar -->
