@@ -2,6 +2,10 @@
 import { watch, ref} from 'vue'
 import {useRoute } from 'vue-router'
 const route = useRoute()
+
+import { useAuthStore } from '@/stores/auth.store';
+const authStore = useAuthStore();
+const { authUser, logout } = authStore;
 const headerClass = ref('inner-header')
 // You can watch the property for triggering some other action on change
 watch(() => route.path, () => {
@@ -43,9 +47,19 @@ watch(() => route.path, () => {
                   </div>
                 </nav>
             </div>
-            <div class="col-md-3 col-lg-3">
+            <div class="col-md-3 col-lg-3">           
               <div class="top-btn">
-                <router-link class="t-btn" to="/login">Login</router-link>  
+                <div class="dropdown-center" v-if="authUser">
+                  <a class="nav-link dropdown-toggle dropdown-toggle-split" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="@/assets/images/user.png" width="50">
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><router-link class="dropdown-item" to="/profile">Profile</router-link></li>
+                    <li><router-link class="dropdown-item" to="/event">Saved Events</router-link></li>
+                    <li><router-link class="dropdown-item" @click="logout" to="/login">Logout</router-link></li>
+                  </ul>
+                </div>
+                <router-link class="t-btn" to="/login" v-if="!authUser">Login</router-link>  
                 <a class="t-btn" href="#Inquiry">Book Now</a>                
               </div>
             </div>

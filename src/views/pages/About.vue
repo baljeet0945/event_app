@@ -6,7 +6,7 @@ import { storeToRefs } from "pinia";
 import TestimonialCarousel from '@/components/TestimonialCarousel.vue';
 import InquiryForm from '@/components/InquiryFormComponent.vue';
 const usersStore = useTestimonialStore();
-const { testimonialSlides } = storeToRefs(usersStore);
+const { testimonialSlides } = storeToRefs(usersStore)
 testimonialSlides.value = 1
 
 

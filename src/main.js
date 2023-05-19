@@ -118,11 +118,11 @@ app.use(MotionPlugin, {
   })
 const options = {
     // You can set your default options here
-    position: POSITION.BOTTOM,
+    position: POSITION.TOP_CENTER,
     transition: "Vue-Toastification__bounce",
     maxToasts: 5,
     pauseOnHover: true,
-    timeout: 10000,
+    timeout: 5000,
     newestOnTop: true,
   //   transition: {
   //     enter: "fade-enter-active",

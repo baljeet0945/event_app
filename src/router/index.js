@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router';
-// import { useAuthStore, useAlertStore } from '@/stores';
-import DashboardLayout from '../views/pages/Layout.vue'
-import Login from '../views/auth/Login.vue'
-import Signup from '../views/auth/Signup.vue'
-import ForgotPassword from '../views/auth/ForgotPassword.vue'
+import { useAuthStore } from '@/stores/auth.store';
+import DashboardLayout from '@/views/pages/Layout.vue'
+import Login from '@/views/auth/Login.vue'
+import Signup from '@/views/auth/Signup.vue'
+import ForgotPassword from '@/views/auth/ForgotPassword.vue'
 
 export const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -80,18 +80,19 @@ export const router = createRouter({
     ]
 });
 
-// router.beforeEach(async (to) => {
-//     // clear alert on route change
-//     const alertStore = useAlertStore();
-//     alertStore.clear();
+router.beforeEach((to, from, next) => {
+    document.title = to.meta.title;
+    next();
+});
 
+// router.beforeEach(async (to) => {
 //     // redirect to login page if not logged in and trying to access a restricted page 
-//     const publicPages = ['/account/login', '/account/register'];
+//     const publicPages = ['/login', '/signup', '/forgot-password'];
 //     const authRequired = !publicPages.includes(to.path);
 //     const authStore = useAuthStore();
 
-//     if (authRequired && !authStore.user) {
+//     if (authRequired && !authStore.authUser) {
 //         authStore.returnUrl = to.fullPath;
-//         return '/account/login';
+//         return '/login';
 //     }
 // });
