@@ -7,36 +7,19 @@ export const useEventStore = defineStore('event', () => {
   const eventDetail = ref([]) 
 
   const getEvents = async () => { 
-    try {  
-      const response = await fetchWrapper.get('eventslist');    
-      events.value = response.data
-    } catch (error) {
-        // const alertStore = useAlertStore();
-        // alertStore.error(error); 
-        console.log(error);               
-    } 
+    const response = await fetchWrapper.get('eventslist');    
+    events.value = response.data
   }
 
-  const getEventsById = async (eventId) => { 
-    try {  
-      const response = await fetchWrapper.get('eventslist');    
-      events.value = response.data
-    } catch (error) {
-        // const alertStore = useAlertStore();
-        // alertStore.error(error); 
-        console.log(error);               
-    } 
+  const getEventsById = async (eventId) => {   
+    const response = await fetchWrapper.get('eventslist');    
+    events.value = response.data
   }
 
-  const getEventDetail = async (slug) => { 
-    try {
-        const response = await fetchWrapper.get(`events-details/${slug}`);    
-        eventDetail.value = response.data
-    } catch (error) {
-        // const alertStore = useAlertStore();
-        // alertStore.error(error); 
-        console.log(error);               
-    }
+  const getEventDetail = async (slug) => {  
+      const response = await fetchWrapper.get(`events-details/${slug}`);    
+      eventDetail.value = response.data
   }
+  
   return {eventDetail, events, getEvents, getEventDetail}
 })

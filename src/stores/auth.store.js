@@ -7,6 +7,7 @@ import { useToast } from 'vue-toastification'
 export const useAuthStore = defineStore('auth', () => { 
     const toast = useToast();  
     const authUser  = ref(JSON.parse(localStorage.getItem('token')))  
+    const user  = ref([]) 
     const login = async (email, password) => {       
         const response = await fetchWrapper.post('signin', { email, password });
         if(response.message == 'success'){
@@ -18,14 +19,19 @@ export const useAuthStore = defineStore('auth', () => {
         }else{
             toast.error(response.data);      
         } 
-    }    
+    } 
+    
+    const getUser = async (slug) => {  
+        const response = await fetchWrapper.get(`events-details/${slug}`);    
+        eventDetail.value = response.data
+    }
 
     const logout = () => {
         authUser.value = null;
-        localStorage.removeItem('user');
+        localStorage.removeItem('token');
         router.push('/login');
     } 
 
-    return { authUser, login, logout}
+    return { authUser, login, logout, user}
 })
 

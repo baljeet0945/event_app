@@ -39,16 +39,10 @@ export const useTicketStore = defineStore('ticket', () => {
     cart.value.splice(index,1);
   }
 
-
-  const getCartItems = async(cart) => { 
-    try {
-        const response = await fetchWrapper.post('cart-items', cart);    
-        eventDetail.value = response.data
-    } catch (error) {
-        // const alertStore = useAlertStore();
-        // alertStore.error(error); 
-        console.log(error);               
-    }
+  const getCartItems = async(cart) => {  
+    const response = await fetchWrapper.post('cart-items', cart);    
+    eventDetail.value = response.data
+   
   }
 
   return {cart, addToCart, getCartItems, updateToCart, removeToCart, cartPriceTotal}
