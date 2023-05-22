@@ -604,7 +604,7 @@ text-align: center;color: #000;}
 #multistepsform fieldset:not(:first-of-type) {
   display: none;
 }
-#multistepsform input,
+#multistepsform input, #multistepsform button,
 #multistepsform textarea, #multistepsform select, .cForm input,
 .cForm textarea, .cForm select, input, select, textarea {
   padding: 15px;
@@ -617,7 +617,7 @@ text-align: center;color: #000;}
     color: #000;
     font-size: 16px;
 }
-#multistepsform input:focus,
+#multistepsform button:focus,
 #multistepsform textarea:focus {
   border-color: #679b9b;
   outline: none;
@@ -955,7 +955,7 @@ footer p{font-size: 18px; color: #000;}
     line-height: 42px;
 	    margin-bottom: 20px;
 }
-.enqryForm input,
+.enqryForm button,
 .enqryForm textarea, .enqryForm select {
   padding: 11px;
     border: 1px solid #000;
@@ -967,7 +967,7 @@ footer p{font-size: 18px; color: #000;}
     font-size: 16px;
 	    width: auto;
 }
-.enqryForm input.submit {
+.enqryForm button.submit {
     width: auto;
     background: #000;
     color: #fff;
@@ -1379,6 +1379,15 @@ footer p{font-size: 18px; color: #000;}
     color: #000;
     margin: 5px 0;
 }
+.updatePicture .pPic img{
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+}
+.updatePicture .pPic:hover{
+   cursor: pointer;
+}
+
 .updatePicture .pPic a{color: #000;}
 .profileForm {
     width: 100%;

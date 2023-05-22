@@ -8,11 +8,11 @@ import  { router }  from './router'
 import { MotionPlugin } from '@vueuse/motion'
 import { createVfm } from 'vue-final-modal'
 
-import Toast, { POSITION, TYPE } from "vue-toastification";
+import Toast, { POSITION} from "vue-toastification";
 
 // Import the CSS or use your own!
-import "vue-toastification/dist/index.css";
 import 'vue-final-modal/style.css'
+import "vue-toastification/dist/index.css";
 
 
 const app = createApp(App)

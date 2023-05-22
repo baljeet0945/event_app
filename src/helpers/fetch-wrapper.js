@@ -8,20 +8,31 @@ export const fetchWrapper = {
 };
 
 function request(method) {
-    return (apiRoute, body) => {
+    return (apiRoute, formData, isFile=false) => {
         const requestOptions = {
             method,
             headers: authHeader(baseUrl+apiRoute)
         };
-        if (body) {
-            requestOptions.headers['Content-Type'] = 'application/json';
-            requestOptions.body = JSON.stringify(body);
+        if (formData) {
+            if(isFile){              
+                //requestOptions.headers['Content-Type'] = 'multipart/form-data';
+                requestOptions.body = formData;
+                // for (const pair of formData.entries()) {
+                //     console.log(`${pair[0]}`);
+                //     console.log(pair[1]);
+                //   }
+            }else{
+                requestOptions.headers['Content-Type'] = 'application/json';
+                requestOptions.body = JSON.stringify(formData);
+            }            
+            requestOptions.headers['Accept'] = 'application/json';
+            
         }
+       
+        //console.log(requestOptions)
         return fetch(baseUrl+apiRoute, requestOptions).then(handleResponse);
     }
 }
-
-// helper functions
 
 function authHeader(url) {
     // return auth header with jwt if user is logged in and request is to the api url
@@ -38,7 +49,7 @@ function authHeader(url) {
 async function handleResponse(response) {
     const isJson = response.headers?.get('content-type')?.includes('application/json');
     const data = isJson ? await response.json() : null;
-
+    
     // check for error response
     // if (!response.ok) { 
     //     // get error message from body or default to response status

@@ -8,6 +8,11 @@ export const useAuthStore = defineStore('auth', () => {
     const toast = useToast()
     const authUser  = ref(JSON.parse(localStorage.getItem('token')))  
     const user  = ref([])   
+    const avatar = ref('')
+    const profileForm = ref({
+        email: String,
+        phone: Number,
+    })
     const login = async (email, password) => {       
         const response = await fetchWrapper.post('signin', { email, password });
         if(response.message == 'success'){
@@ -24,6 +29,9 @@ export const useAuthStore = defineStore('auth', () => {
     const getUser = async () => {          
         const response = await fetchWrapper.get('profile');    
         user.value = response.data
+        avatar.value = response.data.profilePic
+        profileForm.value.email = response.data.email
+        profileForm.value.phone = response.data.phone
     }
 
     const logout = () => {
@@ -32,6 +40,6 @@ export const useAuthStore = defineStore('auth', () => {
         router.push('/login');
     } 
 
-    return { authUser, login, logout, user, getUser}
+    return { authUser, login, logout, user, getUser, avatar, profileForm}
 })
 

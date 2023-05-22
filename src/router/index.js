@@ -62,7 +62,15 @@ export const router = createRouter({
                     component: () => import ('@/views/pages/profile.vue'), 
                     meta:{
                         title: 'MTE Profile',
-                        //requiresAuth: true
+                        requiresAuth: true
+                    } 
+                },
+                {
+                    path: 'saved-events', 
+                    component: () => import ('@/views/pages/SavedEvents.vue'), 
+                    meta:{
+                        title: 'MTE Saved Events',
+                        requiresAuth: true
                     } 
                 }
             ]

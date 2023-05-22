@@ -7,6 +7,7 @@ import { router }  from '@/router';
 import { useToast } from 'vue-toastification'
 document.querySelector('body').style.backgroundColor = '#000'
 const step = ref('signup')
+const toast = useToast()
 const signup = Yup.object().shape({
     email: Yup.string().required('Email is required'),
     name: Yup.string().required('Name is required'),
@@ -18,8 +19,7 @@ const otp = Yup.object().shape({
 });
 
 async function onSubmit(values, { setErrors , resetForm}) { 
-	const res = await fetchWrapper.post('signup', values);	
-	console.log(res);
+	const res = await fetchWrapper.post('signup', values);		
 	if(res.message == 'success'){
 		step.value = 'otp'
 		resetForm()	
