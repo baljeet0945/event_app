@@ -41,9 +41,9 @@ export const useTicketStore = defineStore('ticket', () => {
 
   const getCartItems = async(cart) => {  
     const response = await fetchWrapper.post('cart-items', cart);    
-    eventDetail.value = response.data
-   
+    eventDetail.value = response.data   
   }
 
   return {cart, addToCart, getCartItems, updateToCart, removeToCart, cartPriceTotal}
+
 }, {persist: { storage: sessionStorage, key: 'cart'}})

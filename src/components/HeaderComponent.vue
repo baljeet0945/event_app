@@ -1,6 +1,7 @@
 <script setup>
 import { watch, ref} from 'vue'
 import {useRoute } from 'vue-router'
+
 const route = useRoute()
 
 import { useAuthStore } from '@/stores/auth.store';
@@ -60,7 +61,7 @@ watch(() => route.path, () => {
                   </ul>
                 </div>
                 <router-link class="t-btn" to="/login" v-if="!authUser">Login</router-link>  
-                <a class="t-btn" href="#Inquiry">Book Now</a>                
+                <a class="t-btn" href="#Inquiry" @click="$emit('openModal')">Book Now</a>                
               </div>
             </div>
           </div>
@@ -161,8 +162,6 @@ watch(() => route.path, () => {
           </div>
         </div>
       </div>
-    </div>
-
-
+    </div>   
   </header>
 </template>

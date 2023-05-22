@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import { useAuthStore } from '@/stores/auth.store';
 import DashboardLayout from '@/views/pages/Layout.vue'
 import Login from '@/views/auth/Login.vue'
 import Signup from '@/views/auth/Signup.vue'
@@ -57,6 +56,14 @@ export const router = createRouter({
                     path: 'buy-package/:slug', 
                     component: () => import ('@/views/pages/BuyPackage.vue'), 
                     meta:{title: 'MTE Package'} 
+                },
+                {
+                    path: 'profile', 
+                    component: () => import ('@/views/pages/profile.vue'), 
+                    meta:{
+                        title: 'MTE Profile',
+                        //requiresAuth: true
+                    } 
                 }
             ]
         },
@@ -80,10 +87,23 @@ export const router = createRouter({
     ]
 });
 
-router.beforeEach((to, from, next) => {
-    document.title = to.meta.title;
-    next();
-});
+// router.beforeEach(async(to, from, next) => {
+//     document.title = to.meta.title;
+//     const authStore = useAuthStore();
+//     if (to.meta.requiresAuth && !authStore.authUser) {
+//         // this route requires auth, check if logged in
+//         // // if not, redirect to login page.
+//         // return {
+//         //   path: '/',
+//         //   // save the location we were at to come back later
+//         //   query: { redirect: to.fullPath },
+//         // }
+       
+//         next('/login')
+//     }else{
+//         next();
+//     }    
+// });
 
 // router.beforeEach(async (to) => {
 //     // redirect to login page if not logged in and trying to access a restricted page 

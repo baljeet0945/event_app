@@ -154,7 +154,6 @@ testimonialSlides.value = 1
 		<section class="sectionContact spaceSec" style="padding-top: 0;">
             <InquiryForm/>
         </section>
-
 	</div>
   </main>
 </template>

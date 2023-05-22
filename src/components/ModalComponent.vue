@@ -17,18 +17,23 @@ const getInitialValues = () => ({
 })
 
 const options = ref(getInitialValues())
-
+defineExpose({
+  openModal
+});
 function closeModal() {
   options.value.modelValue = false;
+}
+function openModal() {
+  options.value.modelValue = true;
 }
 </script>
 
 <template>
-  <div class="mt-4 space-x-4">
+  <!-- <div class="mt-4 space-x-4">
     <button class="ml-auto" @click="options.modelValue = true">
       Open modal
     </button>  
-  </div>
+  </div> -->
 
   <VueFinalModal
   v-model="options.modelValue"

@@ -2,6 +2,7 @@
 import { onMounted, ref, toRefs } from "vue";
 import { Field, Form, ErrorMessage } from 'vee-validate';
 import * as yup from 'yup';
+import { fetchWrapper } from '@/helpers';
 
 const props = defineProps({
   amount: Number
@@ -53,27 +54,20 @@ const tokenize = async (paymentMethod) => {
   }
 }
 
- // Call this function to send a payment token, buyer name, and other details
- // to the project server code so that a payment can be created with 
- // Payments API
 const createPayment = async (token) => {
    const body = JSON.stringify({
      locationId,
      sourceId: token,
    });
-   const paymentResponse = await fetch('/payment', {
-     method: 'POST',
-     headers: {
-       'Content-Type': 'application/json',
-     },
-     body,
-   });
-   if (paymentResponse.ok) {
-     return paymentResponse.json();
-   }
-   const errorBody = await paymentResponse.text();
-   throw new Error(errorBody);
- }
+   const res = await fetchWrapper.post('purchase-tickets', body);
+   console.log(res);	
+  //  if (paymentResponse.ok) {
+  //    return paymentResponse.json();
+  //  }
+  //  const errorBody = await paymentResponse.text();
+  //  throw new Error(errorBody);
+}
+
 const handlePaymentMethodSubmission = async () => {
   paymentStatus.value = "";
   const token = await tokenize(card); 

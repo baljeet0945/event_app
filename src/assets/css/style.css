@@ -1391,7 +1391,7 @@ footer p{font-size: 18px; color: #000;}
 .form-field label {
     margin-bottom: 15px;
 }
-.form-field input.submit {
+.form-field button.submit {
     background: #000;
     color: #fff;
     width: auto;

@@ -64,8 +64,7 @@ async function onVerify(values, { setErrors , resetForm}) {
 									<Form @submit="onSubmit" :validation-schema="signup"  v-slot="{ errors, isSubmitting }">
 										<div class="formField">
 											<label>Full Name</label>
-											<Field name="name" type="text" class="form-control" placeholder="Enter your name"  />
-											<ErrorMessage name="name" />
+											<Field name="name" type="text" class="form-control" placeholder="Enter your name"  />									
 											<div class="invalid-feedback">{{ errors.name }}</div>
 										</div>
 										<div class="formField">

@@ -1,16 +1,28 @@
 <script setup>
-import { toRefs } from "vue";
+import { toRefs, ref, onMounted } from "vue";
 import {useForm, Field, ErrorMessage } from 'vee-validate';
 import * as yup from 'yup';
 
+import { usePageStore } from '@/stores/page'
+// import {useEventStore} from '@/stores/event.store'
+import { storeToRefs } from "pinia";
+
 import FormStep  from './FormStep.vue';
 import FormWizard  from './FormWizard.vue';
+  
+const store = usePageStore();
+const { inquiryStep } = storeToRefs(store);
+// const eventStore = useEventStore()
+// const {events} = storeToRefs (eventStore)
+// onMounted(() => {
+//   eventStore.getEvents()
+// })
 
 const props = defineProps({
   modal: false
 })
 const { modal } = toRefs(props)
-
+const step = ref(0)
 const { handleSubmit, setFieldError, setErrors } = useForm();
 // break down the validation steps into multiple schemas
 const validationSchema = [
@@ -37,22 +49,26 @@ const validationSchema = [
 
 const onSubmit = handleSubmit(async (values, actions)=> {
   // Send data to the API 
-  const response = await fetch(APISettings.baseURL + 'event-inquery', {
-      method: 'POST',
-      headers: APISettings.headers,
-      body: JSON.stringify(values)
-    });
+
+  const res = await fetchWrapper.post('event-inquery', values);	
+	if(res.message == 'success'){		
+		resetForm()
+		router.push('/login');
+	}else{
+		setErrors( res.data )
+		toast.error('Verification Failed!');  
+	}  
   // set single field error
-  if (response.errors.email) {
-    actions.setFieldError('email', response.errors.email);
-  }
-  // set multiple errors, assuming the keys are the names of the fields
-  // and the values is the error message
-  actions.setErrors(response.errors);
+  // if (response.errors.email) {
+  //   actions.setFieldError('email', response.errors.email);
+  // }
+  // // set multiple errors, assuming the keys are the names of the fields
+  // // and the values is the error message
+  // actions.setErrors(response.errors);
 });
 </script>
 <template>
-    <div class="container" id="Inquiry">      
+    <div class="container" id="Inquiry">          
         <div class="contactSec">
             <div class="row" v-if="modal == true">              
               <div class="col-sm-12">
@@ -63,12 +79,9 @@ const onSubmit = handleSubmit(async (values, actions)=> {
           <div class="contactSecForm" id="multistepsform"> 
               <!-- progressbar -->
               <ul id="progressbar" class="progressbar" v-motion-left-in-visible-once>
-                <li class="active">Event and contact info
-                <p>Let us know your event type and contact info</p></li>
-                  <li>Event venue
-                <p>Please tell about your preferred venue and managements</p></li>
-                  <li>Estimated Budget
-                <p>We are good with all budgets for awesome events</p></li>
+                <li v-bind:class="{'active': inquiryStep >= 0}">Event and contact info<p>Let us know your event type and contact info</p></li>
+                <li v-bind:class="{'active': inquiryStep >= 1}">Event venue<p>Please tell about your preferred venue and managements</p></li>
+                <li v-bind:class="{'active': inquiryStep >= 2}">Estimated Budget<p>We are good with all budgets for awesome events</p></li>
               </ul> 
               <div class="formField" v-motion-right-in-visible-once>
                 <FormWizard :validation-schema="validationSchema" @submit="onSubmit">
@@ -145,6 +158,6 @@ const onSubmit = handleSubmit(async (values, actions)=> {
         </div>
     </div>
 </template>
-<style>
+<style scoped lang="css">
 fieldset{position: absolute;}
 </style>
