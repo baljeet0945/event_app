@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted } from 'vue'
 import  {useEventStore} from '@/stores/event.store'
-
+import {useTicketStore} from '@/stores/ticket'
 import { storeToRefs } from "pinia";
 const store = useEventStore()
 const {events} = storeToRefs (store)
@@ -10,30 +10,50 @@ const { getEvents } = store;
 onMounted(() => {
   getEvents()
 })
+function toggleCart(event, status){  
+  const childElement = event.target.querySelector(".cart-status");
+  const childElementHover = event.target.querySelector(".cart-status-hover");
+  if(status){
+    childElement.style.display = 'none'
+    childElementHover.style.display = 'block'
+  }else{
+    childElement.style.display = 'block'
+    childElementHover.style.display = 'none'
+  }    
+}
+
+function buyTicket(item) {
+	const ticketStore = useTicketStore();    
+  ticketStore.addToCart(item);    
+}
 </script>
 <template>
     <Carousel :itemsToShow="3" :breakpoints="breakpoints">
         <template #slides>
-            <Slide v-for="slide in events" :key="slide">
+            <Slide v-for="event in events" :key="index">
                 <div class="post-grid carousel__item">
                     <div class="featureImg">
-                        <a href="#"><img :src="slide.featureImage" alt="event image"></a>
+                        <a href="#"><img :src="event.featureImage" alt="event image"></a>
                         <span class="post_date"><span class="lg-font">12</span><br><span>MAY</span></span>
                     </div>
                     <div class="post-content">
                         <div class="postTitle">
-                            <h3>{{ slide.title }}</h3>
-                            <h4>{{ slide.eventLocation }}</h4>
+                            <h3>{{ event.title }}</h3>
+                            <h4>{{ event.eventLocation }}</h4>
                         </div>
                         <p>Lorem cursus eu velit vitae egestas non. Tristique proin at neque nulla phasellus. Cursus leo et rhoncus egestas.</p>
                         <div class="postMeta">
-                            <span class="postDate">{{slide.eventDate}}</span>
-                            <span class="postDate"><img src="@/assets/images/time.png"> &nbsp;{{slide.eventTime}}</span>
+                            <span class="postDate">{{event.eventDate}}</span>
+                            <span class="postDate"><img src="@/assets/images/time.png"> &nbsp;{{event.eventTime}}</span>
                             <span class="postDate" style="color: #5C5C5C; font-size: 16px;"><img src="@/assets/images/heart.png"> &nbsp;Saved</span>
                         </div>
                         <div class="postBtn">
-                            <span class="postBtnT"> <router-link class="viewBtn" :to="'/event-detail/' + slide.slug">Tickets & Details</router-link></span>                          
-                            <span class="postAdd"><img src="@/assets/images/lock.png"> &nbsp; <a href="#">Add</a></span>
+                            <span class="postBtnT"> <router-link class="viewBtn" :to="'/event-detail/' + event.slug">Tickets & Details</router-link></span>  
+                            
+                            {{ event.isCart }}
+                            <span v-if="event.isCart == true" class="postAdd"><span class="cart-status"><img src="@/assets/images/lock.png"> &nbsp; Added</span></span>
+
+                            <span v-else class="postAdd" @mouseenter="toggleCart($event,true)" @mouseleave="toggleCart($event, false)"><span class="cart-status"><img src="@/assets/images/lock.png"> &nbsp; Add</span><span class="cart-status-hover"  @click="buyTicket(event)"> Add to cart</span></span>
                         </div>
                     </div>
                 </div>    
@@ -75,5 +95,6 @@ export default defineComponent({
 })
 </script>
 <style>
-@import 'vue3-carousel/dist/carousel.css'
+@import 'vue3-carousel/dist/carousel.css';
+.cart-status-hover{display: none; cursor:pointer;}
 </style>
