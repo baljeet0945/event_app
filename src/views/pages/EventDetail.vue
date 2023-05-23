@@ -57,9 +57,7 @@ function buyTicket(item) {
             <section class="edContent">
                 <div class="row">
                     <div class="col-sm-12 col-lg-12">
-                        <p>Sed enim morbi ac sagittis ut egestas magna varius. Sagittis convallis risus maecenas convallis nisi lorem sed. Id mi ultrices nunc porttitor consectetur porta erat. Velit sit integer facilisi in leo tellus imperdiet libero. Vel dictum ullamcorper consequat ut ut eu nullam. Scelerisque id morbi dictum aliquam dui facilisis. Senectus amet turpis risus ut.</p> 
-
-                        <p>Sem lorem iaculis aliquam aliquet ut. Id cras ac consectetur sit vitae. Quam lacus pharetra tincidunt a. In dui leo fringilla at morbi sit facilisis purus. Ultrices in id quis ut adipiscing ligula arcu accumsan. Augue sit habitant morbi gravida in fermentum.</p>
+                        <p v-html="eventDetail.decription"></p>
                     </div>
                 </div>
 		    </section> 
@@ -100,12 +98,10 @@ function buyTicket(item) {
                     <div class="col-sm-8 col-lg-8">
                         <h3>Event Gallery</h3>
                         <div class="row" v-motion-left-in-visible-once>
-                            <div class="col-sm-6 col-lg-6">
-                                <img src="@/assets/images/gallery1.jpg">
-                            </div>
-                            <div class="col-sm-6 col-lg-6"><img src="@/assets/images/gallery2.jpg"></div>
-                            <div class="col-sm-6 col-lg-6"><img src="@/assets/images/gallery3.jpg"></div>
-                            <div class="col-sm-6 col-lg-6"><img src="@/assets/images/gallery4.jpg"></div>
+                            <div v-if="!eventDetail.gallery.length">No gallery for event</div>
+                            <div class="col-sm-6 col-lg-6" v-for="gallery in eventDetail.gallery" :key="gallery.id">
+                                <img :src="gallery.event_gallery_images">
+                            </div>                            
                         </div>
                         
                     </div>

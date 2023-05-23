@@ -12,12 +12,12 @@ onMounted(() => {
 </script>
 
 <template>
-    <div class="col-md-4 col-lg-4" v-motion-pop-bounce-visible-once v-for="plan in packages" :key="plan">
+    <div class="col-md-4 col-lg-4" v-motion-pop-bounce-visible-once v-for="plan in packages" :key="plan.id">
         <div class="priceList">
             <h2>{{ plan.title }} <span>people’s choice</span></h2>
             <h4>${{ plan.price }}</h4>
             <ul class="listStyle">
-                <li v-for="feature in plan.features" :key="feature">
+                <li v-for="feature in plan.features" :key="feature.id">
                     {{ feature.feature_name }}
                 </li>
             </ul>
