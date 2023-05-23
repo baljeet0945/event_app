@@ -10,6 +10,8 @@ const store = useEventStore()
 const { eventDetail } = storeToRefs(store);
 store.getEventDetail(route.params.slug)
 
+
+
 function buyTicket(item) {
 	const ticketStore = useTicketStore();    
     ticketStore.addToCart(item);
@@ -26,7 +28,7 @@ function buyTicket(item) {
                     </div>
                     <div class="col-sm-6 col-lg-6">
                         <div class="sPost">
-                            <span class="postDate" style="color: #5C5C5C; font-size: 16px;"><img src="@/assets/images/heart.png"> &nbsp;Saved</span>
+                            <span class="postDate" style="color: #5C5C5C; font-size: 16px;"><i class="fa-duotone fa-heart"></i> &nbsp;Saved</span>
                         </div>
                     </div>
                 </div>

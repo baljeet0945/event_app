@@ -415,6 +415,10 @@ div.owl-carousel .owl-nav .owl-prev, div.owl-carousel .owl-nav .owl-next{
     overflow: hidden;
 	position: relative;
 }
+.featureImg.bg{
+    height: 200px;   
+    background-size: cover;
+}
 .post-grid {
    padding: 0 13px;
 }
@@ -955,7 +959,7 @@ footer p{font-size: 18px; color: #000;}
     line-height: 42px;
 	    margin-bottom: 20px;
 }
-.enqryForm button,
+.enqryForm input,
 .enqryForm textarea, .enqryForm select {
   padding: 11px;
     border: 1px solid #000;
@@ -967,7 +971,7 @@ footer p{font-size: 18px; color: #000;}
     font-size: 16px;
 	    width: auto;
 }
-.enqryForm button.submit {
+.enqryForm input.submit {
     width: auto;
     background: #000;
     color: #fff;
@@ -1526,4 +1530,8 @@ span.modelclosebtn {
     position: relative;
     bottom: 50px;
     left: 50px;
+}
+.e-hover:hover{
+    cursor: pointer;
+    color: #437fc0 !important;
 }

@@ -3,7 +3,8 @@ import { fetchWrapper } from '@/helpers';
 import { defineStore } from 'pinia'
 
 export const useTicketStore = defineStore('ticket', () => { 
-  const cart = ref([])   
+  const cart = ref([])  
+  const cartCount = ref(0) 
 
   const cartPriceTotal = computed(() => {
     let total = 0;
@@ -17,13 +18,10 @@ export const useTicketStore = defineStore('ticket', () => {
     let found = cart.value.find(event => event.id == item.id );
     if(found){
       found.ticketInQueue++;
-    }else{
-        // const cartItem = {
-        //   'id': item.id,
-        //   'ticketInQueue': 1
-        // }  
-        item.ticketInQueue = 1      
-        cart.value.push(item)
+    }else{  
+      cartCount.value++  
+      item.ticketInQueue = 1      
+      cart.value.push(item)
     }     
   }
 
@@ -35,15 +33,11 @@ export const useTicketStore = defineStore('ticket', () => {
   }
   
   const removeToCart = (item) => {  
+    cartCount.value--
     let index = cart.value.indexOf(item);    
     cart.value.splice(index,1);
   }
 
-  const getCartItems = async(cart) => {  
-    const response = await fetchWrapper.post('cart-items', cart);    
-    eventDetail.value = response.data   
-  }
-
-  return {cart, addToCart, getCartItems, updateToCart, removeToCart, cartPriceTotal}
+  return {cart, addToCart, updateToCart, removeToCart, cartPriceTotal, cartCount}
 
 }, {persist: { storage: sessionStorage, key: 'cart'}})

@@ -27,7 +27,7 @@ const breakpoints = {
 <template>
     <Carousel :breakpoints="breakpoints" >
         <template #slides>
-            <Slide v-for="slide in testimonials" :key="slide">
+            <Slide v-for="slide in testimonials" :key="slide.id">
                 <slot name="testimonialWithFeature" 
                     :client_name="slide.client_name" 
                     :client_image="slide.client_image" 

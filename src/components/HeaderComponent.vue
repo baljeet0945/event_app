@@ -1,10 +1,15 @@
 <script setup>
 import { watch, ref} from 'vue'
 import {useRoute } from 'vue-router'
+import { useAuthStore } from '@/stores/auth.store';
+import { useTicketStore } from '@/stores/ticket'
+import { storeToRefs } from "pinia";
+
+const store = useTicketStore()
+const { cartCount } = storeToRefs(store);
 
 const route = useRoute()
 
-import { useAuthStore } from '@/stores/auth.store';
 const authStore = useAuthStore();
 const { authUser, logout } = authStore;
 const headerClass = ref('inner-header')
@@ -61,7 +66,12 @@ watch(() => route.path, () => {
                   </ul>
                 </div>
                 <router-link class="t-btn" to="/login" v-if="!authUser">Login</router-link>  
-                <a class="t-btn" href="#Inquiry" @click="$emit('openModal')">Book Now</a>                
+                <a class="t-btn" href="#Inquiry" @click="$emit('openModal')">Book Now</a> 
+                <router-link to="/checkout" v-if="cartCount > 0">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="25" height="40" fill="currentColor"  class="bi bi-cart" style="color: #6dc282;" viewBox="0 0 16 16">
+                  <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                </svg>
+                <span class="badge cart" >{{ cartCount }}</span></router-link>   
               </div>
             </div>
           </div>
@@ -165,3 +175,15 @@ watch(() => route.path, () => {
     </div>   
   </header>
 </template>
+<style>
+.cart{
+  font-size: 16px;
+  background: #eef3f3;
+  color: #000000;
+  padding: 0px 5px;
+  vertical-align: top;
+  margin-left: -10px;
+  font-weight: 600;
+  border-radius: 50%;
+}
+</style>

@@ -1,39 +1,52 @@
 <script setup>
 import { onMounted } from 'vue'
+import { Carousel, Navigation, Slide } from 'vue3-carousel'
 import  {useEventStore} from '@/stores/event.store'
 import {useTicketStore} from '@/stores/ticket'
+import { useAuthStore } from '@/stores/auth.store';
 import { storeToRefs } from "pinia";
-const store = useEventStore()
-const {events} = storeToRefs (store)
-const { getEvents } = store;
 
+const authStore = useAuthStore();
+const store = useEventStore()
+const ticketStore = useTicketStore();    
+const { events } = storeToRefs (store)
+const { getEvents } = store;
+const { authUser } = authStore;
+const breakpoints = {
+  // 700px and up
+  700: {
+    itemsToShow: 2,
+    snapAlign: 'center',
+  },
+  // 1024 and up
+  1024: {
+    itemsToShow: 3,
+    snapAlign: 'start',
+  },
+}
 onMounted(() => {
   getEvents()
 })
-function toggleCart(event, status){  
-  const childElement = event.target.querySelector(".cart-status");
-  const childElementHover = event.target.querySelector(".cart-status-hover");
-  if(status){
-    childElement.style.display = 'none'
-    childElementHover.style.display = 'block'
-  }else{
-    childElement.style.display = 'block'
-    childElementHover.style.display = 'none'
-  }    
+function toggleCart(index, status){  
+  events.value[index].isHover = status   
 }
 
-function buyTicket(item) {
-	const ticketStore = useTicketStore();    
-  ticketStore.addToCart(item);    
+function buyTicket(event, index) {	
+  ticketStore.addToCart(event);
+  events.value[index].isCart = true    
+}
+
+function addToWishlist(eventId, index){
+  store.addWishlist(eventId)
 }
 </script>
 <template>
-    <Carousel :itemsToShow="3" :breakpoints="breakpoints">
+    <Carousel :breakpoints="breakpoints">
         <template #slides>
-            <Slide v-for="event in events" :key="index">
+            <Slide v-for="(event, index) in events" :key="event.id">
                 <div class="post-grid carousel__item">
-                    <div class="featureImg">
-                        <a href="#"><img :src="event.featureImage" alt="event image"></a>
+                    <div class="featureImg bg" :style="{ backgroundImage: `url(${event.featureImage})` }" >
+                        <a href="#"></a>
                         <span class="post_date"><span class="lg-font">12</span><br><span>MAY</span></span>
                     </div>
                     <div class="post-content">
@@ -41,19 +54,24 @@ function buyTicket(item) {
                             <h3>{{ event.title }}</h3>
                             <h4>{{ event.eventLocation }}</h4>
                         </div>
-                        <p>Lorem cursus eu velit vitae egestas non. Tristique proin at neque nulla phasellus. Cursus leo et rhoncus egestas.</p>
+                        <p v-html="event.decription.substring(0,120) + '...'"></p>
                         <div class="postMeta">
                             <span class="postDate">{{event.eventDate}}</span>
                             <span class="postDate"><img src="@/assets/images/time.png"> &nbsp;{{event.eventTime}}</span>
-                            <span class="postDate" style="color: #5C5C5C; font-size: 16px;"><img src="@/assets/images/heart.png"> &nbsp;Saved</span>
+                            <div v-if="authUser">
+                              <span class="postDate e-hover" style="color: #5C5C5C; font-size: 16px;"  @click="addToWishlist(event.id, index)"><i class="fa-regular fa-heart"></i>&nbsp;Save</span>
+                              <!-- <span class="postDate e-hover" style="color: #5C5C5C; font-size: 16px;"><i class="fa-duotone fa-heart"></i>&nbsp;Saved</span> -->
+                            </div>
                         </div>
                         <div class="postBtn">
                             <span class="postBtnT"> <router-link class="viewBtn" :to="'/event-detail/' + event.slug">Tickets & Details</router-link></span>  
-                            
-                            {{ event.isCart }}
-                            <span v-if="event.isCart == true" class="postAdd"><span class="cart-status"><img src="@/assets/images/lock.png"> &nbsp; Added</span></span>
-
-                            <span v-else class="postAdd" @mouseenter="toggleCart($event,true)" @mouseleave="toggleCart($event, false)"><span class="cart-status"><img src="@/assets/images/lock.png"> &nbsp; Add</span><span class="cart-status-hover"  @click="buyTicket(event)"> Add to cart</span></span>
+                                                      
+                            <span v-if="event.isCart === true" class="postAdd" style="color: #5C5C5C; font-size: 16px;"><i class="fa-duotone fa-cart-shopping"></i> Added</span>
+                         
+                            <span v-else class="postAdd" @mouseenter="toggleCart(index,true)" @mouseleave="toggleCart(index, false)">
+                              <span class="cart-hover e-hover" v-show="event.isHover === false"><i class="fa-regular fa-cart-shopping"></i> Add</span>
+                              <span class="cart-hover e-hover" v-show="event.isHover === true" @click="buyTicket(event, index)"> Add to cart</span>
+                            </span>                          
                         </div>
                     </div>
                 </div>    
@@ -63,38 +81,13 @@ function buyTicket(item) {
             <Navigation/> 
         </template>
     </Carousel> 
-     
 </template>
-<script>
-import { defineComponent } from 'vue'
-import { Carousel, Navigation, Slide } from 'vue3-carousel'
-
-export default defineComponent({
-  name: 'Breakpoints',
-  components: {
-    Carousel,
-    Slide,
-    Navigation,
-  },
-  data: () => ({ 
-    // breakpoints are mobile first
-    // any settings not specified will fallback to the carousel settings
-    breakpoints: {
-      // 700px and up
-      700: {
-        itemsToShow: 2,
-        snapAlign: 'center',
-      },
-      // 1024 and up
-      1024: {
-        itemsToShow: 3,
-        snapAlign: 'center',
-      },
-    },
-  }),
-})
-</script>
-<style>
+<style >
 @import 'vue3-carousel/dist/carousel.css';
-.cart-status-hover{display: none; cursor:pointer;}
+.post-event-box .post-grid{
+    text-align: start;
+}
+span.cart-hover {  
+    font-size: 16px;
+}
 </style>

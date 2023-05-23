@@ -7,6 +7,7 @@ export const useEventStore = defineStore('event', () => {
   const items = useTicketStore()
   const events = ref([]) 
   const eventDetail = ref([]) 
+  const eventWishlist = ref([])
 
   const getEvents = async () => {       
     const response = await fetchWrapper.get('eventslist');
@@ -29,9 +30,18 @@ export const useEventStore = defineStore('event', () => {
   }
 
   const getEventDetail = async (slug) => {  
-      const response = await fetchWrapper.get(`events-details/${slug}`);    
-      eventDetail.value = response.data
+    const response = await fetchWrapper.get(`events-details/${slug}`);    
+    eventDetail.value = response.data
   }  
+
+  const addWishlist = async (eventId) =>{
+    const response = await fetchWrapper.post('wishlist-items', {'eventID':eventId});  
+  }
+
+  const getWishlist = async (eventId) =>{
+    const response = await fetchWrapper.get('wishlist');  
+    eventWishlist.value = response.data
+  }
   
-  return {eventDetail, events, getEvents, getEventDetail}
+  return {eventDetail, events, getEvents, getEventDetail, addWishlist, getWishlist, eventWishlist}
 })

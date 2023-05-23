@@ -11,6 +11,7 @@ import { createVfm } from 'vue-final-modal'
 import Toast, { POSITION} from "vue-toastification";
 
 // Import the CSS or use your own!
+import '@/assets/css/style.css'
 import 'vue-final-modal/style.css'
 import "vue-toastification/dist/index.css";
 

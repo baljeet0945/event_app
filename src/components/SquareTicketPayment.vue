@@ -54,12 +54,8 @@ const tokenize = async (paymentMethod) => {
   }
 }
 
-const createPayment = async (token) => {
-   const body = JSON.stringify({
-     locationId,
-     sourceId: token,
-   });
-   const res = await fetchWrapper.post('purchase-tickets', body);
+const createPayment = async (token) => {   
+   const res = await fetchWrapper.post('purchase-tickets', {'sourceId': token})
    console.log(res);	
   //  if (paymentResponse.ok) {
   //    return paymentResponse.json();
@@ -72,7 +68,7 @@ const handlePaymentMethodSubmission = async () => {
   paymentStatus.value = "";
   const token = await tokenize(card); 
   const payment = await createPayment(token);
-  console.log(data);
+  console.log(payment);
   if (!error.value) {
     paymentStatus.value = "Payment completed";
   } else {
