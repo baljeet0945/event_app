@@ -141,8 +141,8 @@ testimonialSlides.value = 1
 									</div>
 								</div>
 								
-								<div class="featureImg" v-motion-slide-right>
-									<a href="#"><img :src="slotProps.feature_image" alt="feature image"></a>								
+								<div class="featureImg bg-500" :style="{ backgroundImage: `url(${slotProps.feature_image})` }">
+															
 								</div>
 							</div> 
 						</template>

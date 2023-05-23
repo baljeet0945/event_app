@@ -45,8 +45,8 @@ function addToWishlist(eventId, index){
         <template #slides>
             <Slide v-for="(event, index) in events" :key="event.id">
                 <div class="post-grid carousel__item">
-                    <div class="featureImg bg" :style="{ backgroundImage: `url(${event.featureImage})` }" >
-                        <a href="#"></a>
+                    <div class="featureImg bg-200" :style="{ backgroundImage: `url(${event.featureImage})` }" >
+                     
                         <span class="post_date"><span class="lg-font">12</span><br><span>MAY</span></span>
                     </div>
                     <div class="post-content">

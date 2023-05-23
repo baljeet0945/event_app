@@ -1,5 +1,5 @@
 <script setup>
-import EventCarousel from '@/components/EventCarousel.vue';
+import EventComponent from '@/components/EventComponent.vue';
 import TestimonialCarousel from '@/components/TestimonialCarousel.vue';
 import InstaFeed from '@/components/InstaFeedComponent.vue';
 import InquiryForm from '@/components/InquiryFormComponent.vue';
@@ -37,7 +37,7 @@ testimonialSlides.value = 1
                 <div class="tab-pane active" id="music">
                   <div class="post-grid-container">     
                     <div class="row post-box-cnt post-event-box">
-                        <EventCarousel></EventCarousel>  
+                        <EventComponent/> 
                     </div>
                   </div>
                 </div>   

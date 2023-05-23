@@ -4,7 +4,7 @@ import { defineStore } from 'pinia'
 import { useTicketStore } from './ticket'
 
 export const useEventStore = defineStore('event', () => { 
-  const items = useTicketStore()
+  const tickets = useTicketStore()
   const events = ref([]) 
   const eventDetail = ref([]) 
   const eventWishlist = ref([])
@@ -12,13 +12,19 @@ export const useEventStore = defineStore('event', () => {
   const getEvents = async () => {       
     const response = await fetchWrapper.get('eventslist');
     response.data.forEach((event, index) => {
-      let found = items.cart.find(item => item.id == event.id );
+      let found = tickets.cart.find(item => item.id == event.id );
       if(found){
         response.data[index].isCart = true
         response.data[index].isHover = false
       }else{        
         response.data[index].isCart = false
         response.data[index].isHover = false
+      }
+      let checkWishlist = eventWishlist.value.find(item => item.id == event.id );
+      if(checkWishlist){
+        response.data[index].isWishlist = true    
+      }else{        
+        response.data[index].isWishlist = false       
       }
     });   
     events.value = response.data  
@@ -42,6 +48,25 @@ export const useEventStore = defineStore('event', () => {
     const response = await fetchWrapper.get('wishlist');  
     eventWishlist.value = response.data
   }
+
+  function toggleCart(index, status){  
+    events.value[index].isHover = status   
+  }
   
-  return {eventDetail, events, getEvents, getEventDetail, addWishlist, getWishlist, eventWishlist}
+  function buyTicket(event, index) {	
+    tickets.addToCart(event);
+    events.value[index].isCart = true    
+  }
+
+  function buyTicket(event, index) {	
+    tickets.addToCart(event);
+    events.value[index].isCart = true    
+  }
+  
+  function addToWishlist(eventId, index){
+    store.addWishlist(eventId)
+    events.value[index].isWishlist = true 
+  }
+  
+  return {eventDetail, events, getEvents, getEventDetail, addWishlist, getWishlist, eventWishlist, addToWishlist, buyTicket, toggleCart}
 })

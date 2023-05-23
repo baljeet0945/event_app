@@ -10,8 +10,6 @@ const store = useEventStore()
 const { eventDetail } = storeToRefs(store);
 store.getEventDetail(route.params.slug)
 
-
-
 function buyTicket(item) {
 	const ticketStore = useTicketStore();    
     ticketStore.addToCart(item);
@@ -50,8 +48,7 @@ function buyTicket(item) {
             <section class="edFImg">
                 <div class="row">
                     <div class="col-sm-12 col-lg-12" v-motion-pop-bounce-visible-once>
-                        <div class="featureImg">
-                            <a href="#"><img :src="eventDetail.featureImage" alt="event-img"></a>
+                        <div class="featureImg bg-400" :style="{ backgroundImage: `url(${eventDetail.featureImage})` }" >
                             <span class="post_date"><span class="lg-font">14</span><br><span>MAY</span></span>
                         </div>
                     </div>

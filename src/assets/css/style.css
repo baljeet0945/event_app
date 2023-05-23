@@ -415,8 +415,16 @@ div.owl-carousel .owl-nav .owl-prev, div.owl-carousel .owl-nav .owl-next{
     overflow: hidden;
 	position: relative;
 }
-.featureImg.bg{
+.featureImg.bg-200{
     height: 200px;   
+    background-size: cover;
+}
+.featureImg.bg-400{
+    height: 400px;   
+    background-size: cover;
+}
+.featureImg.bg-500{
+    height: 500px;   
     background-size: cover;
 }
 .post-grid {
@@ -860,7 +868,6 @@ footer p{font-size: 18px; color: #000;}
     flex-basis: 47%;
     width: 47%;
 	box-shadow: inherit;
-	height: 100%;
 }
 .post-box-tst .post-grid{padding:0;display:flex; column-gap: 30px;justify-content: center;
     align-items: center;}
