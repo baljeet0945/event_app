@@ -10,6 +10,10 @@ const { eventWishlist } = storeToRefs (store)
 onMounted(() => {
 	store.getWishlist()
 })
+
+function removeEventWishlist(eventId, index){
+	store.removeWishlist(eventId, index)
+}
 </script>
 <template>
     <main>
@@ -24,7 +28,7 @@ onMounted(() => {
 					</div>
 					<div class="col-md-4 col-lg-4">
 						<div class="evntTitle">
-							<h3>{{ event.title }} <span> <router-link  to="#">Remove</router-link></span></h3>
+							<h3>{{ event.title }} <span> <router-link @click="removeEventWishlist(event.id, index)" to="">Remove</router-link></span></h3>
 							<h4>{{ event.eventLocation }}</h4>
 							<div class="postMeta">
 									<span class="postDate">{{event.eventDate}}</span>

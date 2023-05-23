@@ -49,6 +49,11 @@ export const useEventStore = defineStore('event', () => {
     eventWishlist.value = response.data
   }
 
+  const removeWishlist = async (eventId, index) =>{
+    const response = await fetchWrapper.post('wishlist-remove', {'eventID':eventId});  
+    eventWishlist.value.splice(index,1);
+  }
+
   function toggleCart(index, status){  
     events.value[index].isHover = status   
   }
@@ -68,5 +73,5 @@ export const useEventStore = defineStore('event', () => {
     events.value[index].isWishlist = true 
   }
   
-  return {eventDetail, events, getEvents, getEventDetail, addWishlist, getWishlist, eventWishlist, addToWishlist, buyTicket, toggleCart}
+  return {eventDetail, events, getEvents, getEventDetail, addWishlist, getWishlist, eventWishlist, addToWishlist, buyTicket, toggleCart, removeWishlist}
 })
