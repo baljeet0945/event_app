@@ -2,8 +2,10 @@ import { ref, computed} from 'vue'
 import { fetchWrapper } from '@/helpers';
 import { defineStore } from 'pinia'
 import { useTicketStore } from './ticket'
+import { useToast } from 'vue-toastification'
 
 export const useEventStore = defineStore('event', () => { 
+  const toast = useToast()
   const tickets = useTicketStore()
   const events = ref([]) 
   const eventDetail = ref([]) 
@@ -49,9 +51,28 @@ export const useEventStore = defineStore('event', () => {
     eventWishlist.value = response.data
   }
 
+  const allWishlist = async () =>{
+    const response = await fetchWrapper.get('wishlist'); 
+    response.data.forEach((event, index) => {
+      let found = tickets.cart.find(item => item.id == event.id );
+      if(found){
+        response.data[index].isCart = true
+        response.data[index].isHover = false
+      }else{        
+        response.data[index].isCart = false
+        response.data[index].isHover = false
+      }     
+    });       
+    eventWishlist.value = response.data
+  }
+
   const removeWishlist = async (eventId, index) =>{
     const response = await fetchWrapper.post('wishlist-remove', {'eventID':eventId});  
-    eventWishlist.value.splice(index,1);
+    if(response.data == 'success'){
+      eventWishlist.value.splice(index,1);
+    }else{
+      toast.error('Event remove from wishlist failed!'); 
+    }    
   }
 
   function toggleCart(index, status){  
@@ -62,16 +83,11 @@ export const useEventStore = defineStore('event', () => {
     tickets.addToCart(event);
     events.value[index].isCart = true    
   }
-
-  function buyTicket(event, index) {	
-    tickets.addToCart(event);
-    events.value[index].isCart = true    
-  }
   
   function addToWishlist(eventId, index){
     addWishlist(eventId)
     events.value[index].isWishlist = true 
   }
   
-  return {eventDetail, events, getEvents, getEventDetail, addWishlist, getWishlist, eventWishlist, addToWishlist, buyTicket, toggleCart, removeWishlist}
+  return {eventDetail, events, getEvents, getEventDetail, addWishlist, getWishlist, eventWishlist, addToWishlist, buyTicket, toggleCart, removeWishlist, allWishlist}
 })

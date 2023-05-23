@@ -3,13 +3,21 @@ import { onMounted } from 'vue'
 import  {useEventStore} from '@/stores/event.store'
 import {useTicketStore} from '@/stores/ticket'
 import { storeToRefs } from "pinia";
-const store = useEventStore()
-const ticketStore = useTicketStore();    
+const ticketStore = useTicketStore()
+const store = useEventStore()  
 const { eventWishlist } = storeToRefs (store)
-
 onMounted(() => {
-	store.getWishlist()
+	store.allWishlist()	
 })
+
+function toggleCart(index, status){  
+	eventWishlist.value[index].isHover = status   
+}
+
+function buyTicket(event, index) {	
+    ticketStore.addToCart(event);
+    eventWishlist.value[index].isCart = true    
+}
 
 function removeEventWishlist(eventId, index){
 	store.removeWishlist(eventId, index)
