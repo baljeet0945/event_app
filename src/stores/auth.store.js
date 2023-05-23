@@ -34,7 +34,8 @@ export const useAuthStore = defineStore('auth', () => {
         profileForm.value.phone = response.data.phone
     }
 
-    const logout = () => {
+    const logout = async() => {
+        const response = await fetchWrapper.get('logout');
         authUser.value = null;
         localStorage.removeItem('token');
         router.push('/login');

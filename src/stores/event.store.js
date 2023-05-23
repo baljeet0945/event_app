@@ -44,7 +44,7 @@ export const useEventStore = defineStore('event', () => {
     const response = await fetchWrapper.post('wishlist-items', {'eventID':eventId});  
   }
 
-  const getWishlist = async (eventId) =>{
+  const getWishlist = async () =>{
     const response = await fetchWrapper.get('wishlist');  
     eventWishlist.value = response.data
   }
@@ -64,7 +64,7 @@ export const useEventStore = defineStore('event', () => {
   }
   
   function addToWishlist(eventId, index){
-    store.addWishlist(eventId)
+    addWishlist(eventId)
     events.value[index].isWishlist = true 
   }
   

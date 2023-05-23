@@ -180,10 +180,11 @@ watch(() => route.path, () => {
   font-size: 16px;
   background: #eef3f3;
   color: #000000;
-  padding: 0px 5px;
+  padding: 2px 5px;
   vertical-align: top;
   margin-left: -10px;
   font-weight: 600;
   border-radius: 50%;
+  position: absolute;
 }
 </style>

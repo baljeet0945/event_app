@@ -11,7 +11,10 @@ const ticketStore = useTicketStore();
 const { events } = storeToRefs (store)
 const { getEvents, getWishlist, toggleCart, addToWishlist, buyTicket } = store;
 const { authUser } = authStore;
-getWishlist()
+if(authUser){
+    getWishlist()
+}
+
 onMounted(() => {  
    getEvents()
 })

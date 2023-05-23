@@ -1,21 +1,24 @@
 <script setup>
 import {Form, Field, ErrorMessage } from 'vee-validate';
+import { useToast } from 'vue-toastification'
 import * as yup from 'yup';
 
 document.querySelector('body').style.backgroundColor = '#000'
 
+const toast = useToast()
 const validationSchema = yup.object({  
   email: yup.string().required().email()
 });
 
 async function onSubmit(values) {
-	const requestOptions = {
-		method: "POST",
-		headers: { "Content-Type": "application/json" },
-		body: JSON.stringify(values)
-	};
-	const response = await fetch(APISettings.baseURL + 'forgot-password', requestOptions);
-	console.log(response)
+	const res = await fetchWrapper.post('forgot-password', values);		
+	if(res.message == 'success'){		
+		resetForm()	
+		toast.info("We've sent a recover password process to your email - "+values.email);  	
+	}else{		
+		setErrors( res.data )
+		toast.error('Forgot password Failed!');  
+	}
 }
 </script>
 <template>

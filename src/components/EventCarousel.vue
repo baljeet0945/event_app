@@ -10,8 +10,11 @@ const authStore = useAuthStore();
 const store = useEventStore()
 const ticketStore = useTicketStore();    
 const { events } = storeToRefs (store)
-const { getEvents } = store;
+const { getEvents, getWishlist, toggleCart, addToWishlist, buyTicket  } = store;
 const { authUser } = authStore;
+if(authUser){
+    getWishlist()
+}
 const breakpoints = {
   // 700px and up
   700: {
@@ -27,18 +30,6 @@ const breakpoints = {
 onMounted(() => {
   getEvents()
 })
-function toggleCart(index, status){  
-  events.value[index].isHover = status   
-}
-
-function buyTicket(event, index) {	
-  ticketStore.addToCart(event);
-  events.value[index].isCart = true    
-}
-
-function addToWishlist(eventId, index){
-  store.addWishlist(eventId)
-}
 </script>
 <template>
     <Carousel :breakpoints="breakpoints">
