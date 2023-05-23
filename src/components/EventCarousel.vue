@@ -50,8 +50,8 @@ onMounted(() => {
                             <span class="postDate">{{event.eventDate}}</span>
                             <span class="postDate"><img src="@/assets/images/time.png"> &nbsp;{{event.eventTime}}</span>
                             <div v-if="authUser">
-                              <span class="postDate e-hover" style="color: #5C5C5C; font-size: 16px;"  @click="addToWishlist(event.id, index)"><i class="fa-regular fa-heart"></i>&nbsp;Save</span>
-                              <!-- <span class="postDate e-hover" style="color: #5C5C5C; font-size: 16px;"><i class="fa-duotone fa-heart"></i>&nbsp;Saved</span> -->
+                              <span v-if="event.isWishlist === false" class="postDate e-hover" style="color: #5C5C5C; font-size: 16px;"  @click="addToWishlist(event.id, index)"><i class="fa-regular fa-heart"></i>&nbsp;Save</span>
+                              <span v-else class="postDate" style="color: #5C5C5C; font-size: 16px;"><i class="fa-duotone fa-heart"></i>&nbsp;Saved</span>
                             </div>
                         </div>
                         <div class="postBtn">
