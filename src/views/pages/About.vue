@@ -1,10 +1,10 @@
 <script setup>
+import InquiryForm from '@/components/InquiryFormComponent.vue';
+import OurTeam from '@/components/OurTeam.vue';
 
 import {useTestimonialStore} from '@/stores/testimonial.store'
-import { storeToRefs } from "pinia";
-
 import TestimonialCarousel from '@/components/TestimonialCarousel.vue';
-import InquiryForm from '@/components/InquiryFormComponent.vue';
+import { storeToRefs } from "pinia";
 const usersStore = useTestimonialStore();
 const { testimonialSlides } = storeToRefs(usersStore)
 testimonialSlides.value = 1
@@ -64,59 +64,11 @@ testimonialSlides.value = 1
 						<p>Platea lacus blandit. Et tortor mi vestibulum et aliquam rhoncus. Tincidunt volutpat id purus nisi<br> neque. Adipiscing quam id neque arcu blandit et facilisi fusce elementum massa.</p>
 					</div>
 				</div>
-			</div>
-			
+			</div>			
 			<div class="teaGridSec">
-			 <div class="row">
-				<div class="col-md-4 col-lg-4" v-motion-pop-bounce-visible-once>
-					<div class="team-grid">
-						<div class="teamImg">
-							<img src="@/assets/images/team1.jpg">
-						</div>
-						<div class="teamCnt">
-							<h3>Garry Gill</h3>
-							<h4>Senior Event Designer</h4>
-							<div class="ft-social">
-								<a href="#"><i class="fa-brands fa-facebook"></i></a>
-								<a href="#"><i class="fa-brands fa-twitter"></i></a>
-								<a href="#"><i class="fa-brands fa-linkedin"></i></a>
-							</div>
-						</div>
-					</div>
+				<div class="row">
+					<OurTeam/>
 				</div>
-				<div class="col-md-4 col-lg-4" v-motion-pop-bounce-visible-once>
-					<div class="team-grid">
-						<div class="teamImg">
-							<img src="@/assets/images/team2.jpg">
-						</div>
-						<div class="teamCnt">
-							<h3>Nancy William</h3>
-							<h4>Event Stylist</h4>
-							<div class="ft-social">
-								<a href="#"><i class="fa-brands fa-facebook"></i></a>
-								<a href="#"><i class="fa-brands fa-twitter"></i></a>
-								<a href="#"><i class="fa-brands fa-linkedin"></i></a>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4 col-lg-4" v-motion-pop-bounce-visible-once>
-					<div class="team-grid">
-						<div class="teamImg">
-							<img src="@/assets/images/team3.jpg">
-						</div>
-						<div class="teamCnt">
-							<h3>Smith Sudhir</h3>
-							<h4>Part Organizer</h4>
-							<div class="ft-social">
-								<a href="#"><i class="fa-brands fa-facebook"></i></a>
-								<a href="#"><i class="fa-brands fa-twitter"></i></a>
-								<a href="#"><i class="fa-brands fa-linkedin"></i></a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
 			</div>
 		</section>
 	

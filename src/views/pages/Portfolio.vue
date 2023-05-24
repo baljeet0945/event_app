@@ -2,6 +2,9 @@
 import EventGallery from '@/components/EventGallery.vue';
 import InstaFeed from '@/components/InstaFeedComponent.vue';
 import InquiryForm from '@/components/InquiryFormComponent.vue';
+import { usePageStore } from '@/stores/page'
+const store = usePageStore();
+store.getPortfolio()
 </script>
 
 <template>

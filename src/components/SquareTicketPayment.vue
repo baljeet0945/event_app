@@ -20,7 +20,6 @@ const locationId = 'L0NKFZ5Y13GHS';
 
 let card;
 let loading = ref(true);
-let paymentStatus = ref("");
 
 onMounted(async () => {
   loading.value = true;
@@ -55,8 +54,8 @@ const tokenize = async (paymentMethod) => {
   }
 }
 
-const createPayment = async (token) => {   
-   const res = await fetchWrapper.post('purchase-tickets', {'sourceId': token})
+const createPayment = async (formData) => {  
+   const res = await fetchWrapper.post('purchase-tickets', formData)
    console.log(res);	
   //  if (paymentResponse.ok) {
   //    return paymentResponse.json();
@@ -65,15 +64,21 @@ const createPayment = async (token) => {
   //  throw new Error(errorBody);
 }
 
-const handlePaymentMethodSubmission = async () => {
-  paymentStatus.value = "";  
+const onPayment = async (values, { setErrors , resetForm}) => {  
   const token = await tokenize(card); 
-  const payment = await createPayment(token);
+  let formData = {
+    'sourceId': token,
+    'events':cart.value,
+    'total_amount': cartPriceTotal.value,
+    'email': values.email,
+    'name': values.name
+  }
+  const payment = await createPayment(formData);
   console.log(payment);
   if (!error.value) {
-    paymentStatus.value = "Payment completed";
+    console.log("Payment completed");
   } else {
-    paymentStatus.value = "Payment failed";
+    console.log("Payment failed");    
   }
 }
 
@@ -104,8 +109,7 @@ const handlePaymentMethodSubmission = async () => {
 							<div class="evntPrice">Subtotal <br> <span>${{ item.eventTicketsPrice * item.ticketInQueue}}</span></div>
 					</div>	
 				</div>
-			</section>			
-			
+			</section>	
 		  
 			 <section class="totalCost">
 				<div class="row">
@@ -127,7 +131,7 @@ const handlePaymentMethodSubmission = async () => {
 					</div>
 					<div class="col-md-7 col-lg-7">											
 						<div class="cardDetails">	
-              <Form @submit="handlePaymentMethodSubmission" :validation-schema="schema" v-slot="{ errors, isSubmitting }"> 
+              <Form @submit="onPayment" :validation-schema="schema" v-slot="{ errors, isSubmitting }"> 
                 <div class="row" style="margin-bottom: 15px;">
                   <div class="col-md-12 col-lg-12">
                     <label>Full Name</label>

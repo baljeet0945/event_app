@@ -22,6 +22,7 @@ function request(method) {
                 //     console.log(pair[1]);
                 //   }
             }else{
+                console.log(formData)
                 requestOptions.headers['Content-Type'] = 'application/json';
                 requestOptions.body = JSON.stringify(formData);
             }            
