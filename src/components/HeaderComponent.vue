@@ -1,9 +1,11 @@
 <script setup>
 import { watch, ref} from 'vue'
 import {useRoute } from 'vue-router'
+import { useAppStore } from '@/stores/app';
 import { useAuthStore } from '@/stores/auth.store';
 import { useTicketStore } from '@/stores/ticket'
 import { storeToRefs } from "pinia";
+const appStore = useAppStore()
 
 const store = useTicketStore()
 const { cartCount } = storeToRefs(store);
@@ -25,13 +27,14 @@ watch(() => route.path, () => {
 
 </script>
 <template>
+  <!-- {{ appStore.appInfo }} -->
   <header id="header" :class="headerClass">
     <div class="top-head">
           <div class="container">
           <div class="row headerTop">
             <div class="col-md-2 col-lg-2">
               <div class="site-branding"> 
-                  <a href="#" rel="home"><img src="@/assets/images/logo.png"></a>
+                  <router-link to="/"><img :src="appStore.appInfo.siteLogo"></router-link>
               </div>
             </div>
             <div class="col-md-7 col-lg-7 navTop">
