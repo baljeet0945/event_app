@@ -1,8 +1,9 @@
 import { ref, computed } from 'vue'
-import { fetchWrapper } from '@/helpers';
 import { defineStore } from 'pinia'
+import { useToast } from 'vue-toastification'
 
 export const useTicketStore = defineStore('ticket', () => { 
+  const toast = useToast()
   const cart = ref([])  
   const cartCount = ref(0) 
 
@@ -25,16 +26,17 @@ export const useTicketStore = defineStore('ticket', () => {
     }     
   }
 
-  const updateToCart = (itemId, value) => {  
-    let found = cart.value.find(event => event.id == itemId );
-    if(found){
-      found.ticketInQueue = value
-    }    
+  const updateToCart = (index, value, event) => {
+    if(value <= event.eventTickets){
+      cart.value[index].ticketInQueue = value 
+    }else{
+      toast.warning("Can't add more the available tickets.");        
+      cart.value[index].ticketInQueue = event.eventTickets
+    }
   }
   
-  const removeToCart = (item) => {  
-    cartCount.value--
-    let index = cart.value.indexOf(item);    
+  const removeToCart = (index, item) => {  
+    cartCount.value--       
     cart.value.splice(index,1);
   }
 

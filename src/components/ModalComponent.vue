@@ -29,12 +29,6 @@ function openModal() {
 </script>
 
 <template>
-  <!-- <div class="mt-4 space-x-4">
-    <button class="ml-auto" @click="options.modelValue = true">
-      Open modal
-    </button>  
-  </div> -->
-
   <VueFinalModal
   v-model="options.modelValue"
     :teleport-to="options.teleportTo"

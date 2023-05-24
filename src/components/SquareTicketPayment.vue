@@ -1,14 +1,15 @@
 <script setup>
 import { onMounted, ref, toRefs } from "vue";
-import { Field, Form, ErrorMessage } from 'vee-validate';
+import { Field, Form } from 'vee-validate';
 import * as yup from 'yup';
+import {useTicketStore} from '@/stores/ticket'
 import { fetchWrapper } from '@/helpers';
-
-const props = defineProps({
-  amount: Number
-})
-const { amount } = toRefs(props)
-
+import { storeToRefs } from "pinia";
+import { useToast } from 'vue-toastification'
+const store = useTicketStore()
+const { cart, cartPriceTotal } = storeToRefs(store);
+const { removeToCart, updateToCart } = store 
+const toast = useToast()
 const schema = yup.object({
   email: yup.string().required('Email is required').email(),
   name: yup.string().required('Name is required')
@@ -30,7 +31,7 @@ onMounted(async () => {
 const initializePaymentForm = async () => {
   if (!Square) {
     throw new Error("Square.js failed to load properly");
-  }
+  }    
   const payments = Square.payments(appId, locationId);
   try {
     card = await payments.card();
@@ -65,7 +66,7 @@ const createPayment = async (token) => {
 }
 
 const handlePaymentMethodSubmission = async () => {
-  paymentStatus.value = "";
+  paymentStatus.value = "";  
   const token = await tokenize(card); 
   const payment = await createPayment(token);
   console.log(payment);
@@ -78,33 +79,82 @@ const handlePaymentMethodSubmission = async () => {
 
 </script>
 <template>  
-  <div class="cardDetails">	
-    <Form @submit="handlePaymentMethodSubmission" :validation-schema="schema" @invalid-submit="onInvalidSubmit"> 
-      <div class="row" style="margin-bottom: 15px;">
-        <div class="col-md-12 col-lg-12">
-          <label>Full Name</label>
-          <Field name="name" type="text" />
-          <ErrorMessage name="name" />
-        </div>	
-        <div class="col-md-12 col-lg-12">
-          <label>Email</label>         
-          <Field name="email" type="email" />
-          <ErrorMessage name="email" />
-        </div>								
-      </div>
-      <div v-if="loading">Loading...</div>
-      <div id="card-container" />    
-      <button class="submit action-button" :disabled="isSubmitting">
-        <span v-show="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>
-        Pay $1.00
-      </button>
-    </Form>
-    <div v-if="paymentStatus" id="payment-status-container">
-      {{ paymentStatus }}
-    </div>
-  </div>
+  <section class="evList" v-for="(item, index) in cart" :key="item.id">
+				<div class="row">
+					<div class="col-md-2 col-lg-2">
+					   <div class="featureImg">
+							<a href="#"><img src="@/assets/images/event1.jpg"></a>
+						</div>
+					</div>
+					<div class="col-md-4 col-lg-4">
+						<div class="evntTitle">
+							<h3>{{item.title}}</h3>
+							<h4>{{item.eventLocation}}</h4>
+							<div class="postMeta">
+									<span class="postDate">{{item.eventDate}}</span>
+									<span class="postDate"><img src="@/assets/images/time.png"> &nbsp;{{item.eventTime}}</span>
+								</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-lg-3 text-center pdnumber">
+						<input type="number" name="age" min="1" :max="item.eventTickets" :value="item.ticketInQueue" @input="updateToCart(index, $event.target.value, item)" ><span class="rmText"><router-link @click="removeToCart(index, item)" to="">Remove</router-link></span><br>
+						<span class="subText">{{ item.eventTickets }} tickets available</span>
+					</div>
+					<div class="col-md-2 col-lg-2">
+							<div class="evntPrice">Subtotal <br> <span>${{ item.eventTicketsPrice * item.ticketInQueue}}</span></div>
+					</div>	
+				</div>
+			</section>			
+			
+		  
+			 <section class="totalCost">
+				<div class="row">
+					<div class="col-md-12 col-lg-12">Total: ${{ cartPriceTotal }}</div>
+				</div>
+			</section>
+			
+      <section class="makePayment">
+				<div class="row">
+					<div class="col-md-5 col-lg-5">
+						<h2>Make a Payment</h2>						
+						<form action="#">
+							<ul class="radioSec">
+								<li><input type="radio" id="pay_card" name="payment_type" value="pay_card" checked>
+								<label for="pay_card">Pay with Debit/Credit/ATM Cards</label>
+								<div class="check"></div></li>								
+							</ul>
+						</form>
+					</div>
+					<div class="col-md-7 col-lg-7">											
+						<div class="cardDetails">	
+              <Form @submit="handlePaymentMethodSubmission" :validation-schema="schema" v-slot="{ errors, isSubmitting }"> 
+                <div class="row" style="margin-bottom: 15px;">
+                  <div class="col-md-12 col-lg-12">
+                    <label>Full Name</label>
+                    <Field name="name" type="text" :class="{ 'is-invalid': errors.name }"/>         
+                    <div class="invalid-feedback">{{errors.name}}</div>
+                  </div>	
+                  <div class="col-md-12 col-lg-12">
+                    <label>Email</label>         
+                    <Field name="email" type="email"  :class="{ 'is-invalid': errors.email }"/>
+                    <div class="invalid-feedback">{{errors.email}}</div>
+                  </div>								
+                </div>
+                <div v-if="loading">Loading...</div>
+                <div id="card-container" />    
+                <button class="submit action-button" :disabled="isSubmitting">
+                  <span v-show="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>
+                  Pay ${{cartPriceTotal}}
+                </button>
+              </Form>
+              <div v-if="paymentStatus" id="payment-status-container">
+                {{ paymentStatus }}
+              </div>
+            </div>		
+					</div>
+				</div>
+		</section>	
 </template>
-
   
 <style scoped>
 button {

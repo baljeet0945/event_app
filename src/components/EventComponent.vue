@@ -1,20 +1,17 @@
 <script setup>
 import { onMounted } from 'vue'
 import  {useEventStore} from '@/stores/event.store'
-import {useTicketStore} from '@/stores/ticket'
 import { useAuthStore } from '@/stores/auth.store';
 import { storeToRefs } from "pinia";
 
 const authStore = useAuthStore();
 const store = useEventStore()
-const ticketStore = useTicketStore();    
 const { events } = storeToRefs (store)
 const { getEvents, getWishlist, toggleCart, addToWishlist, buyTicket } = store;
 const { authUser } = authStore;
 if(authUser){
     getWishlist()
 }
-
 onMounted(() => {  
    getEvents()
 })
@@ -52,10 +49,6 @@ onMounted(() => {
     </div>  
 </template>
 <style >
-@import 'vue3-carousel/dist/carousel.css';
-.post-event-box .post-grid{
-    text-align: start;
-}
 span.cart-hover {  
     font-size: 16px;
 }

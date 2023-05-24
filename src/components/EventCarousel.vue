@@ -75,7 +75,7 @@ onMounted(() => {
 </template>
 <style >
 @import 'vue3-carousel/dist/carousel.css';
-.post-event-box .post-grid{
+.post-grid{
     text-align: start;
 }
 span.cart-hover {  

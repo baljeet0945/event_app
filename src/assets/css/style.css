@@ -1542,3 +1542,6 @@ span.modelclosebtn {
     cursor: pointer;
     color: #437fc0 !important;
 }
+input.is-invalid {
+    border:1px solid #ff0000;
+}

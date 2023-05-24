@@ -1,21 +1,21 @@
 <script setup>
-import { ref }from 'vue';
-import {Form, Field} from 'vee-validate';
-import * as Yup from 'yup';
-import { fetchWrapper } from '@/helpers';
-import { router }  from '@/router';
+import { ref }from 'vue'
+import {Form, Field} from 'vee-validate'
+import * as Yup from 'yup'
+import { fetchWrapper } from '@/helpers'
+import { router }  from '@/router'
 import { useToast } from 'vue-toastification'
 document.querySelector('body').style.backgroundColor = '#000'
 const step = ref('signup')
 const toast = useToast()
 const signup = Yup.object().shape({
-    email: Yup.string().required('Email is required'),
+    email: Yup.string().required('Email is required').email('Enter valid email'),
     name: Yup.string().required('Name is required'),
 	password: Yup.string().required('Password is required').min(8),
 });
 
 const otp = Yup.object().shape({
-    otp: Yup.number().required('OTP is required'),  
+    otp: Yup.number().required('OTP is required') 
 });
 
 async function onSubmit(values, { setErrors , resetForm}) { 
@@ -26,7 +26,6 @@ async function onSubmit(values, { setErrors , resetForm}) {
 		toast.info("We've sent a verification code to your email - "+values.email);  	
 	}else{		
 		setErrors( res.data )
-		toast.error('Signup Failed!');  
 	}
 }
 
@@ -37,7 +36,6 @@ async function onVerify(values, { setErrors , resetForm}) {
 		router.push('/login');
 	}else{
 		setErrors( res.data )
-		toast.error('Verification Failed!');  
 	}
 }
 </script>
@@ -64,7 +62,7 @@ async function onVerify(values, { setErrors , resetForm}) {
 									<Form @submit="onSubmit" :validation-schema="signup"  v-slot="{ errors, isSubmitting }">
 										<div class="formField">
 											<label>Full Name</label>
-											<Field name="name" type="text" class="form-control" placeholder="Enter your name"  />									
+											<Field name="name" type="text" class="form-control" placeholder="Enter your name"  :class="{ 'is-invalid': errors.name }"/>									
 											<div class="invalid-feedback">{{ errors.name }}</div>
 										</div>
 										<div class="formField">
