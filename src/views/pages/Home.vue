@@ -4,6 +4,9 @@ import InquiryForm from '@/components/InquiryFormComponent.vue';
 import EventCarousel from '@/components/EventCarousel.vue';
 import InstaFeed from '@/components/InstaFeedComponent.vue';
 import Services from '@/components/ServiceComponent.vue';
+import { usePageStore } from '@/stores/page'
+const store = usePageStore();
+store.getPortfolio()
 </script>
 
 <template>

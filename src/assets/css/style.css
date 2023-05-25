@@ -281,51 +281,6 @@ div.owl-carousel .owl-nav .owl-prev, div.owl-carousel .owl-nav .owl-next{
 }
 .itemList.itemListVall span{color: #000;}
 
-/* Gallery + filter + lightbox CSS start */
-
-.grid-container {
-  -moz-column-count: 1;
-       column-count: 1;
-  -moz-column-gap: 5px;
-       column-gap: 5px;
-  -moz-column-fill: balance;
-       column-fill: balance;
-  margin: 5px auto 0;
-  padding: 2rem 0;
-}
-.grid-container .itemGl {
-  display: inline-block;
-  margin: 0 0 5px;
-  page-break-inside: avoid;
-  -moz-column-break-inside: avoid;
-       break-inside: avoid;
-  width: 100%;
-}
-.grid-container .itemGl img {
-  width: 100%;
-  height: auto;
-}
-@media (min-width: 600px) {
-  .grid-container {
-    -moz-column-count: 2;
-         column-count: 2;
-  }
-}
-@media (min-width: 900px) {
-  .grid-container {
-    -moz-column-count: 3;
-         column-count: 3;
-  }
-}
-@media (min-width: 1200px) {
-  .grid-container {
-    -moz-column-count: 3;
-         column-count: 3;
-  }
-}
-
-/* Gallery + filter + lightbox CSS END */
-
 #exTab1 .tab-content {
   color : white;
   padding : 5px 15px;

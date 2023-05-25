@@ -11,7 +11,7 @@ export const usePageStore = defineStore('page', () => {
     let videos = []
     gallerys.value.filter((item) => { 
       if(item.portfolios_type == 'videos')  {
-        videos.push(item)
+        videos.push(item.upload_video)
       } 
     });  
     return videos
@@ -21,7 +21,7 @@ export const usePageStore = defineStore('page', () => {
     let images = []
     gallerys.value.filter((item) => { 
       if(item.portfolios_type == 'images')  {
-        images.push(item)
+        images.push(item.portfolios_images)
       } 
     });  
     return images
