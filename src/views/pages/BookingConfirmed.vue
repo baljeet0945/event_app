@@ -89,7 +89,7 @@ store.resetCart()
 			</section>
 			
 			<section class="moreEvents">
-				<div class="viewBtnSec bounceIn animated"><router-link  to="/event" class="viewBtn">Explore More Events</router-link></div>
+				<div class="viewBtnSec" v-motion-pop-bounce><router-link  to="/event" class="viewBtn">Explore More Events</router-link></div>
 			</section>
 		</div>
     </main>

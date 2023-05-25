@@ -82,6 +82,14 @@ export const router = createRouter({
                     } 
                 },
                 {
+                    path: 'package-confirmed', 
+                    component: () => import ('@/views/pages/PackageConfirmed.vue'), 
+                    meta:{
+                        title: 'MTE Package Confirmed',
+                        requiresAuth: true
+                    } 
+                },
+                {
                     path: 'booked-events', 
                     component: () => import ('@/views/pages/BookedEvents.vue'), 
                     meta:{

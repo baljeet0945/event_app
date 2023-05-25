@@ -145,15 +145,15 @@ const onPayment = async (values, { setErrors , resetForm}) => {
                 </div>
                 <div v-if="loading">Loading...</div>
                 <div id="card-container" /> 
-                <div class="invalid-feedback">{{errors.payment}}</div>   
+                   
                 <button class="submit action-button" :disabled="isSubmitting">
                   <span v-show="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>
                   Pay ${{cartPriceTotal}}
                 </button>
-              </Form>
-              <div v-if="paymentStatus" id="payment-status-container">
-                {{ paymentStatus }}
-              </div>
+                <div v-if="errors.payment" id="payment-status-container">
+                  <div>{{errors.payment}}</div>
+                </div>
+              </Form>              
             </div>		
 					</div>
 				</div>
