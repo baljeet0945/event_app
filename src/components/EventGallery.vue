@@ -4,15 +4,14 @@ import VueGallery from 'vue-gallery'
 import MasonryWall from '@yeger/vue-masonry-wall'
 import { usePageStore } from '@/stores/page'
 import { storeToRefs } from "pinia";
-
 const store = usePageStore();
 const { portfolioTab, videoGallery, imageGallery } = storeToRefs(store);
 const { changePortfolioTab, } = store
-const galleryIndex = ref(null)
+const galleryIndex = ref('')
+portfolioTab.value = 'video'
 const galleryOptions = {
   carousel: true,
 }
-
 </script>
 
 <template>
@@ -25,10 +24,16 @@ const galleryOptions = {
       <div id="exTab1" class="container tabSec" v-motion-pop-bounce-visible-once>	
         <ul  class="nav nav-pills">
           <li :class="{ 'active' : portfolioTab === 'video'}"><router-link to="" @click="changePortfolioTab('video')"><span><img src="@/assets/images/play=black.png"></span> Video Gallery</router-link></li>
-          <li :class="{ 'active' : portfolioTab === 'image'}"><router-link to="" @click="changePortfolioTab('image')"><span><img src="@/assets/images/photo-icon.png"></span> Photo Gallery</router-link></li>          
+          <li ref="button1" :class="{ 'active' : portfolioTab === 'image'}"><router-link to="" @click="changePortfolioTab('image')"><span><img src="@/assets/images/photo-icon.png"></span> Photo Gallery</router-link></li>          
       </ul> 
         <div class="tab-content clearfix">
-          <div class="tab-pane active" v-show="portfolioTab == 'video'">
+          <div class="tab-pane active" v-if="portfolioTab == 'video'">
+
+            <div class="grid-container">
+						<div class="itemGl" v-for="(image, index) in imageGallery" :key="image.id">
+              <img :src="image" @click="galleryIndex = index"/>  
+						</div>
+            </div>
             <!-- <VueGallery :options="galleryOptions" :video="videoGallery" :index="galleryIndex" @close="galleryIndex = null"></VueGallery>
             <div class="gallery-container">
               <masonry-wall :items="videoGallery" :column-width="300" :gap="5">
@@ -43,7 +48,7 @@ const galleryOptions = {
               </masonry-wall>
             </div> -->
           </div> 
-          <div class="tab-pane active" v-show="portfolioTab == 'image'">
+          <div class="tab-pane active" v-if="portfolioTab == 'image'">
             <VueGallery :ssr-columns="3" :options="galleryOptions" :images="imageGallery" :index="galleryIndex" @close="galleryIndex = null"></VueGallery>
             <div class="gallery-container">
               <masonry-wall :items="imageGallery" :column-width="300" :gap="5">
