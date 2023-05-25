@@ -65,6 +65,8 @@ watch(() => route.path, () => {
                   <ul class="dropdown-menu">
                     <li><router-link class="dropdown-item" to="/profile">Profile</router-link></li>
                     <li><router-link class="dropdown-item" to="/saved-events">Saved Events</router-link></li>
+                    <li><router-link class="dropdown-item" to="/subscription">Subscription</router-link></li>
+                    <li><router-link class="dropdown-item" to="/booked-events">Booked Events</router-link></li>
                     <li><router-link class="dropdown-item" @click="logout" to="/login">Logout</router-link></li>
                   </ul>
                 </div>

@@ -40,6 +40,11 @@ export const useTicketStore = defineStore('ticket', () => {
     cart.value.splice(index,1);
   }
 
-  return {cart, addToCart, updateToCart, removeToCart, cartPriceTotal, cartCount}
+  const resetCart = () => {
+    cart.value = []
+    cartCount.value = 0
+  }
+
+  return {cart, addToCart, updateToCart, removeToCart, cartPriceTotal, cartCount, resetCart}
 
 }, {persist: { storage: sessionStorage, key: 'cart'}})

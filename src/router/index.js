@@ -72,7 +72,31 @@ export const router = createRouter({
                         title: 'MTE Saved Events',
                         requiresAuth: true
                     } 
-                }
+                },
+                {
+                    path: 'booking-confirmed', 
+                    component: () => import ('@/views/pages/BookingConfirmed.vue'), 
+                    meta:{
+                        title: 'MTE Booking Confirmed',
+                        requiresAuth: true
+                    } 
+                },
+                {
+                    path: 'booked-events', 
+                    component: () => import ('@/views/pages/BookedEvents.vue'), 
+                    meta:{
+                        title: 'MTE Booked Events',
+                        requiresAuth: true
+                    } 
+                },
+                {
+                    path: 'subscription', 
+                    component: () => import ('@/views/pages/subscription.vue'), 
+                    meta:{
+                        title: 'MTE Subscription',
+                        requiresAuth: true
+                    } 
+                }               
             ]
         },
         {

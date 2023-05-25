@@ -3,17 +3,26 @@ import { onMounted, ref, toRefs } from "vue";
 import { Field, Form } from 'vee-validate';
 import * as yup from 'yup';
 import {useTicketStore} from '@/stores/ticket'
+import { useAuthStore } from '@/stores/auth.store';
 import { fetchWrapper } from '@/helpers';
 import { storeToRefs } from "pinia";
-import { useToast } from 'vue-toastification'
+import { useRouter } from 'vue-router';
+
+const authStore = useAuthStore()
 const store = useTicketStore()
-const { cart, cartPriceTotal } = storeToRefs(store);
+const { authUser } = authStore
+const { cart, cartPriceTotal } = storeToRefs(store)
 const { removeToCart, updateToCart } = store 
-const toast = useToast()
-const schema = yup.object({
-  email: yup.string().required('Email is required').email(),
-  name: yup.string().required('Name is required')
-});
+const router = useRouter()
+const apiRoute = ref('purchase-tickets-auth')
+
+if(!authUser){
+  const schema = yup.object({
+    email: yup.string().required('Email is required').email(),
+    name: yup.string().required('Name is required')
+  });
+  apiRoute.value = 'purchase-tickets'
+}
 
 const appId = 'sandbox-sq0idb-ioQLqyvf_BrG6P7mmdRjtw';
 const locationId = 'L0NKFZ5Y13GHS';
@@ -54,16 +63,6 @@ const tokenize = async (paymentMethod) => {
   }
 }
 
-const createPayment = async (formData) => {  
-   const res = await fetchWrapper.post('purchase-tickets', formData)
-   console.log(res);	
-  //  if (paymentResponse.ok) {
-  //    return paymentResponse.json();
-  //  }
-  //  const errorBody = await paymentResponse.text();
-  //  throw new Error(errorBody);
-}
-
 const onPayment = async (values, { setErrors , resetForm}) => {  
   const token = await tokenize(card); 
   let formData = {
@@ -73,15 +72,15 @@ const onPayment = async (values, { setErrors , resetForm}) => {
     'email': values.email,
     'name': values.name
   }
-  const payment = await createPayment(formData);
-  console.log(payment);
-  if (!error.value) {
-    console.log("Payment completed");
-  } else {
-    console.log("Payment failed");    
-  }
-}
 
+  const res = await fetchWrapper.post(apiRoute.value, formData)
+  if(res.message == 'success'){		
+		resetForm()
+		router.push('/booking-confirmed');
+	}else{
+		setErrors( res.data )
+	}
+}
 </script>
 <template>  
   <section class="evList" v-for="(item, index) in cart" :key="item.id">
@@ -132,7 +131,7 @@ const onPayment = async (values, { setErrors , resetForm}) => {
 					<div class="col-md-7 col-lg-7">											
 						<div class="cardDetails">	
               <Form @submit="onPayment" :validation-schema="schema" v-slot="{ errors, isSubmitting }"> 
-                <div class="row" style="margin-bottom: 15px;">
+                <div class="row" style="margin-bottom: 15px;" v-if="!authUser">
                   <div class="col-md-12 col-lg-12">
                     <label>Full Name</label>
                     <Field name="name" type="text" :class="{ 'is-invalid': errors.name }"/>         
@@ -145,7 +144,8 @@ const onPayment = async (values, { setErrors , resetForm}) => {
                   </div>								
                 </div>
                 <div v-if="loading">Loading...</div>
-                <div id="card-container" />    
+                <div id="card-container" /> 
+                <div class="invalid-feedback">{{errors.payment}}</div>   
                 <button class="submit action-button" :disabled="isSubmitting">
                   <span v-show="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>
                   Pay ${{cartPriceTotal}}

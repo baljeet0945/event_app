@@ -3,8 +3,10 @@ import { defineStore } from 'pinia';
 import { fetchWrapper } from '@/helpers';
 import { router }  from '@/router';
 import { useToast } from 'vue-toastification'
+import { useTicketStore } from './ticket'
 
 export const useAuthStore = defineStore('auth', () => { 
+    const tickets = useTicketStore()
     const toast = useToast()
     const authUser  = ref(JSON.parse(localStorage.getItem('token')))  
     const user  = ref([])   
@@ -36,9 +38,10 @@ export const useAuthStore = defineStore('auth', () => {
 
     const logout = async() => {
         const response = await fetchWrapper.get('logout');
-        authUser.value = null;
+        authUser.value = null
+        tickets.resetCart()
         localStorage.removeItem('token');
-        router.push('/login');
+        router.push('/login')
     } 
 
     return { authUser, login, logout, user, getUser, avatar, profileForm}

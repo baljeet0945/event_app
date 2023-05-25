@@ -1,9 +1,13 @@
+<script setup>
+import {useTicketStore} from '@/stores/ticket'
+const store = useTicketStore()
+store.resetCart()
+</script>
 <template>
     <main>
-    <div class="container edckcustom-container">
+		<div class="container edckcustom-container">
 			<section class="text-center"><img src="@/assets/images/succesfull.png"></section>
-			
-	        <section class="sp-head">
+			<section class="sp-head">
 				<div class="row">
 					<div class="col-md-12 col-lg-12 text-center"><h2>Ticket Successfully Purchased!</h2>
 						<p>Your seats are booked. We have sent detailed ticket on email as well.</p>
@@ -13,8 +17,8 @@
 			<section class="tsp-list">
 				<div class="row">
 					<div class="col-md-2 col-lg-2">
-					   <div class="featureImg">
-                        <router-link  to=""><img src="@/assets/images/event1.jpg"></router-link>
+						<div class="featureImg">
+						<router-link  to=""><img src="@/assets/images/event1.jpg"></router-link>
 						</div>
 					</div>
 					<div class="col-md-5 col-lg-5">
@@ -36,7 +40,7 @@
 				
 				<div class="row">
 					<div class="col-md-2 col-lg-2 text-center">
-					   <span class="tsp-trns-text">Ticket for 1 person</span>
+						<span class="tsp-trns-text">Ticket for 1 person</span>
 					</div>
 					<div class="col-md-7 col-lg-7">
 						<span class="tsp-trns-text">Click photo of this screen to show on entrance gate.</span>
@@ -50,8 +54,8 @@
 			<section class="tsp-list">
 				<div class="row">
 					<div class="col-md-2 col-lg-2">
-					   <div class="featureImg">
-                        <router-link  to=""><img src="@/assets/images/event1.jpg"></router-link>
+						<div class="featureImg">
+						<router-link  to=""><img src="@/assets/images/event1.jpg"></router-link>
 						</div>
 					</div>
 					<div class="col-md-5 col-lg-5">
@@ -73,7 +77,7 @@
 				
 				<div class="row">
 					<div class="col-md-2 col-lg-2 text-center">
-					   <span class="tsp-trns-text">Ticket for 1 person</span>
+						<span class="tsp-trns-text">Ticket for 1 person</span>
 					</div>
 					<div class="col-md-7 col-lg-7">
 						<span class="tsp-trns-text">Click photo of this screen to show on entrance gate.</span>
@@ -85,11 +89,9 @@
 			</section>
 			
 			<section class="moreEvents">
-				<div class="viewBtnSec bounceIn animated"><router-link  to="" class="viewBtn">Explore More Events</router-link></div>
+				<div class="viewBtnSec bounceIn animated"><router-link  to="/event" class="viewBtn">Explore More Events</router-link></div>
 			</section>
-		
-	</div>
-  
+		</div>
     </main>
-  </template>
+</template>
   

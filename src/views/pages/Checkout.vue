@@ -7,7 +7,6 @@ import { storeToRefs } from "pinia";
 
 const store = useTicketStore()
 const { cart } = storeToRefs(store);
-
 const router = useRouter();
 </script>
 <template>
@@ -25,5 +24,5 @@ const router = useRouter();
 			<EmptyCart v-else/>
 		</div>
     </main>
-  </template>
+</template>
   
