@@ -5,6 +5,13 @@ import { useAppStore } from '@/stores/app';
 import { useAuthStore } from '@/stores/auth.store';
 import { useTicketStore } from '@/stores/ticket'
 import { storeToRefs } from "pinia";
+import AboutBanner from '@/assets/images/about-banner.jpg'
+import EventBanner from '@/assets/images/events.jpg'
+import PortfoilioBanner from '@/assets/images/portfolio.jpg'
+import ContactBanner from '@/assets/images/contact.jpg'
+import ServiceBanner from '@/assets/images/about-banner.jpg'
+
+
 const appStore = useAppStore()
 
 const store = useTicketStore()
@@ -114,7 +121,7 @@ watch(() => route.path, () => {
       </div>
     </div>
 
-    <div class="inner-top-banner" v-if="route.path == '/about'" style="background-image: url('src/assets/images/about-banner.jpg')" >
+    <div class="inner-top-banner" v-if="route.path == '/about'" :style="{ backgroundImage: `url(${AboutBanner})` }"  >
       <div class="container">
         <div class="row">
           <div class="col-md-12 col-lg-12">
@@ -127,7 +134,7 @@ watch(() => route.path, () => {
       </div>
 	  </div>
 
-    <div class="inner-top-banner" v-if="route.path == '/service'" style="background-image: url('src/assets/images/events.jpg');">
+    <div class="inner-top-banner" v-if="route.path == '/service'" :style="{ backgroundImage: `url(${ServiceBanner})` }">
       <div class="container">
         <div class="row">
           <div class="col-md-12 col-lg-12">
@@ -140,7 +147,7 @@ watch(() => route.path, () => {
 		  </div>
 	  </div>
 
-    <div class="inner-top-banner" v-if="route.path == '/portfolio'" style="background-image: url('src/assets/images/portfolio.jpg');">
+    <div class="inner-top-banner" v-if="route.path == '/portfolio'" :style="{ backgroundImage: `url(${PortfoilioBanner})` }">
       <div class="container">
         <div class="row">
           <div class="col-md-12 col-lg-12">
@@ -153,7 +160,7 @@ watch(() => route.path, () => {
       </div>
     </div>
 
-    <div class="inner-top-banner" v-if="route.path == '/event'" style="background-image: url('src/assets/images/events.jpg');">
+    <div class="inner-top-banner" v-if="route.path == '/event'" :style="{ backgroundImage: `url(${EventBanner})` }">
       <div class="container">
         <div class="row">
           <div class="col-md-12 col-lg-12">
@@ -166,7 +173,7 @@ watch(() => route.path, () => {
       </div>
 	  </div>
 
-    <div class="inner-top-banner" v-if="route.path == '/contact'" style="background-image: url('src/assets/images/contact.jpg');">
+    <div class="inner-top-banner" v-if="route.path == '/contact'" :style="{ backgroundImage: `url(${ContactBanner})` }">
       <div class="container">
         <div class="row">
           <div class="col-md-12 col-lg-12">

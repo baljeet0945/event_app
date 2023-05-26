@@ -17,6 +17,11 @@ import "vue-toastification/dist/index.css";
 
 
 const app = createApp(App)
+app.config.errorHandler = (err, instance, info) => {
+  console.log(err)
+  console.log(instance)
+  console.log(info)
+}
 const pinia = createPinia()
 const vfm = createVfm()
 pinia.use(piniaPluginPersistedstate)
