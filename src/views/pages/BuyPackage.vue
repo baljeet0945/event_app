@@ -4,6 +4,7 @@ import { Field, Form } from 'vee-validate';
 import * as yup from 'yup';
 
 import { useRoute } from 'vue-router';
+import { router }  from '@/router';
 import { useAuthStore } from '@/stores/auth.store';
 import  {usePackageStore} from '@/stores/package'
 import { fetchWrapper } from '@/helpers';
@@ -70,15 +71,16 @@ const onPayment = async (values, { setErrors , resetForm}) => {
   const token = await tokenize(card); 
   let formData = {
     'sourceId': token,
-    'package':plan.value,    
+    'package':plan.value.id,    
     'email': values.email,
-    'name': values.name
+    'name': values.name,
+	'total_amount': plan.value.price
   }
 
   const res = await fetchWrapper.post(apiRoute.value, formData)
   if(res.message == 'success'){		
 		resetForm()
-		router.push('/package-confirmed');
+		router.replace('/package-confirmed');
 	}else{
 		setErrors( res.data )
 	}

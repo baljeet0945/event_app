@@ -1097,7 +1097,7 @@ footer p{font-size: 18px; color: #000;}
     border-radius: 10px;
     overflow: hidden;
 }
-.pBarLine{ background: #1565F1;width: 92%;border-radius: 10px; height: 100%;}
+.pBarLine{ background: #1565F1;width: 100%;border-radius: 10px; height: 100%;}
 .featureList .listStyle {
     margin: 0;
     line-height: 38px;

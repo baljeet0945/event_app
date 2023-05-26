@@ -18,7 +18,7 @@ testimonialSlides.value = 1
 	<section class="sectionfrst spaceSec" style="padding-bottom: 0;">
       <div class="container">
         <div class="sectionfrstTop">
-          <h2 class="secTitle" v-motion-pop-bounce-visible-once>Upcoming Events Near You</h2>
+          <h2 class="secTitle" v-motion-pop-bounce>Upcoming Events Near You</h2>
         </div>
         
           <div class="sectionFilterGallery" v-motion-pop-bounce-visible-once>

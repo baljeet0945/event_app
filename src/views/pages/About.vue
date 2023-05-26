@@ -14,7 +14,7 @@ testimonialSlides.value = 1
 <template>
   <main>
     <div class="container">
-		<section class="ab-sec1" v-motion-pop-bounce-visible-once>
+		<section class="ab-sec1" v-motion-pop-bounce>
 			<p>Amet lacus accumsan tincidunt mattis nunc orci. Turpis est enim amet egestas in. In dictum vulputate aliquet lectus mauris massa vel tristique. Tellus libero volutpat lorem ipsum ac pretium sociis sollicitudin. Amet tempor varius eu turpi.</p>
 		</section>
 		

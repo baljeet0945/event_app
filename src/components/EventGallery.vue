@@ -17,8 +17,8 @@ const galleryOptions = {
 <template>
   <div class="container">
     <div class="sectionfrstTop">
-      <h2 class="secTitle" v-motion-pop-bounce-visible-once>Creating Memorable Events</h2>
-      <p style="color: #000; font-weight: 500;" v-motion-pop-bounce-visible-once>Having a celebration is supposed to be fun, so leave your stress at home and let us do the work for you!</p>
+      <h2 class="secTitle" v-motion-pop-bounce>Creating Memorable Events</h2>
+      <p style="color: #000; font-weight: 500;" v-motion-pop-bounce>Having a celebration is supposed to be fun, so leave your stress at home and let us do the work for you!</p>
     </div>
     <div class="sectionFilterGallery">
       <div id="exTab1" class="container tabSec" v-motion-pop-bounce-visible-once>	
