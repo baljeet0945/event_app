@@ -10,6 +10,9 @@ export const useEventStore = defineStore('event', () => {
   const events = ref([]) 
   const eventDetail = ref([]) 
   const eventWishlist = ref([])
+  const bookedEvents = ref([])
+  const pdfValue = ref(false)
+  const orders = ref([])
 
   const getEvents = async () => {       
     const response = await fetchWrapper.get('eventslist');
@@ -75,6 +78,15 @@ export const useEventStore = defineStore('event', () => {
     }    
   }
 
+  const getBookedEvents = async (slug) => {  
+    const response = await fetchWrapper.get('booked-events');    
+    bookedEvents.value = response.data
+  }  
+  
+  const getEventsByOrder = async (index) => {  
+    orders.value = bookedEvents.value[index]
+  }  
+
   function toggleCart(index, status){  
     events.value[index].isHover = status   
   }
@@ -89,5 +101,5 @@ export const useEventStore = defineStore('event', () => {
     events.value[index].isWishlist = true 
   }
   
-  return {eventDetail, events, getEvents, getEventDetail, addWishlist, getWishlist, eventWishlist, addToWishlist, buyTicket, toggleCart, removeWishlist, allWishlist}
+  return {bookedEvents, eventDetail, events, getEvents, getEventDetail, addWishlist, getWishlist, eventWishlist, addToWishlist, buyTicket, toggleCart, removeWishlist, allWishlist, getBookedEvents, getEventsByOrder, orders, pdfValue}
 })

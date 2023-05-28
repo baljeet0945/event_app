@@ -3,9 +3,10 @@ import { defineStore } from 'pinia'
 import { fetchWrapper } from '@/helpers';
 
 export const usePageStore = defineStore('page', () => { 
-  const inquiryStep = ref(0) 
+  const inquiryStep = ref(0)   
   const gallerys = ref([])
   const portfolioTab = ref('video');
+  const html2Pdf = ref(null)
 
   const videoGallery = computed(() => {
     let videos = []
@@ -34,6 +35,7 @@ export const usePageStore = defineStore('page', () => {
 
   function changePortfolioTab(tab){
     portfolioTab.value = tab
-  }
-  return { inquiryStep, getPortfolio, videoGallery, imageGallery, portfolioTab, changePortfolioTab}
+  } 
+
+  return {html2Pdf, inquiryStep, getPortfolio, videoGallery, imageGallery, portfolioTab, changePortfolioTab}
 })

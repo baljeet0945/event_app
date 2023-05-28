@@ -2,27 +2,21 @@
 import { toRefs, ref, onMounted } from "vue";
 import {useForm, Field, ErrorMessage } from 'vee-validate';
 import * as yup from 'yup';
-
+import { fetchWrapper } from '@/helpers'
 import { usePageStore } from '@/stores/page'
-// import {useEventStore} from '@/stores/event.store'
 import { storeToRefs } from "pinia";
-
 import FormStep  from './FormStep.vue';
 import FormWizard  from './FormWizard.vue';
   
 const store = usePageStore();
 const { inquiryStep } = storeToRefs(store);
-// const eventStore = useEventStore()
-// const {events} = storeToRefs (eventStore)
-// onMounted(() => {
-//   eventStore.getEvents()
-// })
+inquiryStep.value = 0
+const inquiryStatus = ref(false)
 
 const props = defineProps({
   modal: false
 })
 const { modal } = toRefs(props)
-const step = ref(0)
 const { handleSubmit, setFieldError, setErrors } = useForm();
 // break down the validation steps into multiple schemas
 const validationSchema = [
@@ -47,25 +41,18 @@ const validationSchema = [
 ];
 
 
-const onSubmit = handleSubmit(async (values, actions)=> {
-  // Send data to the API 
-
-  const res = await fetchWrapper.post('event-inquery', values);	
+async function onSubmit(formData) {
+  console.log(formData)
+  const res = await fetchWrapper.post('eventenqueries', formData);	
 	if(res.message == 'success'){		
-		resetForm()
-		router.push('/login');
+    inquiryStatus.value = true
+		//resetForm()
+		//router.push('/login');
 	}else{
-		setErrors( res.data )
-		toast.error('Verification Failed!');  
-	}  
-  // set single field error
-  // if (response.errors.email) {
-  //   actions.setFieldError('email', response.errors.email);
-  // }
-  // // set multiple errors, assuming the keys are the names of the fields
-  // // and the values is the error message
-  // actions.setErrors(response.errors);
-});
+		//setErrors( res.data )
+		alert('error')
+	} 
+}
 </script>
 <template>
     <div class="container" id="Inquiry">          
@@ -76,21 +63,26 @@ const onSubmit = handleSubmit(async (values, actions)=> {
               </div>
             </div>
           <h2 v-motion-pop-bounce-visible-once>Let’s discuss about your next event</h2>
-          <div class="contactSecForm" id="multistepsform"> 
+          <div class="contactSecForm" id="multistepsform" v-show="inquiryStatus === true">
+            <img src="src/assets/images/whiteTick.png"/>
+            <h3 class="mt-3">Information submitted</h3>
+            <p class="mt-1">You will we here from us via call and email.</p>
+          </div>
+          <div class="contactSecForm" id="multistepsform" v-show="inquiryStatus === false"> 
               <!-- progressbar -->
               <ul id="progressbar" class="progressbar" v-motion-left-in-visible-once>
                 <li v-bind:class="{'active': inquiryStep >= 0}">Event and contact info<p>Let us know your event type and contact info</p></li>
                 <li v-bind:class="{'active': inquiryStep >= 1}">Event venue<p>Please tell about your preferred venue and managements</p></li>
                 <li v-bind:class="{'active': inquiryStep >= 2}">Estimated Budget<p>We are good with all budgets for awesome events</p></li>
               </ul> 
+              
               <div class="formField" v-motion-right-in-visible-once>
                 <FormWizard :validation-schema="validationSchema" @submit="onSubmit">
                   <FormStep>
                     <fieldset>
                       <Field name="event" as="select" >
                         <option>Select a Event</option>
-                        <option value="DJNight">DJ Night</option>
-                        <option value="dj">DJ</option>
+                        <option value="dj">DJ Night</option>                     
                         <option value="party">Party</option>
                         <option value="beer">Beer</option>
                       </Field>
