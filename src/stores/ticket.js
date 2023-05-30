@@ -6,6 +6,7 @@ export const useTicketStore = defineStore('ticket', () => {
   const toast = useToast()
   const cart = ref([])  
   const cartCount = ref(0) 
+  const lastOrderID = ref('') 
 
   const cartPriceTotal = computed(() => {
     let total = 0;

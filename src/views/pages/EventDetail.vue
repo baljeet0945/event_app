@@ -98,10 +98,10 @@ function buyTicket(item) {
                     <div class="col-sm-8 col-lg-8">
                         <h3>Event Gallery</h3>
                         <div class="row" v-motion-left-in-visible-once>
-                            <div v-if="!!eventDetail.gallery">No gallery for event</div>
                             <div class="col-sm-6 col-lg-6" v-for="gallery in eventDetail.gallery" :key="gallery.id">
                                 <img :src="gallery.event_gallery_images">
-                            </div>                            
+                            </div> 
+                            <div v-if="!eventDetail.gallery.length">No gallery for event</div>                           
                         </div>
                         
                     </div>
@@ -112,8 +112,6 @@ function buyTicket(item) {
                 </div>
             </section>
         </div>
-
-  
     </main>
   </template>
   
