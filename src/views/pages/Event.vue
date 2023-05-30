@@ -4,6 +4,7 @@ import TestimonialCarousel from '@/components/TestimonialCarousel.vue';
 import InstaFeed from '@/components/InstaFeedComponent.vue';
 import InquiryForm from '@/components/InquiryFormComponent.vue';
 import Packages from '@/components/PackagesComponent.vue';
+import Subscribe from '@/components/SubscribeComponent.vue';
 
 import { useTestimonialStore } from '@/stores/testimonial.store'
 import { storeToRefs } from "pinia";
@@ -51,12 +52,7 @@ testimonialSlides.value = 1
 			<div class="enqueryForm" v-motion-pop-bounce-visible-once>
 				<p>Be the first to know about upcoming events, special<br> ticket promotions, new products, and much More!!</p>
 				<div class="enqryForm">
-					<form>
-						<input type="text" name="fname" placeholder="First Name">
-						<input type="text" name="lname" placeholder="Last Name">
-						<input type="text" name="email" placeholder="Email">	
-					<input type="submit" name="submit" class="submit action-button" value="Send Message" />
-					</form>
+					<Subscribe/>
 				</div>
 			</div>
 		</div>

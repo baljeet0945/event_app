@@ -4,10 +4,13 @@ import {useForm, Field, ErrorMessage } from 'vee-validate';
 import * as yup from 'yup';
 import { fetchWrapper } from '@/helpers'
 import { usePageStore } from '@/stores/page'
+import { useAppStore } from '@/stores/app';
+
 import { storeToRefs } from "pinia";
 import FormStep  from './FormStep.vue';
 import FormWizard  from './FormWizard.vue';
-  
+
+const appStore = useAppStore()
 const store = usePageStore();
 const { inquiryStep } = storeToRefs(store);
 inquiryStep.value = 0
@@ -142,9 +145,9 @@ async function onSubmit(formData) {
                 </FormWizard>          
               </div>         
           </div>
-          <div class="contactSecFormMeta">
-            <span><a href="mailto:info@moneytrainent.com"><i class="fa-regular fa-envelope"></i> &nbsp;info@moneytrainent.com</a></span>
-            <span><a href="tel:(888) 457-1114"><i class="fa-regular fa-phone"></i>&nbsp;(888) 457-1114</a></span>
+          <div class="contactSecFormMeta">            
+            <span><a :href="'mailto:'+ appStore.appInfo.siteEmail"><i class="fa-regular fa-envelope"></i>&nbsp;{{ appStore.appInfo.siteEmail }}</a></span>
+            <span><a :href="'tel:'+ appStore.appInfo.SiteSupportNumber"><i class="fa-regular fa-phone"></i>&nbsp;{{ appStore.appInfo.SiteSupportNumber }}</a></span>
             <span><i class="fa-regular fa-location-dot"></i> &nbsp;P.O Box 9591 Elizabeth, New Jersey-07202</span>
           </div>
         </div>

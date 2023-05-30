@@ -127,7 +127,7 @@ function changeTab(tabNo){
                             <h4>3. Execution</h4>
                             Magnis etiam. Sed sed pellente sque tempor posuere nisi cum neque suspe ndisse. Erat et comm odo pharetra.
                         </div>
-                        <a href="#" class="viewBtn">Book Now</a>
+                        <a href="#Inquiry" class="viewBtn">Book Now</a>
                 </div>
             </div>
         </section>
@@ -135,8 +135,8 @@ function changeTab(tabNo){
             <div class="edckcustom-container" style="margin: 0 auto;">
                 <div class="row">
                     <div class="col-md-12 col-lg-12 text-center">
-                            <h2 class="secTitle">Lets discuss on call : <i class="fa-light fa-phone" style="font-size: 35px;"></i> (888) 457-1114</h2>
-                            <span class="secSubTitle">Feel free to contact us via call</span>
+                        <h2 class="secTitle">Lets discuss on call : <i class="fa-light fa-phone" style="font-size: 35px;"></i> (888) 457-1114</h2>
+                        <span class="secSubTitle">Feel free to contact us via call</span>
                     </div>
                 </div>
             </div>

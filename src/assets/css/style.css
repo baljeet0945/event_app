@@ -175,7 +175,7 @@ ul{padding: 0; margin: 0;}
 .navTop{align-items: center;
     display: flex;
     justify-content: end;}
-.nav-link{font-size:18px; color:#fff;}
+.nav-link{font-size:18px; color: #fff !important;}
 .navbar-expand-lg {
     flex-wrap: nowrap;
     justify-content: end;
@@ -183,7 +183,7 @@ ul{padding: 0; margin: 0;}
 .navbar-expand-lg .navbar-nav .nav-link {
     padding-right: 15px;
     padding-left: 15px;}
-.nav-link:focus, .nav-link:hover, .nav-link.active{color:#64C4C1!important;}
+.nav-link:focus, .nav-link:hover, .nav-link.router-link-exact-active{color:#64C4C1!important;}
 .t-btn{border: 2px solid #64C4C1;
     display: inline-block;
     border-radius: 5px;
@@ -978,13 +978,14 @@ footer p{font-size: 18px; color: #000;}
     font-size: 16px;
 	    width: auto;
 }
-.enqryForm input.submit {
+.enqryForm button.submit {
     width: auto;
     background: #000;
     color: #fff;
     font-weight: 500;
-        padding: 10px 24px;
+    padding: 10px 24px;
 }
+
 .priceList .t-btn{background: rgb(99,195,191);
     background: linear-gradient(90deg, rgba(99,195,191,1) 0%, rgba(107,195,102,1) 75%);
     color: #000;
