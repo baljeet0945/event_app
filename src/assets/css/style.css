@@ -966,9 +966,9 @@ footer p{font-size: 18px; color: #000;}
     line-height: 42px;
 	    margin-bottom: 20px;
 }
-.enqryForm input,
+.enqryForm input, .enqryForm button,
 .enqryForm textarea, .enqryForm select {
-  padding: 11px;
+    padding: 11px;
     border: 1px solid #000;
     border-radius: 5px;
     margin-bottom: 10px;
@@ -976,7 +976,8 @@ footer p{font-size: 18px; color: #000;}
     font-family: montserrat;
     color: #000;
     font-size: 16px;
-	    width: auto;
+	width: auto;
+    margin:0 5px
 }
 .enqryForm button.submit {
     width: auto;
@@ -999,7 +1000,8 @@ footer p{font-size: 18px; color: #000;}
 }
 .priceList h2{font-size: 42px;
     color: #000;}
-.priceList h2 span{background: #FFE484;
+.priceList h2 span{
+    background: #FFE484;
     font-size: 18px;
     color: #000;
     font-weight: 600;
@@ -1008,7 +1010,8 @@ footer p{font-size: 18px; color: #000;}
     display: inline-block;
     vertical-align: top;
     margin-top: 6px;
-    float: right;}
+    float: right;
+}
 .priceList h4 {
     font-size: 32px;
     color: #000;
@@ -1018,7 +1021,6 @@ footer p{font-size: 18px; color: #000;}
     margin-top: 30px;
 	    padding-top: 20px;}
 
-.priceList .listStyle li{}
 
 /* Event page css End */
 
@@ -1545,4 +1547,59 @@ span.modelclosebtn {
 }
 input.is-invalid {
     border:1px solid #ff0000;
+}
+button.submitting {
+    position: relative;
+    color: #000;
+}
+  
+button.submitting::after {
+    content: '';
+    position: absolute;
+    width: 1rem;
+    height: 1rem;
+    top: calc(50% - 0.5rem);
+    left: 0;
+    right: 0;
+    border-radius: 2em;
+    border-color: transparent transparent rgb(255, 255, 255) rgb(255, 255, 255);
+    border-style: solid;
+    border-width: 0.15em;
+    animation: spinner-rotation .6s linear infinite;  
+    margin-left: auto;
+    margin-right: auto
+}
+
+@keyframes spinner-rotation {
+    to {
+      transform: rotate(360deg);
+    }
+}
+
+.shake {
+    animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+    transform: translate3d(0, 0, 0);
+}
+  
+@keyframes shake {
+    10%,
+    90% {
+        transform: translate3d(-1px, 0, 0);
+    }
+
+    20%,
+    80% {
+        transform: translate3d(2px, 0, 0);
+    }
+
+    30%,
+    50%,
+    70% {
+        transform: translate3d(-4px, 0, 0);
+    }
+
+    40%,
+    60% {
+        transform: translate3d(4px, 0, 0);
+    }
 }

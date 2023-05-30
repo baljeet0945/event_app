@@ -81,8 +81,6 @@ const onPayment = async (values, { setErrors , resetForm}) => {
 		setErrors( res.data )
 	}
 }
-
-// const res = await fetchWrapper.get('pdf')
 </script>
 <template>  
   <section class="evList" v-for="(item, index) in cart" :key="item.id">

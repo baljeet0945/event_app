@@ -1,7 +1,12 @@
 <script setup>
+import { ref }from 'vue'
 import {Form, Field} from 'vee-validate';
 import * as Yup from 'yup';
 import { fetchWrapper } from '@/helpers';
+import { useToast } from 'vue-toastification'
+const toast = useToast()
+
+const invalidForm = ref(false)
 
 const schema = Yup.object().shape({
     email: Yup.string().required('Email is required'),
@@ -10,8 +15,23 @@ const schema = Yup.object().shape({
 	message: Yup.string().required('Message is required')
 });
 
-async function onSubmit(values) {	
-	await fetchWrapper.post('contact', values);
+function onInvalidSubmit({ errors }) {
+  if(errors){
+    invalidForm.value = true
+    setTimeout(() => {		
+      invalidForm.value = false
+    }, 1500)
+  }  
+}
+
+async function onSubmit(values, { setErrors , resetForm}) { 
+	const res = await fetchWrapper.post('contact-us', values);		
+	if(res.message == 'success'){		
+		resetForm()	
+		toast.success("Your query submit successfully.");  	
+	}else{		
+		toast.error("Error in send query!"); 
+	}
 }
 </script>
 <template>
@@ -27,7 +47,7 @@ async function onSubmit(values) {
 					</div>
 				</div>
 				<div class="col-md-4 col-lg-4" v-motion-right-in>
-					<Form class="cForm" @submit="onSubmit" :validation-schema="schema"  v-slot="{ errors, isSubmitting }">
+					<Form class="cForm" @submit="onSubmit" :validation-schema="schema"  v-slot="{ errors, isSubmitting }" @invalid-submit="onInvalidSubmit">
 						<fieldset>							
 							<Field name="name" type="text" class="form-control" placeholder="Full Name" :class="{ 'is-invalid': errors.name }" />
                     		<div class="invalid-feedback">{{ errors.name }}</div>
@@ -40,10 +60,9 @@ async function onSubmit(values) {
 
 							<Field as="textarea" name="message" class="form-control" cols="30" rows="10" :class="{ 'is-invalid': errors.message }" />
 							<div class="invalid-feedback">{{ errors.message }}</div>
-							<button class="submit action-button" :disabled="isSubmitting">
-								<span v-show="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>
+							<button class="submit action-button" :disabled="isSubmitting" :class="{ 'submitting': isSubmitting, shake: invalidForm }">
 								Send Message
-							</button>							
+							</button>						
 						</fieldset>
 					</Form>
 				</div>
