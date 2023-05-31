@@ -11,7 +11,7 @@ import { useRouter } from 'vue-router';
 const authStore = useAuthStore()
 const store = useTicketStore()
 const { authUser } = authStore
-const { cart, cartPriceTotal } = storeToRefs(store)
+const { cart, cartPriceTotal, lastOrderID} = storeToRefs(store)
 const { removeToCart, updateToCart } = store 
 const router = useRouter()
 const apiRoute = ref('purchase-tickets-auth')
@@ -29,6 +29,7 @@ const locationId = 'L0NKFZ5Y13GHS';
 
 let card;
 let loading = ref(true);
+let squarePayment;
 
 onMounted(async () => {
   loading.value = true;
@@ -40,9 +41,9 @@ const initializePaymentForm = async () => {
   if (!Square) {
     throw new Error("Square.js failed to load properly");
   }    
-  const payments = Square.payments(appId, locationId);
+  squarePayment = Square.payments(appId, locationId);
   try {
-    card = await payments.card();
+    card = await squarePayment.card();
     await card.attach("#card-container");
   } catch (e) {
     console.error("Initializing Card failed", e);
@@ -52,6 +53,7 @@ const initializePaymentForm = async () => {
 
 const tokenize = async (paymentMethod) => { 
   const tokenResult = await paymentMethod.tokenize();
+  console.log(tokenResult)
   if (tokenResult.status === "OK") {
     return tokenResult.token;
   } else {
@@ -63,8 +65,31 @@ const tokenize = async (paymentMethod) => {
   }
 }
 
+const verifyBuyer = async (payments, token) => {
+  const verificationDetails = {
+    amount: '1.00',
+    /* collected from the buyer */
+    billingContact: {     
+      familyName: 'Doe',
+      givenName: 'John',
+      email: 'jondoe@gmail.com' 
+    },
+    currencyCode: 'USD',
+    intent: 'CHARGE',
+  }; 
+  const verificationResults = await squarePayment.verifyBuyer(
+    token,
+    verificationDetails
+  );
+  return verificationResults.token;
+}
+
+
 const onPayment = async (values, { setErrors , resetForm}) => {  
   const token = await tokenize(card); 
+  const verificationToken = await verifyBuyer(card, token );
+    console.log(verificationToken)
+
   let formData = {
     'sourceId': token,
     'events':cart.value,
@@ -76,6 +101,7 @@ const onPayment = async (values, { setErrors , resetForm}) => {
   const res = await fetchWrapper.post(apiRoute.value, formData)
   if(res.message == 'success'){		
 		resetForm()
+    lastOrderID.value = res.data
 		router.push('/booking-confirmed');
 	}else{
 		setErrors( res.data )
