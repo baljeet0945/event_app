@@ -7,6 +7,7 @@ import  { router }  from './router'
 
 import { MotionPlugin } from '@vueuse/motion'
 import { createVfm } from 'vue-final-modal'
+import  VueGoogleMaps from '@fawmi/vue-google-maps'
 
 import Toast, { POSITION} from "vue-toastification";
 
@@ -138,5 +139,10 @@ const options = {
 };
 
 app.use(Toast, options);
-
+app.use(VueGoogleMaps, {
+  load: {
+      key: 'AIzaSyBcQnUaN-5919oel8Y4bwx6W98xKW5GUiM',
+      libraries: "places"
+  },
+})
 app.mount('#app')

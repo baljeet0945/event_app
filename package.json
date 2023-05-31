@@ -10,6 +10,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@fawmi/vue-google-maps": "0.9.67",
     "@vee-validate/yup": "^4.9.1",
     "@vitejs/plugin-basic-ssl": "^1.0.1",
     "@vueuse/motion": "^2.0.0-beta.12",

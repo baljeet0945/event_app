@@ -12,8 +12,11 @@ export const useAuthStore = defineStore('auth', () => {
     const user  = ref([])   
     const avatar = ref('')
     const profileForm = ref({
+        name: String,
         email: String,
-        phone: Number,
+        phone: Number,        
+        country: String,
+        city: String,
     })
     const login = async (email, password) => {       
         const response = await fetchWrapper.post('signin', { email, password });
@@ -34,6 +37,9 @@ export const useAuthStore = defineStore('auth', () => {
         avatar.value = response.data.profilePic
         profileForm.value.email = response.data.email
         profileForm.value.phone = response.data.phone
+        profileForm.value.name = response.data.name      
+        profileForm.value.city = response.data.city
+        profileForm.value.country = response.data.country
     }
 
     const logout = async() => {
