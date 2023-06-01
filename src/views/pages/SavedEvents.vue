@@ -51,7 +51,7 @@ function removeEventWishlist(eventId, index){
 					<div class="col-md-3 col-lg-3 postBtnT">
 						<router-link class="viewBtn" :to="'/event-detail/' + event.slug">Tickets & Details</router-link>
 					</div>
-					<div class="col-md-1 col-lg-1">
+					<div class="col-md-1 col-lg-1" v-if="event.pendingTickets > 0">
 						<span v-if="event.isCart === true" class="postAdd" style="color: #5C5C5C; font-size: 16px;"><i class="fa-duotone fa-cart-shopping"></i> Added</span>
 						<span v-else class="postAdd" @mouseenter="toggleCart(index,true)" @mouseleave="toggleCart(index, false)">
 							<span class="cart-hover e-hover" v-show="event.isHover === false"><i class="fa-regular fa-cart-shopping"></i> Add</span>

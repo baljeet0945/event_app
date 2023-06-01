@@ -72,10 +72,10 @@ function buyTicket(item) {
                     <div class="col-sm-6 col-lg-6">
                         <div class="ed-location">
                             <h3>Ticket
-                                <span>{{ eventDetail.eventTickets }} available</span>
+                                <span>{{ eventDetail.pendingTickets }} available</span>
                             </h3>
                             <p>${{eventDetail.eventTicketsPrice}} / person</p>
-                            <button @click="buyTicket(eventDetail)" class="viewBtn">Buy Now</button>
+                            <button @click="buyTicket(eventDetail)" class="viewBtn" v-if="eventDetail.pendingTickets > 0">Buy Now</button>
                         </div>
                     </div>
                 </div>

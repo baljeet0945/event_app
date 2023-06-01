@@ -12,11 +12,11 @@ export const useAuthStore = defineStore('auth', () => {
     const user  = ref([])   
     const avatar = ref('')
     const profileForm = ref({
-        name: String,
-        email: String,
-        phone: Number,        
-        country: String,
-        city: String,
+        name: '',
+        email: '',
+        phone: '',        
+        country: '',
+        city: '',
     })
     const login = async (email, password) => {       
         const response = await fetchWrapper.post('signin', { email, password });
@@ -50,6 +50,11 @@ export const useAuthStore = defineStore('auth', () => {
         router.push('/login')
     } 
 
-    return { authUser, login, logout, user, getUser, avatar, profileForm}
+    const setAuthToken = (authToken) => {
+        authUser.value = authToken
+        localStorage.setItem('token', JSON.stringify(authToken))
+    }
+
+    return { authUser, login, logout, user, getUser, avatar, profileForm, setAuthToken}
 })
 

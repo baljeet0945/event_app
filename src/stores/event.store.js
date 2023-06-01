@@ -17,6 +17,7 @@ export const useEventStore = defineStore('event', () => {
   const getEvents = async () => {       
     const response = await fetchWrapper.get('eventslist');
     response.data.forEach((event, index) => {
+      response.data[index].pendingTickets = event.eventTickets - event.eventPurchased
       let found = tickets.cart.find(item => item.id == event.id );
       if(found){
         response.data[index].isCart = true
@@ -57,6 +58,7 @@ export const useEventStore = defineStore('event', () => {
   const allWishlist = async () =>{
     const response = await fetchWrapper.get('wishlist'); 
     response.data.forEach((event, index) => {
+      response.data[index].pendingTickets = event.eventTickets - event.eventPurchased
       let found = tickets.cart.find(item => item.id == event.id );
       if(found){
         response.data[index].isCart = true

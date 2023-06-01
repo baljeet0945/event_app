@@ -8,7 +8,7 @@ import  { router }  from './router'
 import { MotionPlugin } from '@vueuse/motion'
 import { createVfm } from 'vue-final-modal'
 import  VueGoogleMaps from '@fawmi/vue-google-maps'
-
+import LoadScript from "vue-plugin-load-script";
 import Toast, { POSITION} from "vue-toastification";
 
 // Import the CSS or use your own!
@@ -145,4 +145,5 @@ app.use(VueGoogleMaps, {
       libraries: "places"
   },
 })
+app.use(LoadScript);
 app.mount('#app')

@@ -2,13 +2,13 @@
 import { onMounted } from 'vue'
 import { Carousel, Navigation, Slide } from 'vue3-carousel'
 import  {useEventStore} from '@/stores/event.store'
-import {useTicketStore} from '@/stores/ticket'
+
 import { useAuthStore } from '@/stores/auth.store';
 import { storeToRefs } from "pinia";
 
 const authStore = useAuthStore();
 const store = useEventStore()
-const ticketStore = useTicketStore();    
+
 const { events } = storeToRefs (store)
 const { getEvents, getWishlist, toggleCart, addToWishlist, buyTicket  } = store;
 const { authUser } = authStore;
@@ -56,13 +56,14 @@ onMounted(() => {
                         </div>
                         <div class="postBtn">
                             <span class="postBtnT"> <router-link class="viewBtn" :to="'/event-detail/' + event.slug">Tickets & Details</router-link></span>  
-                                                      
-                            <span v-if="event.isCart === true" class="postAdd" style="color: #5C5C5C; font-size: 16px;"><i class="fa-duotone fa-cart-shopping"></i> Added</span>
-                         
-                            <span v-else class="postAdd" @mouseenter="toggleCart(index,true)" @mouseleave="toggleCart(index, false)">
-                              <span class="cart-hover e-hover" v-show="event.isHover === false"><i class="fa-regular fa-cart-shopping"></i> Add</span>
-                              <span class="cart-hover e-hover" v-show="event.isHover === true" @click="buyTicket(event, index)"> Add to cart</span>
-                            </span>                          
+                            <div v-if="event.pendingTickets > 0">                        
+                                <span v-if="event.isCart === true" class="postAdd" style="color: #5C5C5C; font-size: 16px;"><i class="fa-duotone fa-cart-shopping"></i> Added</span>
+                            
+                                <span v-else class="postAdd" @mouseenter="toggleCart(index,true)" @mouseleave="toggleCart(index, false)">
+                                <span class="cart-hover e-hover" v-show="event.isHover === false"><i class="fa-regular fa-cart-shopping"></i> Add</span>
+                                <span class="cart-hover e-hover" v-show="event.isHover === true" @click="buyTicket(event, index)"> Add to cart</span>
+                                </span> 
+                            </div>                          
                         </div>
                     </div>
                 </div>    

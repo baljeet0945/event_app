@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from "vue";
+import { ref, computed } from "vue";
 import { Field, Form } from 'vee-validate';
 import * as yup from 'yup';
 import {useTicketStore} from '@/stores/ticket'
@@ -8,18 +8,20 @@ import { fetchWrapper } from '@/helpers';
 import { storeToRefs } from "pinia";
 import { useRouter } from 'vue-router';
 import { useToast } from 'vue-toastification'
+import { loadScript } from "vue-plugin-load-script";
 
 const toast = useToast()
 const authStore = useAuthStore()
 const store = useTicketStore()
-const { authUser, profileForm } = storeToRefs(authStore)
+const { authUser } = storeToRefs(authStore)
+const checkoutUser = computed(() => authStore.profileForm);
 const { cart, cartPriceTotal, lastOrderID} = storeToRefs(store)
 const { removeToCart, updateToCart } = store 
 const router = useRouter()
 const apiRoute = ref('purchase-tickets')
 const invalidForm = ref(false)
 
-if(authUser){
+if(authUser.value){
   apiRoute.value = 'purchase-tickets-auth'
   authStore.getUser()
 }
@@ -39,10 +41,13 @@ let card;
 let loading = ref(true);
 let squarePayment;
 
-onMounted(async () => {
-  loading.value = true;
+loadScript("https://sandbox.web.squarecdn.com/v1/square.js")
+.then(async () => {
   await initializePaymentForm();
   loading.value = false;
+})
+.catch(() => {
+  console.log("failed in load script")
 });
 
 const initializePaymentForm = async () => {
@@ -70,7 +75,7 @@ const tokenize = async (paymentMethod) => {
 
 const verifyBuyer = async (payments, token) => {
   try{
-    let fullname = profileForm.value.name.split(" ");
+    let fullname = checkoutUser.value.name.split(" ");
     const verificationDetails = {
       amount: String(cartPriceTotal.value),
       /* collected from the buyer */
@@ -78,10 +83,10 @@ const verifyBuyer = async (payments, token) => {
         addressLines: ['123 Main Street', 'Apartment 1'],   
         familyName: fullname[0],
         givenName: fullname[1],
-        email: profileForm.value.email,
-        country: profileForm.value.country,
-        phone: profileForm.value.phone,
-        city: profileForm.value.city,
+        email: checkoutUser.value.email,
+        country: checkoutUser.value.country,
+        phone: checkoutUser.value.phone,
+        city: checkoutUser.value.city,
         region: 'LND',
       },
       currencyCode: 'USD',
@@ -91,18 +96,20 @@ const verifyBuyer = async (payments, token) => {
     const verificationResults = await squarePayment.verifyBuyer(
       token,
       verificationDetails
-    ); 
+    );    
     return verificationResults.token;
-  } catch (e) {
-    toast.info("Error in verification");  	
-    return false;
+  } catch (e) {    	
+    return 'error';
   } 
 }
 
-
 const onPayment = async (values, { setErrors , resetForm}) => {  
   const token = await tokenize(card);  
-  const verificationToken = await verifyBuyer(card, token);
+  const verificationToken = await verifyBuyer(card, token);  
+  if(verificationToken == 'error'){
+    toast.info("Error in verification")
+    return false
+  }
   let formData = {
     'sourceId': token,
     'events':cart.value,
@@ -115,7 +122,10 @@ const onPayment = async (values, { setErrors , resetForm}) => {
   const res = await fetchWrapper.post(apiRoute.value, formData)
   if(res.message == 'success'){		
 		resetForm()
-    lastOrderID.value = res.data
+    lastOrderID.value = res.data.order_id
+    if(!authUser.value){
+      authStore.setAuthToken(res.data.token)
+    }
 		router.push('/booking-confirmed');
 	}else{
 		setErrors( res.data )
@@ -179,23 +189,23 @@ function onInvalidSubmit({ errors }) {
 					</div>
 					<div class="col-md-7 col-lg-7">											
 						<div class="cardDetails">	
-              <Form @submit="onPayment" :validation-schema="schema" v-slot="{ errors, isSubmitting }" :initial-values="profileForm" @invalid-submit="onInvalidSubmit"> 
+              <Form @submit="onPayment" :validation-schema="schema" v-slot="{ errors, isSubmitting }" :initial-values="checkoutUser" @invalid-submit="onInvalidSubmit"> 
                 <div class="row" style="margin-bottom: 15px;">
                   <div class="col-md-6 col-lg-6">
                     <label>Full Name</label>
-                    <Field name="name" type="text" v-model="profileForm.name" :class="{ 'is-invalid': errors.name }"/>         
+                    <Field name="name" type="text" v-model="checkoutUser.name" :class="{ 'is-invalid': errors.name }"/>         
                     <div class="invalid-feedback">{{errors.name}}</div>
                   </div>
                   <div class="col-md-6 col-lg-6">
                     <label>Phone</label>         
-                    <Field name="phone" type="text" v-model="profileForm.phone" :class="{ 'is-invalid': errors.phone }"/>
+                    <Field name="phone" type="text" v-model="checkoutUser.phone" :class="{ 'is-invalid': errors.phone }"/>
                     <div class="invalid-feedback">{{errors.phone}}</div>
                   </div>	
                 </div>
                 <div class="row" style="margin-bottom: 15px;">
                   <div class="col-md-12 col-lg-12">
                     <label>Email</label>         
-                    <Field name="email" type="email" v-model="profileForm.email" :class="{ 'is-invalid': errors.email }"/>
+                    <Field name="email" type="email" v-model="checkoutUser.email" :class="{ 'is-invalid': errors.email }"/>
                     <div class="invalid-feedback">{{errors.email}}</div>
                   </div>				
                 </div>
@@ -203,12 +213,12 @@ function onInvalidSubmit({ errors }) {
                 <div class="row" style="margin-bottom: 15px;">
                   <div class="col-md-6 col-lg-6">
                     <label>Country<small class="text-sm text-muted">(Two-letter country code)</small></label>         
-                    <Field name="country" type="text" v-model="profileForm.country" :class="{ 'is-invalid': errors.country }"/>
+                    <Field name="country" type="text" v-model="checkoutUser.country" :class="{ 'is-invalid': errors.country }"/>
                     <div class="invalid-feedback">{{errors.country}}</div>
                   </div>
                   <div class="col-md-6 col-lg-6">
                     <label>City</label>         
-                    <Field name="city" type="text" v-model="profileForm.city" :class="{ 'is-invalid': errors.city }"/>
+                    <Field name="city" type="text" v-model="checkoutUser.city" :class="{ 'is-invalid': errors.city }"/>
                     <div class="invalid-feedback">{{errors.city}}</div>
                   </div>				
                 </div>

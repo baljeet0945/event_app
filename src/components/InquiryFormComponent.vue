@@ -67,7 +67,7 @@ async function onSubmit(formData) {
             </div>
           <h2 v-motion-pop-bounce-visible-once>Let’s discuss about your next event</h2>
           <div class="contactSecForm" id="multistepsform" v-show="inquiryStatus === true">
-            <img src="src/assets/images/whiteTick.png"/>
+            <img src="@/assets/images/whiteTick.png"/>
             <h3 class="mt-3">Information submitted</h3>
             <p class="mt-1">You will we here from us via call and email.</p>
           </div>
