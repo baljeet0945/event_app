@@ -11,9 +11,7 @@ ourTeam();
 <template>
    <div class="col-md-4 col-lg-4" v-for="(team, index) in teams" :key="team.id" v-motion-pop-bounce-visible-once>
         <div class="team-grid">
-            <div class="teamImg">
-                <img :src="team.image">
-            </div>
+            <div class="teamImg" :style="{ backgroundImage: `url(${team.image})` }"></div>
             <div class="teamCnt">
                 <h3>{{team.name}}</h3>
                 <h4>{{team.designation}}</h4>

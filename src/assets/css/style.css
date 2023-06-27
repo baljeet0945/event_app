@@ -836,8 +836,13 @@ footer p{font-size: 18px; color: #000;}
     text-align: center;
 }
 .our-team .abtCnt h2{color:#000;}
-.teamImg img{ border-radius: 30px;
-    overflow: hidden; width: 100%;}
+.teamImg{     
+    height: 250px;
+    background-size: auto;   
+    background-repeat: round;
+    border-radius: 30px;
+    overflow: hidden;
+}
 .teamCnt {
     padding: 40px;
     border-radius: 30px;

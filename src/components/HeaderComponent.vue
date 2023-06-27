@@ -99,24 +99,7 @@ watch(() => route.path, () => {
             <img src="@/assets/images/stand-out.png" v-motion-pop-bounce>
             <h5 v-motion-left-in><img src="@/assets/images/play.png"> &nbsp; &nbsp;Recent Event Shoot</h5>
           </div>
-        </div>
-        <div class="col-md-3 col-lg-3 topVideo">
-        <div class="more-products-nav">
-
-          <div class="vertical-slider">
-            <div class="vs-slides">
-              <div class="vs-slides-inner">
-           
-                <div class="vs-controls">
-                  <div class="vs-control up deactivate"><i><img src="@/assets/images/topNav.png"></i></div>
-                  <div class="vs-control down"><i><img src="@/assets/images/btNav.png"></i></div>
-                </div>
-              </div>
-            </div>
-          </div>
-         
-        </div>
-        </div>
+        </div>      
       </div>
       </div>
     </div>

@@ -47,6 +47,22 @@ testimonialSlides.value = 1
           </div>
        </div>     
     </section>
+
+	<section class="sectionTestimonial spaceSec" style="padding-top: 0;">
+	<div class="container" v-motion-pop-bounce-visible-once>
+		<div class="sectionfrstTop">
+				<h2 class="secTitle">Our Packages</h2>
+				<p style="color: #000; font-weight: 500;line-height: 30px;">From the large and lavish social gatherings to intimate parties, leave the planning,<br> details and stress to us! Even the smallest of gathers requires planning. </p>
+		</div>
+		
+		<div class="sectionPriceList">
+			<div class="row">			
+				<Packages/>
+			</div>
+		</div>
+	</div>
+	</section> 
+
 	<section class="sectionfrst spaceSec" style="padding-bottom: 0;padding-top: 0;">
 		<div class="container">
 			<div class="enqueryForm" v-motion-pop-bounce-visible-once>
@@ -57,6 +73,10 @@ testimonialSlides.value = 1
 			</div>
 		</div>
 	</section>
+
+	<section class="sectionContact spaceSec" style="padding-top: 100;">
+      <InquiryForm/>
+    </section>
 
 	<section class="sectionfrst spaceSec">
 		<InstaFeed/>
@@ -71,7 +91,8 @@ testimonialSlides.value = 1
 							<div class="post-content" v-motion-slide-right>
 								<div class="postTitle">
 									<img src="@/assets/images/quote.png" style="width: auto;">
-									<h3>Clients Testimonials</h3>
+									<!-- <h3>Clients Testimonials</h3> -->
+									<h3>Party Experiences</h3>
 								</div>
 								<p v-html="slotProps.testimonials"></p>
 							<div class="instaHead">
@@ -93,7 +114,7 @@ testimonialSlides.value = 1
 		</div>
 	</section>
 
-	<section class="sectionTestimonial spaceSec" style="padding-top: 0;">
+	<!-- <section class="sectionTestimonial spaceSec" style="padding-top: 0;">
 	<div class="container" v-motion-pop-bounce-visible-once>
 		<div class="sectionfrstTop">
 				<h2 class="secTitle">Our Packages</h2>
@@ -106,10 +127,10 @@ testimonialSlides.value = 1
 			</div>
 		</div>
 	</div>
-	</section>     
+	</section>      -->
 
-    <section class="sectionContact spaceSec" style="padding-top: 0;">
+    <!-- <section class="sectionContact spaceSec" style="padding-top: 0;">
       <InquiryForm/>
-    </section>
+    </section> -->
   </main>
 </template>
